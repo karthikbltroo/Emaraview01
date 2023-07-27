@@ -10,7 +10,7 @@ const iconsWithText = [
   { icon: <BrandingWatermarkOutlinedIcon />, text: "Report 4" },
   { icon: <BrandingWatermarkOutlinedIcon />, text: "Report 5" },
   { icon: <BrandingWatermarkOutlinedIcon />, text: "Report 6" },
-  // Add more icons as needed
+
 ];
 
 const Dashboard = () => {
@@ -26,12 +26,9 @@ const Dashboard = () => {
         <Grid container spacing={2} rowSpacing={6} style={{ marginTop: "16px" }}>
           {iconsWithText.map((item, index) => (
             <Grid item xs={3} sm={4} key={index}>
-              {/* <Link to={`/detailed-report/${index + 1}`} style={{ textDecoration: "none", color: "inherit" }}> */}
+             
               <Link to={`/reports/${index}`} style={{ textDecoration: "none", color:"inherit" }}>
-                {/* <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column">
-                  {item.icon}
-                  <Typography variant="body1">{item.text}</Typography>
-                </Box> */}
+            
 <Box style={{width:'200px',height:'200px', backgroundColor:'	#E0E0E0'}} >Dashboard</Box>
 
               </Link>
@@ -46,3 +43,9 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+
+
+
+
+

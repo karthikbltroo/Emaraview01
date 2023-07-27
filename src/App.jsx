@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
@@ -10,19 +9,24 @@ import DetailedReport from './components/DetailedReport'
 import { BrowserRouter as Router, Routes, Route, Link, Outlet } from 'react-router-dom';
 import EmaraForms from "./components/EmaraForms";
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+// import { AuthProvider, useAuth } from "./utils/Auth";
+
+const queryClient = new QueryClient();
 
 function App() {
+  // const auth=useAuth()
+  // console.log(auth)
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const handleLogin = () => {
-     setIsLoggedIn(true);
-  };
+
   return (
     <>
+     {/* <QueryClientProvider client={queryClient}>
+      <AuthProvider> */}
   
     <Router>
-    {isLoggedIn && <Navbar />}
-      <Routes>
+    
+    <Routes>
         <Route path="/" element={<Home />} />
         {/* <Route path="/candidates" element={<CandidateDetailsHome />}>
           <Route path="profile" element={<Profile />} />
@@ -46,6 +50,8 @@ function App() {
        
       </Routes>
     </Router>
+    {/* </AuthProvider>
+    </QueryClientProvider> */}
     </>
   );
  
