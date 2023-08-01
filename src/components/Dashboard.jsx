@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent, Divider, Grid, Typography, Box } from "@mui/material";
 import BrandingWatermarkOutlinedIcon from "@mui/icons-material/BrandingWatermarkOutlined";
+import MonthYearWidget from './MonthYearWidget';
+import api from "../utils/api";
 
 const iconsWithText = [
   { icon: <BrandingWatermarkOutlinedIcon />, text: "Report 1" },
@@ -14,6 +16,7 @@ const iconsWithText = [
 ];
 
 const Dashboard = () => {
+
   return (
     <Box style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", marginTop:'40px' }}>
       <Box>
@@ -23,6 +26,7 @@ const Dashboard = () => {
           Dashboard
         </Typography>
         <Divider />
+        <MonthYearWidget/>
         <Grid container spacing={2} rowSpacing={6} style={{ marginTop: "16px" }}>
           {iconsWithText.map((item, index) => (
             <Grid item xs={3} sm={4} key={index}>
