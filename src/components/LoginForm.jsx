@@ -56,13 +56,14 @@ const LeftDivision = styled(CardContent)({
   width: "100%", // Set width to 100%
   height: "100%", // Set height to 100%
   display: "flex",
-  // justifyContent: "center",
-  // alignItems: "center",
+  justifyContent: "center",
+  alignItems: "center",
   // Remove margin to eliminate space between image and container
   "& img": {
-    width: "100%",
-    height: "100%",
+    width: "90%",
+    height: "90%",
     objectFit: "cover", 
+
   },
 });
 
@@ -80,8 +81,8 @@ const RightDivision = styled(CardContent)({
 });
 
 const Image = styled("img")({
-  width: "100%",
-  height: "100%",
+  width: "50%",
+  height: "50%",
   // borderRadius: "50%",
   // border: "3px solid #1976D2", // Blue border color for the image
 });
