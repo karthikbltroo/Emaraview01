@@ -124,7 +124,7 @@ import Profile from './components/Profile'
 import FormsAA from './components/Forms/FormsAA'
 import FormsBB from './components/Forms/FormsBB'
 import FormsCC from './components/Forms/FormsCC'
-import ReportAA from "./components/Reports/ReportAA";
+import Report_EX201_Excise_Goods_Customs from "./components/Reports/Report_EX201_Excise_Goods_Customs";
 import ReportBB from "./components/Reports/ReportBB";
 import ReportCC from "./components/Reports/ReportCC";
 import api from './utils/api'
@@ -172,7 +172,7 @@ useEffect(()=>{
         <Route path="/profile" element={<Profile />} />
         <Route path="/reports" element={<Reports />}>
           <Route index element={<h2>Please select a report.</h2>} />
-          <Route path="reportAA" element={<ReportAA />} />
+          <Route path="Report_EX201_Excise_Goods_Customs" element={<Report_EX201_Excise_Goods_Customs />} />
           <Route path="reportBB" element={<ReportBB />} />
           <Route path="reportCC" element={<ReportCC />} />
         </Route>

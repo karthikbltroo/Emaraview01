@@ -345,8 +345,8 @@ const Navbar = () => {
                     <Paper>
                       <ClickAwayListener onClickAway={handleCloseReports}>
                         <List autoFocusItem={isReportsOpen} id="reports-list">
-                          <ListItem button component={NavLink} to="/reports/reportAA">
-                            <ListItemText primary="Report AA" />
+                          <ListItem button component={NavLink} to="/reports/Report_EX201_Excise_Goods_Customs">
+                            <ListItemText primary="Report_EX201_Excise_Goods_Customs" />
                           </ListItem>
                           <ListItem button component={NavLink} to="/reports/reportBB">
                             <ListItemText primary="Report BB" />

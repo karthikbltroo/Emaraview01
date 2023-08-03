@@ -252,7 +252,7 @@ const NoDataCard = () => {
   );
 };
 
-const ReportAA = () => {
+const Report_EX201_Excise_Goods_Customs = () => {
   const { id } = useParams();
   const [rows, setRows] = useState([]); // Use state to store the data
   const { handleSubmit, reset } = useForm();
@@ -296,28 +296,83 @@ const ReportAA = () => {
     }
   };
 
-  const handleFormSubmit = () => {
-    const isMonthYearSelected = selectedMonth && selectedYear;
-    const isTransactionNumberEntered = !!transactionNumber;
+  // const handleFormSubmit = () => {
+  //   const isMonthYearSelected = selectedMonth && selectedYear;
+  //   const isTransactionNumberEntered = !!transactionNumber;
 
-     if (!isMonthYearSelected && !isTransactionNumberEntered) {
-    setErrorText("*Please select Month and Year or enter Transaction Number");
-    return;
+  //    if (!isMonthYearSelected && !isTransactionNumberEntered) {
+  //   setErrorText("*Please select Month and Year or enter Transaction Number");
+  //   return;
+  // }
+  //   setErrorText("");
+
+  //   const requestBody = {
+  //     client_Name: "Bombay hospital",
+  //     form_Type: "EX201_Excise_Goods_Customs",
+  //     skip: 0,
+  //     offset: 50,
+  //     trans_Num: transactionNumber || null,
+  //     period_Month: selectedMonth || null,
+  //     period_Year: selectedYear || null,
+  //   };
+
+  //   fetchData(requestBody); // Call the fetchData function to fetch data from API
+  // };
+
+  let resetFunc = ()=>{
+    setSelectedMonth("");
+    setSelectedYear("");
+    setTransactionNumber("");
+    // setRows([]);
   }
-    setErrorText("");
 
-    const requestBody = {
-      client_Name: "Bombay hospital",
-      form_Type: "EX201_Excise_Goods_Customs",
-      skip: 0,
-      offset: 50,
-      trans_Num: transactionNumber || null,
-      period_Month: selectedMonth || null,
-      period_Year: selectedYear || null,
-    };
+  const handleFormSubmit = () => {
+  // const isMonthYearSelected = selectedMonth && selectedYear;
+  // const isTransactionNumberEntered = !!transactionNumber;
 
-    fetchData(requestBody); // Call the fetchData function to fetch data from API
+  // if ((isMonthYearSelected && isTransactionNumberEntered) || (!isMonthYearSelected && !isTransactionNumberEntered)) {
+  //   setErrorText("*Please select either Month and Year or enter Transaction Number, but not both");
+  //   return;
+  // }
+
+  if (!selectedMonth && selectedYear && transactionNumber ){
+    alert('*Please select Month and Year or enter Transaction Number, but not both ')
+    return
+  }
+
+  if (selectedMonth && !selectedYear && transactionNumber){
+    alert('*Please select Month and Year or enter Transaction Number, but not both ')
+    return
+  }
+  if (!selectedMonth && selectedYear && !transactionNumber){
+    alert('*Please select Month and Year or enter Transaction Number, but not both ')
+     return
+  }
+  if (selectedMonth && !selectedYear && !transactionNumber){
+    alert('*Please select Month and Year or enter Transaction Number, but not both ')
+     return
+  }
+  if (selectedMonth && selectedYear && transactionNumber){
+    alert('*Please select Month and Year or enter Transaction Number, but not both ')
+     return
+  }
+
+
+  setErrorText("");
+
+  const requestBody = {
+    client_Name: "Bombay hospital",
+    form_Type: "EX201_Excise_Goods_Customs",
+    skip: 0,
+    offset: 50,
+    trans_Num:  transactionNumber || null,
+    period_Month: selectedMonth || null ,
+    period_Year:  selectedYear || null,
   };
+
+  fetchData(requestBody); // Call the fetchData function to fetch data from API
+};
+
 
   const handleReset = () => {
     setSelectedMonth("");
@@ -453,6 +508,7 @@ const ReportAA = () => {
                   <DataGrid
                     rows={rows}
                     columns={columns}
+                    disableDensitySelector
                     slots={{ toolbar: GridToolbar }}
                     slotProps={{ toolbar: { printOptions: { disableToolbarButton: true }, } }}
                     initialState={{
@@ -475,4 +531,4 @@ const ReportAA = () => {
   );
 };
 
-export default ReportAA;
+export default Report_EX201_Excise_Goods_Customs;
