@@ -7,6 +7,7 @@ import {
   TextField,
   Button,
   Divider,
+  CircularProgress, Snackbar,Alert,LinearProgress
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useForm } from "react-hook-form";
@@ -135,7 +136,14 @@ const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
+  const [loading, setLoading] = useState(false);
+  const [loginError, setLoginError] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
 
   // const onSubmit = async (data) => {
   //   try {
@@ -167,11 +175,15 @@ const LoginForm = () => {
 
   const onSubmit = async (data) => {
     try {
+      setLoading(true);
       await login(data.username, data.password);
+      setLoading(false);
       navigate("/dashboard");
     } catch (error) {
       console.error(error);
-      alert("An error occurred during login");
+      setLoading(false);
+      setSnackbarOpen(true)
+      setLoginError(true);
     }
   };
 
@@ -201,6 +213,14 @@ const LoginForm = () => {
       </DividerContainer>
       <WhiteCard>
         <RightDivision>
+        <Typography variant="h4" color="primary" mt={2} ml={4} mb={2}>
+            Welcome to Emara View
+          </Typography>
+          <Box  style={{ marginBottom: "20px" }} >
+        
+          </Box>
+          
+          {/* {loading && <LinearProgress color="primary" style={{ marginBottom: "30px" }} />} */}
           {/* <Typography variant="h5" gutterBottom>
             Login
           </Typography> */}
@@ -265,11 +285,31 @@ const LoginForm = () => {
                 ),
               }}
             />
+         
 
             <SignUpButton type="submit" variant="contained" color="primary">
               Login
             </SignUpButton>
+            {loading && <CircularProgress color="primary"/>}
+    
           </Form>
+          {/* {loading && <LinearProgress />} */}
+          <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={snackbarOpen}
+        autoHideDuration={5000}
+        onClose={handleSnackbarClose}
+        style={{ marginTop: "30px", marginLeft:'190px' }}
+      >
+        <Alert
+          elevation={6}
+          variant="filled"
+          onClose={handleSnackbarClose}
+          severity="error"
+        >
+          Invalid Credentials, Please try again.
+        </Alert>
+      </Snackbar>
         </RightDivision>
       </WhiteCard>
     </BorderBox>
