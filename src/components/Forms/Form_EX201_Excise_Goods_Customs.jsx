@@ -28,23 +28,32 @@ import { useForm } from "react-hook-form";
 
 const columns = [
   { field: "transactionNumber", headerName: "Transaction Number", width: 200 },
-  {
-    field: "eServicesReferenceNumber",
-    headerName: "eServices Ref Number",
-    width: 200,
-  },
   { field: "dateofSubmission", headerName: "Date of Submission", width: 180 },
+
   {
     field: "periodofdeclarationMonth",
-    headerName: "Declaration Month",
+    headerName: "Period Month",
     width: 160,
   },
+
   {
     field: "periodofdeclarationYear",
-    headerName: "Declaration Year",
+    headerName: "Period Year",
     width: 160,
   },
   { field: "status", headerName: "Status", width: 120 },
+  { field: "itemCode", headerName: "Item Code", width: 180 },
+  { field: "itemDescription", headerName: "Item Description", width: 250 },
+
+  {
+    field: "productDescription",
+    headerName: "Product Description",
+    width: 300,
+  },
+
+  { field: "quantity", headerName: "Quantity", width: 120 },
+  { field: "designatedPrice", headerName: "Designated Price", width: 150 },
+  { field: "exciseTax", headerName: "Excise Tax", width: 150 },
   {
     field: "whatistheExcisedeclarationrelatedto",
     headerName: "Excise Declaration Type",
@@ -54,16 +63,13 @@ const columns = [
   { field: "emirateArrivingto", headerName: "Emirate Arriving To", width: 200 },
   { field: "portofEntry", headerName: "Port of Entry", width: 200 },
   { field: "isDTSGoods", headerName: "Is DTS Goods", width: 150 },
-  { field: "itemCode", headerName: "Item Code", width: 180 },
-  { field: "itemDescription", headerName: "Item Description", width: 250 },
+
   {
-    field: "productDescription",
-    headerName: "Product Description",
-    width: 250,
+    field: "eServicesReferenceNumber",
+    headerName: "eServices Ref Number",
+    width: 200,
   },
-  { field: "quantity", headerName: "Quantity", width: 150 },
-  { field: "designatedPrice", headerName: "Designated Price", width: 180 },
-  { field: "exciseTax", headerName: "Excise Tax", width: 150 },
+
   { field: "addedUser", headerName: "Added User", width: 180 },
 ];
 
@@ -86,9 +92,7 @@ const NoDataCard = () => {
           minHeight: "200px",
         }}
       >
-        {/* <Typography variant="h5" component="p">
-          No Data Found.
-        </Typography> */}
+ 
         <Typography style={{ marginTop: "18px" }}>
           Please select Month and Year or enter Transaction Number above
         </Typography>
@@ -97,7 +101,7 @@ const NoDataCard = () => {
   );
 };
 
-const Report_EX201_Excise_Goods_Customs = () => {
+const Form_EX201_Excise_Goods_Customs = () => {
   const { id } = useParams();
   const [rows, setRows] = useState([]); // Use state to store the data
   const { handleSubmit, reset } = useForm();
@@ -126,8 +130,8 @@ const Report_EX201_Excise_Goods_Customs = () => {
 
   // const {displayName } = useAuth();
   // console.log(displayName)
-  let displayName = sessionStorage.getItem("displayName")
-  console.log("name is", displayName)
+  let displayName = sessionStorage.getItem("displayName");
+  console.log("name is", displayName);
 
   const fetchData = async (requestData) => {
     try {
@@ -144,8 +148,15 @@ const Report_EX201_Excise_Goods_Customs = () => {
       if (response.data.data.length === 0) {
         setSnackbarOpen(true);
       }
+      setLoading(false);
+      if (response.status === 401) {
+        setErrorMessage("Please login again");
+        setSnackbarOpen(true);
+      }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      setErrorMessage("Error fetching data");
+      setSnackbarOpen(true);
+
       setRows([]);
     } finally {
       setLoading(false);
@@ -158,11 +169,11 @@ const Report_EX201_Excise_Goods_Customs = () => {
       (selectedMonth && !selectedYear && transactionNumber) ||
       (!selectedMonth && selectedYear && !transactionNumber) ||
       (selectedMonth && !selectedYear && !transactionNumber) ||
-      (selectedMonth && selectedYear && transactionNumber) ||
       (!selectedMonth && !selectedYear && !transactionNumber)
+      // (selectedMonth && selectedYear && transactionNumber)
     ) {
       setErrorMessage(
-        "*Please select Month and Year or enter Transaction Number, but not both.."
+        "*Please select Month and Year or enter Transaction Number"
       );
       setErrorOpen(true);
       return;
@@ -199,7 +210,7 @@ const Report_EX201_Excise_Goods_Customs = () => {
         open={snackbarOpen}
         autoHideDuration={5000}
         onClose={handleSnackbarClose}
-        style={{ marginTop: "150px", marginLeft:'350px' }}
+        style={{ marginTop: "150px", marginLeft: "350px" }}
       >
         <Alert
           elevation={6}
@@ -217,7 +228,7 @@ const Report_EX201_Excise_Goods_Customs = () => {
         open={errorOpen}
         autoHideDuration={5000}
         onClose={() => setErrorOpen(false)}
-        style={{ marginTop: "200px" }}
+        style={{ marginTop: "140px", marginLeft:'350px' }}
       >
         <Alert
           severity="error"
@@ -469,4 +480,4 @@ const Report_EX201_Excise_Goods_Customs = () => {
   );
 };
 
-export default Report_EX201_Excise_Goods_Customs;
+export default Form_EX201_Excise_Goods_Customs;

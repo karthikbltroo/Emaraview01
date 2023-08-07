@@ -7,7 +7,10 @@ import {
   TextField,
   Button,
   Divider,
-  CircularProgress, Snackbar,Alert,LinearProgress
+  CircularProgress,
+  Snackbar,
+  Alert,
+  LinearProgress,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useForm } from "react-hook-form";
@@ -16,10 +19,7 @@ import axios from "axios";
 import { useAuth } from "../utils/AuthContext";
 // import combinedImage from "../assets/combined.png";
 // import pink from '../assets/pink.jpg'
-import LoginImage from '../assets/LoginImage.png'
- 
-
-
+import LoginImage from "../assets/LoginImage.png";
 
 import { InputAdornment, IconButton } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -53,7 +53,6 @@ const WhiteCard = styled(Card)({
 //   objectFit:'cover'
 // });
 const LeftDivision = styled(CardContent)({
-  
   width: "100%", // Set width to 100%
   height: "100%", // Set height to 100%
   display: "flex",
@@ -63,11 +62,9 @@ const LeftDivision = styled(CardContent)({
   "& img": {
     width: "90%",
     height: "90%",
-    objectFit: "cover", 
-
+    objectFit: "cover",
   },
 });
-
 
 const RightDivision = styled(CardContent)({
   flex: 1,
@@ -123,23 +120,21 @@ const StyledHeading = styled(Typography)({
   textAlign: "center",
 });
 
-
 const LoginForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const {login} = useAuth()
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
   const [loading, setLoading] = useState(false);
-  const [loginError, setLoginError] = useState(false);
+  const [loginError, setLoginError] = useState(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
@@ -176,14 +171,19 @@ const LoginForm = () => {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-      await login(data.username, data.password);
+      const response = await login(data.username, data.password);
       setLoading(false);
-      navigate("/dashboard");
+      if (response && response.status === 401) {
+        setSnackbarOpen(true);
+        setLoginError("Invalid credentials, Login again");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (error) {
       console.error(error);
       setLoading(false);
-      setSnackbarOpen(true)
-      setLoginError(true);
+      setSnackbarOpen(true);
+      setLoginError("An error occurred during login - check network");
     }
   };
 
@@ -191,10 +191,9 @@ const LoginForm = () => {
     <BorderBox>
       <WhiteCard>
         <LeftDivision>
-          
-            {/* Replace the image source with your desired image */}
-            <Image src={LoginImage} alt="Emara View" />
-            {/* <StyledHeading
+          {/* Replace the image source with your desired image */}
+          <Image src={LoginImage} alt="Emara View" />
+          {/* <StyledHeading
               variant="h2"
               style={{
                 marginTop: "90px",
@@ -205,7 +204,6 @@ const LoginForm = () => {
             >
               Welcome to Emara View
             </StyledHeading> */}
-          
         </LeftDivision>
       </WhiteCard>
       <DividerContainer>
@@ -213,13 +211,11 @@ const LoginForm = () => {
       </DividerContainer>
       <WhiteCard>
         <RightDivision>
-        <Typography variant="h4" color="primary" mt={2} ml={4} mb={2}>
+          <Typography variant="h4" color="primary" mt={2} ml={4} mb={2}>
             Welcome to Emara View
           </Typography>
-          <Box  style={{ marginBottom: "20px" }} >
-        
-          </Box>
-          
+          <Box style={{ marginBottom: "20px" }}></Box>
+
           {/* {loading && <LinearProgress color="primary" style={{ marginBottom: "30px" }} />} */}
           {/* <Typography variant="h5" gutterBottom>
             Login
@@ -251,7 +247,7 @@ const LoginForm = () => {
               error={!!errors.email}
               helperText={errors.email && errors.email.message}
             />
-          
+
             <StyledTextField
               label="Enter password"
               variant="standard"
@@ -285,31 +281,29 @@ const LoginForm = () => {
                 ),
               }}
             />
-         
 
             <SignUpButton type="submit" variant="contained" color="primary">
               Login
             </SignUpButton>
-            {loading && <CircularProgress color="primary"/>}
-    
+            {loading && <CircularProgress color="primary" />}
           </Form>
           {/* {loading && <LinearProgress />} */}
           <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={snackbarOpen}
-        autoHideDuration={5000}
-        onClose={handleSnackbarClose}
-        style={{ marginTop: "30px", marginLeft:'190px' }}
-      >
-        <Alert
-          elevation={6}
-          variant="filled"
-          onClose={handleSnackbarClose}
-          severity="error"
-        >
-          Invalid Credentials, Please try again.
-        </Alert>
-      </Snackbar>
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            open={snackbarOpen}
+            autoHideDuration={5000}
+            onClose={handleSnackbarClose}
+            style={{ marginTop: "30px", marginLeft: "190px" }}
+          >
+            <Alert
+              elevation={6}
+              variant="filled"
+              onClose={handleSnackbarClose}
+              severity="error"
+            >
+              {loginError}
+            </Alert>
+          </Snackbar>
         </RightDivision>
       </WhiteCard>
     </BorderBox>
@@ -317,5 +311,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-
-
