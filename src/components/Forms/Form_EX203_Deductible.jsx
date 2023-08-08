@@ -28,50 +28,33 @@ import { useForm } from "react-hook-form";
 
 const columns = [
   { field: "transactionNumber", headerName: "Transaction Number", width: 200 },
-  { field: "dateofSubmission", headerName: "Date of Submission", width: 180 },
-
-  {
-    field: "periodofdeclarationMonth",
-    headerName: "Period Month",
-    width: 160,
-  },
-
-  {
-    field: "periodofdeclarationYear",
-    headerName: "Period Year",
-    width: 160,
-  },
-  { field: "status", headerName: "Status", width: 120 },
-  { field: "itemCode", headerName: "Item Code", width: 180 },
+  { field: "eServicesReferenceNumber", headerName: "eServices Reference Number", width: 250 },
+  { field: "dateofSubmission", headerName: "Date of Submission", width: 200 },
+  { field: "periodofdeclarationMonth", headerName: "Period of Declaration Month", width: 200 },
+  { field: "periodofdeclarationYear", headerName: "Period of Declaration Year", width: 200 },
+  { field: "status", headerName: "Status", width: 150 },
+  { field: "documentaryProof", headerName: "Documentary Proof", width: 200 },
+  { field: "trn", headerName: "TRN", width: 150 },
+  { field: "dateWhenRightToDeductionArose", headerName: "Date When Right to Deduction Arose", width: 250 },
+  { field: "reasonforCreditClaim", headerName: "Reason for Credit Claim", width: 250 },
+  { field: "declarationNumber", headerName: "Declaration Number", width: 200 },
+  { field: "declarationType", headerName: "Declaration Type", width: 250 },
+  { field: "itemCode", headerName: "Item Code", width: 150 },
   { field: "itemDescription", headerName: "Item Description", width: 250 },
-
-  {
-    field: "productDescription",
-    headerName: "Product Description",
-    width: 300,
-  },
-
-  { field: "quantity", headerName: "Quantity", width: 120 },
-  { field: "designatedPrice", headerName: "Designated Price", width: 150 },
-  { field: "exciseTax", headerName: "Excise Tax", width: 150 },
-  {
-    field: "whatistheExcisedeclarationrelatedto",
-    headerName: "Excise Declaration Type",
-    width: 250,
-  },
-  { field: "trn", headerName: "TRN", width: 180 },
-  { field: "emirateArrivingto", headerName: "Emirate Arriving To", width: 200 },
-  { field: "portofEntry", headerName: "Port of Entry", width: 200 },
-  { field: "isDTSGoods", headerName: "Is DTS Goods", width: 150 },
-
-  {
-    field: "eServicesReferenceNumber",
-    headerName: "eServices Ref Number",
-    width: 200,
-  },
-
-  { field: "addedUser", headerName: "Added User", width: 180 },
+  { field: "productDescription", headerName: "Product Description", width: 250 },
+  { field: "quantity", headerName: "Quantity", width: 150 },
+  { field: "excisePrice", headerName: "Excise Price", width: 150 },
+  { field: "deductibleExciseTax", headerName: "Deductible Excise Tax", width: 200 },
+  { field: "checkDuplicates", headerName: "Check Duplicates", width: 200 },
+  { field: "taxciseMovementID", headerName: "Taxcise Movement ID", width: 200 },
+  { field: "otherReasonForCreditClaim", headerName: "Other Reason for Credit Claim", width: 250 },
+  { field: "modifiedTime", headerName: "Modified Time", width: 250 },
+  { field: "modifiedUser", headerName: "Modified User", width: 150 },
+  { field: "addedTime", headerName: "Added Time", width: 250 },
+  { field: "addedUser", headerName: "Added User", width: 150 },
 ];
+
+
 
 
 const NoDataCard = () => {
@@ -104,7 +87,7 @@ const NoDataCard = () => {
   );
 };
 
-const Form_EX201_Excise_Goods_Customs = () => {
+const Form_EX203_Deductible = () => {
   const { id } = useParams();
   const [rows, setRows] = useState([]); // Use state to store the data
   const { handleSubmit, reset } = useForm();
@@ -148,25 +131,30 @@ const Form_EX201_Excise_Goods_Customs = () => {
       }));
 
       setRows(updatedRows);
-      if (response && response.status === 200 && response.data.data.length === 0) {
+      if (
+        response &&
+        response.status === 200 &&
+        response.data.data.length === 0
+      ) {
         setErrorMessage("No Data found for given period");
         setSnackbarOpen(true);
       }
       setLoading(false);
-      if (response && response.status === 401 ) {
+      if (response && response.status === 401) {
         setErrorMessage("Please login again");
         setSnackbarOpen(true);
       }
     } catch (error) {
-      if (error.response && error.response.status === 401 ) {
+      if (error.response && error.response.status === 401) {
         setErrorMessage("Please login again");
         setSnackbarOpen(true);
         setRows([]);
-      } else{
-      setErrorMessage("Network or Session timeout error, Login again");
-      setSnackbarOpen(true);
+      } else {
+        setErrorMessage("Network or Session timeout error, Login again");
+        setSnackbarOpen(true);
 
-      setRows([])}
+        setRows([]);
+      }
     } finally {
       setLoading(false);
     }
@@ -192,7 +180,7 @@ const Form_EX201_Excise_Goods_Customs = () => {
 
     const requestBody = {
       client_Name: displayName,
-      form_Type: "EX201_Excise_Goods_Customs",
+      form_Type: "EX203_Deductible",
       skip: 0,
       offset: 50,
       trans_Num: transactionNumber || null,
@@ -238,7 +226,7 @@ const Form_EX201_Excise_Goods_Customs = () => {
         open={errorOpen}
         autoHideDuration={5000}
         onClose={() => setErrorOpen(false)}
-        style={{ marginTop: "140px", marginLeft:'350px' }}
+        style={{ marginTop: "140px", marginLeft: "350px" }}
       >
         <Alert
           severity="error"
@@ -262,7 +250,7 @@ const Form_EX201_Excise_Goods_Customs = () => {
       >
         <CardContent>
           <Box>
-            <Typography variant="h6">Form_EX201_Excise_Goods_Customs</Typography>
+            <Typography variant="h6">Form_EX203_Deductible</Typography>
           </Box>
         </CardContent>
       </Card>
@@ -490,4 +478,4 @@ const Form_EX201_Excise_Goods_Customs = () => {
   );
 };
 
-export default Form_EX201_Excise_Goods_Customs;
+export default Form_EX203_Deductible;

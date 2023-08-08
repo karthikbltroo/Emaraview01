@@ -28,50 +28,30 @@ import { useForm } from "react-hook-form";
 
 const columns = [
   { field: "transactionNumber", headerName: "Transaction Number", width: 200 },
-  { field: "dateofSubmission", headerName: "Date of Submission", width: 180 },
-
-  {
-    field: "periodofdeclarationMonth",
-    headerName: "Period Month",
-    width: 160,
-  },
-
-  {
-    field: "periodofdeclarationYear",
-    headerName: "Period Year",
-    width: 160,
-  },
-  { field: "status", headerName: "Status", width: 120 },
-  { field: "itemCode", headerName: "Item Code", width: 180 },
-  { field: "itemDescription", headerName: "Item Description", width: 250 },
-
-  {
-    field: "productDescription",
-    headerName: "Product Description",
-    width: 300,
-  },
-
-  { field: "quantity", headerName: "Quantity", width: 120 },
-  { field: "designatedPrice", headerName: "Designated Price", width: 150 },
+  { field: "eServicesReferenceNumber", headerName: "eServices Reference Number", width: 250 },
+  { field: "dateofSubmission", headerName: "Date of Submission", width: 150 },
+  { field: "designatedZoneNumber", headerName: "Designated Zone Number", width: 200 },
+  { field: "periodofdeclarationMonth", headerName: "Declaration Month", width: 150 },
+  { field: "periodofdeclarationYear", headerName: "Declaration Year", width: 150 },
+  { field: "status", headerName: "Status", width: 200 },
+  { field: "dateofEntryintoDesignatedZone", headerName: "Date of Entry into Designated Zone", width: 200 },
+  { field: "declarationNumber", headerName: "Declaration Number", width: 200 },
+  { field: "declarationType", headerName: "Declaration Type", width: 300 },
+  { field: "itemCode", headerName: "Item Code", width: 150 },
+  { field: "itemDescription", headerName: "Item Description", width: 300 },
+  { field: "productDescription", headerName: "Product Description", width: 300 },
+  { field: "quantityBeingEnteredIntoDesignatedZone", headerName: "Quantity Entered Into Designated Zone", width: 250 },
+  { field: "excisePrice", headerName: "Excise Price", width: 150 },
   { field: "exciseTax", headerName: "Excise Tax", width: 150 },
-  {
-    field: "whatistheExcisedeclarationrelatedto",
-    headerName: "Excise Declaration Type",
-    width: 250,
-  },
-  { field: "trn", headerName: "TRN", width: 180 },
-  { field: "emirateArrivingto", headerName: "Emirate Arriving To", width: 200 },
-  { field: "portofEntry", headerName: "Port of Entry", width: 200 },
-  { field: "isDTSGoods", headerName: "Is DTS Goods", width: 150 },
-
-  {
-    field: "eServicesReferenceNumber",
-    headerName: "eServices Ref Number",
-    width: 200,
-  },
-
-  { field: "addedUser", headerName: "Added User", width: 180 },
+  { field: "checkDuplicates", headerName: "Check Duplicates", width: 200 },
+  { field: "taxciseMovementID", headerName: "Taxcise Movement ID", width: 200 },
+  { field: "trn", headerName: "TRN", width: 150 },
+  { field: "modifiedTime", headerName: "Modified Time", width: 200 },
+  { field: "modifiedUser", headerName: "Modified User", width: 150 },
+  { field: "addedTime", headerName: "Added Time", width: 200 },
+  { field: "addedUser", headerName: "Added User", width: 150 },
 ];
+
 
 
 const NoDataCard = () => {
@@ -104,7 +84,7 @@ const NoDataCard = () => {
   );
 };
 
-const Form_EX201_Excise_Goods_Customs = () => {
+const Form_EX202A_Enter_Goods_DZ = () => {
   const { id } = useParams();
   const [rows, setRows] = useState([]); // Use state to store the data
   const { handleSubmit, reset } = useForm();
@@ -192,7 +172,7 @@ const Form_EX201_Excise_Goods_Customs = () => {
 
     const requestBody = {
       client_Name: displayName,
-      form_Type: "EX201_Excise_Goods_Customs",
+      form_Type: "EX202A_Enter_Goods_DZ",
       skip: 0,
       offset: 50,
       trans_Num: transactionNumber || null,
@@ -262,7 +242,7 @@ const Form_EX201_Excise_Goods_Customs = () => {
       >
         <CardContent>
           <Box>
-            <Typography variant="h6">Form_EX201_Excise_Goods_Customs</Typography>
+            <Typography variant="h6">Form_EX202A_Enter_Goods_DZ</Typography>
           </Box>
         </CardContent>
       </Card>
@@ -490,4 +470,4 @@ const Form_EX201_Excise_Goods_Customs = () => {
   );
 };
 
-export default Form_EX201_Excise_Goods_Customs;
+export default Form_EX202A_Enter_Goods_DZ;

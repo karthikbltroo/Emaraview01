@@ -28,48 +28,52 @@ import { useForm } from "react-hook-form";
 
 const columns = [
   { field: "transactionNumber", headerName: "Transaction Number", width: 200 },
+  {
+    field: "eServicesReferenceNumber",
+    headerName: "eServices Reference Number",
+    width: 250,
+  },
   { field: "dateofSubmission", headerName: "Date of Submission", width: 180 },
-
   {
     field: "periodofdeclarationMonth",
-    headerName: "Period Month",
-    width: 160,
+    headerName: "Period of Declaration Month",
+    width: 200,
   },
-
   {
     field: "periodofdeclarationYear",
-    headerName: "Period Year",
-    width: 160,
+    headerName: "Period of Declaration Year",
+    width: 200,
   },
-  { field: "status", headerName: "Status", width: 120 },
+  { field: "status", headerName: "Status", width: 200 },
+  { field: "trn", headerName: "TRN", width: 180 },
+
+  { field: "dateofExport", headerName: "Date of Export", width: 180 },
+
+  {
+    field: "originDesignatedZoneNumber",
+    headerName: "Origin Designated Zone Number",
+    width: 240,
+  },
+  { field: "countryofExport", headerName: "Country of Export", width: 180 },
+  { field: "uaeDutyFreePort", headerName: "UAE Duty Free Port", width: 180 },
+
   { field: "itemCode", headerName: "Item Code", width: 180 },
-  { field: "itemDescription", headerName: "Item Description", width: 250 },
+  { field: "itemDescription", headerName: "Item Description", width: 240 },
 
   {
     field: "productDescription",
     headerName: "Product Description",
-    width: 300,
-  },
-
-  { field: "quantity", headerName: "Quantity", width: 120 },
-  { field: "designatedPrice", headerName: "Designated Price", width: 150 },
-  { field: "exciseTax", headerName: "Excise Tax", width: 150 },
-  {
-    field: "whatistheExcisedeclarationrelatedto",
-    headerName: "Excise Declaration Type",
-    width: 250,
-  },
-  { field: "trn", headerName: "TRN", width: 180 },
-  { field: "emirateArrivingto", headerName: "Emirate Arriving To", width: 200 },
-  { field: "portofEntry", headerName: "Port of Entry", width: 200 },
-  { field: "isDTSGoods", headerName: "Is DTS Goods", width: 150 },
-
-  {
-    field: "eServicesReferenceNumber",
-    headerName: "eServices Ref Number",
     width: 200,
   },
+  { field: "quantity", headerName: "Quantity", width: 150 },
+  { field: "designatedPrice", headerName: "Designated Price", width: 180 },
 
+  { field: "exciseTax", headerName: "Excise Tax", width: 150 },
+  { field: "checkDuplicates", headerName: "Check Duplicates", width: 220 },
+  { field: "taxciseMovementID", headerName: "Taxcise Movement ID", width: 220 },
+  { field: "modifiedTime", headerName: "Modified Time", width: 200 },
+  { field: "modifiedUser", headerName: "Modified User", width: 180 },
+  { field: "addedTime", headerName: "Added Time", width: 200 },
   { field: "addedUser", headerName: "Added User", width: 180 },
 ];
 
@@ -104,7 +108,7 @@ const NoDataCard = () => {
   );
 };
 
-const Form_EX201_Excise_Goods_Customs = () => {
+const Form_EX202A_Export_Goods_DZ = () => {
   const { id } = useParams();
   const [rows, setRows] = useState([]); // Use state to store the data
   const { handleSubmit, reset } = useForm();
@@ -192,7 +196,7 @@ const Form_EX201_Excise_Goods_Customs = () => {
 
     const requestBody = {
       client_Name: displayName,
-      form_Type: "EX201_Excise_Goods_Customs",
+      form_Type: "EX202A_Export_Goods_DZ",
       skip: 0,
       offset: 50,
       trans_Num: transactionNumber || null,
@@ -262,7 +266,7 @@ const Form_EX201_Excise_Goods_Customs = () => {
       >
         <CardContent>
           <Box>
-            <Typography variant="h6">Form_EX201_Excise_Goods_Customs</Typography>
+            <Typography variant="h6">Form_EX202A_Export_Goods_DZ</Typography>
           </Box>
         </CardContent>
       </Card>
@@ -490,4 +494,4 @@ const Form_EX201_Excise_Goods_Customs = () => {
   );
 };
 
-export default Form_EX201_Excise_Goods_Customs;
+export default Form_EX202A_Export_Goods_DZ;

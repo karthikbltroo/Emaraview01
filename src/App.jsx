@@ -14,8 +14,15 @@ import { AuthProvider } from "./utils/AuthContext";
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
 import Form_EX201_Excise_Goods_Customs from "./components/Forms/Form_EX201_Excise_Goods_Customs";
-import FormsBB from "./components/Forms/FormsBB";
-import FormsCC from "./components/Forms/FormsCC";
+import Form_EX202A_Export_Goods_DZ from "./components/Forms/Form_EX202A_Export_Goods_DZ";
+import Form_EX202A_Import_DZ from "./components/Forms/Form_EX202A_Import_DZ";
+import Form_EX202A_Enter_Goods_DZ from "./components/Forms/Form_EX202A_Enter_Goods_DZ";
+import Form_EX202A_Production_DZ from "./components/Forms/Form_EX202A_Production_DZ";
+import Form_EX202A_Release_Goods_DZ from "./components/Forms/Form_EX202A_Release_Goods_DZ";
+import Form_EX202A_Transfer_Goods_DZ from "./components/Forms/Form_EX202A_Transfer_Goods_DZ";
+import Form_EX203B_Lost_Damaged from "./components/Forms/Form_EX203B_Lost_Damaged";
+import Form_EX203C_Transfer_of_Ownership from "./components/Forms/Form_EX203C_Transfer_of_Ownership";
+import Form_EX203_Deductible from "./components/Forms/Form_EX203_Deductible";
 import ReportAA from "./components/Reports/ReportAA";
 import ReportBB from "./components/Reports/ReportBB";
 import ReportCC from "./components/Reports/ReportCC";
@@ -69,8 +76,15 @@ const App = () => {
                 path="Form_EX201_Excise_Goods_Customs"
                 element={<Form_EX201_Excise_Goods_Customs />}
               />
-              <Route path="formBB" element={<FormsBB />} />
-              <Route path="formCC" element={<FormsCC />} />
+              <Route path="Form_EX202A_Export_Goods_DZ" element={<Form_EX202A_Export_Goods_DZ />} />
+              <Route path="Form_EX202A_Import_DZ" element={<Form_EX202A_Import_DZ />} />
+              <Route path="Form_EX202A_Enter_Goods_DZ" element={<Form_EX202A_Enter_Goods_DZ />} />
+              <Route path="Form_EX202A_Production_DZ" element={<Form_EX202A_Production_DZ />} />
+              <Route path="Form_EX202A_Release_Goods_DZ" element={<Form_EX202A_Release_Goods_DZ />} />
+              <Route path="Form_EX202A_Transfer_Goods_DZ" element={<Form_EX202A_Transfer_Goods_DZ />} />
+              <Route path="Form_EX203B_Lost_Damaged" element={<Form_EX203B_Lost_Damaged />} />
+              <Route path="Form_EX203C_Transfer_of_Ownership" element={<Form_EX203C_Transfer_of_Ownership />} />
+              <Route path="Form_EX203_Deductible" element={<Form_EX203_Deductible />} />
             </Route>
           </Route>
 

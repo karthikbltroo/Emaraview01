@@ -77,6 +77,8 @@ const Navbar = () => {
   const anchorReportsRef = useRef(null);
   const anchorFormsRef = useRef(null);
 
+  const isFormsActive = location.pathname.includes("/forms");
+
   return (
     <>
       {location.pathname !== "/" && (
@@ -151,7 +153,8 @@ const Navbar = () => {
                 aria-controls={isFormsOpen ? "forms-list" : undefined}
                 aria-haspopup="true"
                 // className={isFormsOpen ? "active" : ""}
-                className={(isFormsOpen || location.pathname.includes("/forms/form")) ? "active" : ""}
+                // className={(isFormsOpen || location.pathname.includes("/forms/form")) ? "active" : ""}
+                className={isFormsActive || isFormsOpen ? "active" : ""}
               >
                 <Stack direction="row" alignItems="center">
                   <DescriptionIcon style={{ marginRight: "6px" }} />
@@ -179,11 +182,32 @@ const Navbar = () => {
                           <ListItem button component={NavLink} to="/forms/Form_EX201_Excise_Goods_Customs">
                             <ListItemText primary="Form_EX201_Excise_Goods_Customs" />
                           </ListItem>
-                          <ListItem button component={NavLink} to="/forms/formBB">
-                            <ListItemText primary="Form BB" />
+                          <ListItem button component={NavLink} to="/forms/Form_EX202A_Export_Goods_DZ">
+                            <ListItemText primary="Form_EX202A_Export_Goods_DZ" />
                           </ListItem>
-                          <ListItem button component={NavLink} to="/forms/formCC">
-                            <ListItemText primary="Form CC" />
+                          <ListItem button component={NavLink} to="/forms/Form_EX202A_Import_DZ">
+                            <ListItemText primary="Form_EX202A_Import_DZ" />
+                          </ListItem>
+                          <ListItem button component={NavLink} to="/forms/Form_EX202A_Enter_Goods_DZ">
+                            <ListItemText primary="Form_EX202A_Enter_Goods_DZ" />
+                          </ListItem>
+                          <ListItem button component={NavLink} to="/forms/Form_EX202A_Production_DZ">
+                            <ListItemText primary="Form_EX202A_Production_DZ" />
+                          </ListItem>
+                          <ListItem button component={NavLink} to="/forms/Form_EX202A_Release_Goods_DZ">
+                            <ListItemText primary="Form_EX202A_Release_Goods_DZ" />
+                          </ListItem>
+                          <ListItem button component={NavLink} to="/forms/Form_EX202A_Transfer_Goods_DZ">
+                            <ListItemText primary="Form_EX202A_Transfer_Goods_DZ" />
+                          </ListItem>
+                          <ListItem button component={NavLink} to="/forms/Form_EX203B_Lost_Damaged">
+                            <ListItemText primary="Form_EX203B_Lost_Damaged" />
+                          </ListItem>
+                          <ListItem button component={NavLink} to="/forms/Form_EX203C_Transfer_of_Ownership">
+                            <ListItemText primary="Form_EX203C_Transfer_of_Ownership" />
+                          </ListItem>
+                          <ListItem button component={NavLink} to="/forms/Form_EX203_Deductible">
+                            <ListItemText primary="Form_EX203_Deductible" />
                           </ListItem>
                         </List>
                       </ClickAwayListener>
