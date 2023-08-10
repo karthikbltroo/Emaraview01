@@ -215,7 +215,7 @@ const Navbar = () => {
                   </Grow>
                 )}
               </Popper>
-              <StyledButton
+              {/* <StyledButton
                 component={NavLink}
                 to="/profile"
                 activeClassName="active"
@@ -224,7 +224,7 @@ const Navbar = () => {
                   <AccountCircleIcon style={{ marginRight: "6px" }} />
                   <Typography variant="body2">Profile</Typography>
                 </Stack>
-              </StyledButton>
+              </StyledButton> */}
               <StyledButton
                 component={NavLink}
           
