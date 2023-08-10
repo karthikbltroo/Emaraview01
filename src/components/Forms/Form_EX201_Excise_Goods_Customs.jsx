@@ -178,8 +178,8 @@ const Form_EX201_Excise_Goods_Customs = () => {
       (selectedMonth && !selectedYear && transactionNumber) ||
       (!selectedMonth && selectedYear && !transactionNumber) ||
       (selectedMonth && !selectedYear && !transactionNumber) ||
-      (!selectedMonth && !selectedYear && !transactionNumber)
-      // (selectedMonth && selectedYear && transactionNumber)
+      (!selectedMonth && !selectedYear && !transactionNumber)||
+      (selectedMonth && selectedYear && transactionNumber)
     ) {
       setErrorMessage(
         "*Please select Month and Year or enter Transaction Number"
@@ -262,7 +262,7 @@ const Form_EX201_Excise_Goods_Customs = () => {
       >
         <CardContent>
           <Box>
-            <Typography variant="h6">Form_EX201_Excise_Goods_Customs</Typography>
+            <Typography variant="h6">EX201-Excise Goods Customs</Typography>
           </Box>
         </CardContent>
       </Card>
@@ -299,12 +299,12 @@ const Form_EX201_Excise_Goods_Customs = () => {
                   </Grid>
 
                   <Grid item>
-                    <Box sx={{ minWidth: 120 }}>
+                    <Box sx={{ minWidth: 90 }}>
                       <FormControl fullWidth>
                         <InputLabel
                           style={{ fontSize: "13px", fontWeight: "bold" }}
                         >
-                          Select Year
+                           Year
                         </InputLabel>
                         <Select
                           label="Select Year"
@@ -330,12 +330,12 @@ const Form_EX201_Excise_Goods_Customs = () => {
                   </Grid>
 
                   <Grid item>
-                    <Box sx={{ minWidth: 150 }}>
+                    <Box sx={{ minWidth: 140 }}>
                       <FormControl fullWidth>
                         <InputLabel
                           style={{ fontSize: "13px", fontWeight: "bold" }}
                         >
-                          Select Month
+                          Month
                         </InputLabel>
                         <Select
                           label="Select Month"
@@ -362,7 +362,7 @@ const Form_EX201_Excise_Goods_Customs = () => {
                     </Box>
                   </Grid>
                 </Grid>
-                <Box style={{ margin: "40px 15px 0px -130px" }}>
+                <Box style={{ margin: "40px 15px 0px -140px" }}>
                   <Grid Container>
                     <Grid item>
                       <Typography variant="subtitle1" component="p">

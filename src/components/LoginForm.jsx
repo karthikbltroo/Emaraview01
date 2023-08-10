@@ -174,16 +174,17 @@ const LoginForm = () => {
       const response = await login(data.username, data.password);
       setLoading(false);
       if (response && response.status === 401) {
-        setSnackbarOpen(true);
         setLoginError("Invalid credentials, Login again");
-      } else {
+        setSnackbarOpen(true);
+         } else {
         navigate("/dashboard");
       }
     } catch (error) {
       console.error(error);
       setLoading(false);
-      setSnackbarOpen(true);
       setLoginError("An error occurred during login - check network");
+      setSnackbarOpen(true);
+      
     }
   };
 
@@ -211,8 +212,8 @@ const LoginForm = () => {
       </DividerContainer>
       <WhiteCard>
         <RightDivision>
-          <Typography variant="h4" color="primary" mt={2} ml={4} mb={2}>
-            Welcome to Emara View
+          <Typography variant="h4" color="primary"   mb={2}>
+            'Welcome to Emara Analytics'
           </Typography>
           <Box style={{ marginBottom: "20px" }}></Box>
 

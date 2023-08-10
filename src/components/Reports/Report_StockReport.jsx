@@ -28,62 +28,51 @@ import { useForm } from "react-hook-form";
 
 const columns = [
   { field: "transactionNumber", headerName: "Transaction Number", width: 200 },
- 
-  { field: "dateofSubmission", headerName: "Date of Submission", width: 150 },
+  { field: "dateofSubmission", headerName: "Date of Submission", width: 180 },
+
   {
     field: "periodofdeclarationMonth",
     headerName: "Period Month",
-    width: 150,
+    width: 160,
   },
+
   {
     field: "periodofdeclarationYear",
     headerName: "Period Year",
-    width: 150,
+    width: 160,
   },
-  { field: "status", headerName: "Status", width: 200 },
+  { field: "status", headerName: "Status", width: 120 },
+  { field: "itemCode", headerName: "Item Code", width: 180 },
+  { field: "itemDescription", headerName: "Item Description", width: 250 },
 
-  { field: "purchaserTRN", headerName: "Purchaser TRN", width: 150 },
-  {
-    field: "originDesignatedZoneNumber",
-    headerName: "Origin Designated Zone Number",
-    width: 250,
-  },
-  {
-    field: "istheownershipofthegoodsbeingtransferred",
-    headerName: "Ownership Transfer",
-    width: 150,
-  },
-  {
-    field: "destinationDesignatedZoneNumber",
-    headerName: "Destination Designated Zone Number",
-    width: 250,
-  },
-  { field: "designatedPrice", headerName: "Designated Price", width: 150 },
-  { field: "itemCode", headerName: "Item Code", width: 150 },
-  { field: "itemDescription", headerName: "Item Description", width: 300 },
   {
     field: "productDescription",
     headerName: "Product Description",
     width: 300,
   },
-  { field: "quantity", headerName: "Quantity", width: 150 },
-  { field: "exciseTax", headerName: "Excise Tax", width: 150 },
 
-  { field: "trn", headerName: "TRN", width: 150 },
+  { field: "quantity", headerName: "Quantity", width: 120 },
+  { field: "designatedPrice", headerName: "Designated Price", width: 150 },
+  { field: "exciseTax", headerName: "Excise Tax", width: 150 },
   {
-    field: "eServicesReferenceNumber",
-    headerName: "eServices Reference Number",
+    field: "whatistheExcisedeclarationrelatedto",
+    headerName: "Excise Declaration Type",
     width: 250,
   },
+  { field: "trn", headerName: "TRN", width: 180 },
+  { field: "emirateArrivingto", headerName: "Emirate Arriving To", width: 200 },
+  { field: "portofEntry", headerName: "Port of Entry", width: 200 },
+  { field: "isDTSGoods", headerName: "Is DTS Goods", width: 150 },
 
+  {
+    field: "eServicesReferenceNumber",
+    headerName: "eServices Ref Number",
+    width: 200,
+  },
 
-  // { field: "checkDuplicates", headerName: "Check Duplicates", width: 200 },
-  // { field: "taxciseMovementID", headerName: "Taxcise Movement ID", width: 200 },
-  // { field: "modifiedTime", headerName: "Modified Time", width: 200 },
-  // { field: "modifiedUser", headerName: "Modified User", width: 150 },
-  // { field: "addedTime", headerName: "Added Time", width: 200 },
-  // { field: "addedUser", headerName: "Added User", width: 150 },
+  { field: "addedUser", headerName: "Added User", width: 180 },
 ];
+
 
 const NoDataCard = () => {
   return (
@@ -115,7 +104,7 @@ const NoDataCard = () => {
   );
 };
 
-const Form_EX202A_Transfer_Goods_DZ = () => {
+const Report_StockReport = () => {
   const { id } = useParams();
   const [rows, setRows] = useState([]); // Use state to store the data
   const { handleSubmit, reset } = useForm();
@@ -159,30 +148,25 @@ const Form_EX202A_Transfer_Goods_DZ = () => {
       }));
 
       setRows(updatedRows);
-      if (
-        response &&
-        response.status === 200 &&
-        response.data.data.length === 0
-      ) {
+      if (response && response.status === 200 && response.data.data.length === 0) {
         setErrorMessage("No Data found for given period");
         setSnackbarOpen(true);
       }
       setLoading(false);
-      if (response && response.status === 401) {
+      if (response && response.status === 401 ) {
         setErrorMessage("Please login again");
         setSnackbarOpen(true);
       }
     } catch (error) {
-      if (error.response && error.response.status === 401) {
+      if (error.response && error.response.status === 401 ) {
         setErrorMessage("Please login again");
         setSnackbarOpen(true);
         setRows([]);
-      } else {
-        setErrorMessage("Network or Session timeout error, Login again");
-        setSnackbarOpen(true);
+      } else{
+      setErrorMessage("Network or Session timeout error, Login again");
+      setSnackbarOpen(true);
 
-        setRows([]);
-      }
+      setRows([])}
     } finally {
       setLoading(false);
     }
@@ -194,7 +178,7 @@ const Form_EX202A_Transfer_Goods_DZ = () => {
       (selectedMonth && !selectedYear && transactionNumber) ||
       (!selectedMonth && selectedYear && !transactionNumber) ||
       (selectedMonth && !selectedYear && !transactionNumber) ||
-      (!selectedMonth && !selectedYear && !transactionNumber) ||
+      (!selectedMonth && !selectedYear && !transactionNumber)||
       (selectedMonth && selectedYear && transactionNumber)
     ) {
       setErrorMessage(
@@ -208,7 +192,7 @@ const Form_EX202A_Transfer_Goods_DZ = () => {
 
     const requestBody = {
       client_Name: displayName,
-      form_Type: "EX202A_Transfer_Goods_DZ",
+      form_Type: "EX201_Excise_Goods_Customs",
       skip: 0,
       offset: 50,
       trans_Num: transactionNumber || null,
@@ -254,7 +238,7 @@ const Form_EX202A_Transfer_Goods_DZ = () => {
         open={errorOpen}
         autoHideDuration={5000}
         onClose={() => setErrorOpen(false)}
-        style={{ marginTop: "140px", marginLeft: "350px" }}
+        style={{ marginTop: "140px", marginLeft:'350px' }}
       >
         <Alert
           severity="error"
@@ -278,7 +262,7 @@ const Form_EX202A_Transfer_Goods_DZ = () => {
       >
         <CardContent>
           <Box>
-            <Typography variant="h6">EX202A-Transfer Goods DZ</Typography>
+            <Typography variant="h6">EX201-Excise Goods Customs</Typography>
           </Box>
         </CardContent>
       </Card>
@@ -315,12 +299,12 @@ const Form_EX202A_Transfer_Goods_DZ = () => {
                   </Grid>
 
                   <Grid item>
-                    <Box sx={{ minWidth: 90 }}>
+                    <Box sx={{ minWidth: 120 }}>
                       <FormControl fullWidth>
                         <InputLabel
                           style={{ fontSize: "13px", fontWeight: "bold" }}
                         >
-                          Year
+                          Select Year
                         </InputLabel>
                         <Select
                           label="Select Year"
@@ -346,12 +330,12 @@ const Form_EX202A_Transfer_Goods_DZ = () => {
                   </Grid>
 
                   <Grid item>
-                    <Box sx={{ minWidth: 140 }}>
+                    <Box sx={{ minWidth: 150 }}>
                       <FormControl fullWidth>
                         <InputLabel
                           style={{ fontSize: "13px", fontWeight: "bold" }}
                         >
-                          Month
+                          Select Month
                         </InputLabel>
                         <Select
                           label="Select Month"
@@ -378,7 +362,7 @@ const Form_EX202A_Transfer_Goods_DZ = () => {
                     </Box>
                   </Grid>
                 </Grid>
-                <Box style={{ margin: "40px 15px 0px -140px" }}>
+                <Box style={{ margin: "40px 15px 0px -130px" }}>
                   <Grid Container>
                     <Grid item>
                       <Typography variant="subtitle1" component="p">
@@ -506,4 +490,4 @@ const Form_EX202A_Transfer_Goods_DZ = () => {
   );
 };
 
-export default Form_EX202A_Transfer_Goods_DZ;
+export default Report_StockReport;

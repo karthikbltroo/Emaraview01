@@ -28,12 +28,12 @@ import { useForm } from "react-hook-form";
 
 const columns = [
   { field: "transactionNumber", headerName: "Transaction Number", width: 200 },
-  { field: "eServicesReferenceNumber", headerName: "eServices Reference Number", width: 250 },
+
   { field: "dateofSubmission", headerName: "Date of Submission", width: 150 },
-  { field: "periodofdeclarationMonth", headerName: "Declaration Month", width: 150 },
-  { field: "periodofdeclarationYear", headerName: "Declaration Year", width: 150 },
+  { field: "periodofdeclarationMonth", headerName: "Period Month", width: 150 },
+  { field: "periodofdeclarationYear", headerName: "Period Year", width: 150 },
   { field: "status", headerName: "Status", width: 200 },
-  { field: "trn", headerName: "TRN", width: 150 },
+ 
   { field: "dateofProductionwithinDesignatedZone", headerName: "Date of Production within Designated Zone", width: 250 },
   { field: "destinationDesignatedZoneNumber", headerName: "Destination Designated Zone Number", width: 250 },
   { field: "retailSellingPrice", headerName: "Retail Selling Price", width: 200 },
@@ -43,12 +43,16 @@ const columns = [
   { field: "quantity", headerName: "Quantity", width: 150 },
   { field: "consumptionQuantity", headerName: "Consumption Quantity", width: 200 },
   { field: "exciseTax", headerName: "Excise Tax", width: 150 },
-  { field: "checkDuplicates", headerName: "Check Duplicates", width: 200 },
-  { field: "taxciseMovementID", headerName: "Taxcise Movement ID", width: 200 },
-  { field: "modifiedTime", headerName: "Modified Time", width: 200 },
-  { field: "modifiedUser", headerName: "Modified User", width: 150 },
-  { field: "addedTime", headerName: "Added Time", width: 200 },
-  { field: "addedUser", headerName: "Added User", width: 150 },
+  { field: "trn", headerName: "TRN", width: 150 },
+  { field: "eServicesReferenceNumber", headerName: "eServices Reference Number", width: 250 },
+
+
+  // { field: "checkDuplicates", headerName: "Check Duplicates", width: 200 },
+  // { field: "taxciseMovementID", headerName: "Taxcise Movement ID", width: 200 },
+  // { field: "modifiedTime", headerName: "Modified Time", width: 200 },
+  // { field: "modifiedUser", headerName: "Modified User", width: 150 },
+  // { field: "addedTime", headerName: "Added Time", width: 200 },
+  // { field: "addedUser", headerName: "Added User", width: 150 },
 ];
 
 
@@ -157,8 +161,8 @@ const Form_EX202A_Production_DZ = () => {
       (selectedMonth && !selectedYear && transactionNumber) ||
       (!selectedMonth && selectedYear && !transactionNumber) ||
       (selectedMonth && !selectedYear && !transactionNumber) ||
-      (!selectedMonth && !selectedYear && !transactionNumber)
-      // (selectedMonth && selectedYear && transactionNumber)
+      (!selectedMonth && !selectedYear && !transactionNumber) ||
+      (selectedMonth && selectedYear && transactionNumber)
     ) {
       setErrorMessage(
         "*Please select Month and Year or enter Transaction Number"
@@ -241,7 +245,7 @@ const Form_EX202A_Production_DZ = () => {
       >
         <CardContent>
           <Box>
-            <Typography variant="h6">Form_EX202A_Production_DZ</Typography>
+            <Typography variant="h6">EX202A-Production DZ</Typography>
           </Box>
         </CardContent>
       </Card>
@@ -278,12 +282,12 @@ const Form_EX202A_Production_DZ = () => {
                   </Grid>
 
                   <Grid item>
-                    <Box sx={{ minWidth: 120 }}>
+                    <Box sx={{ minWidth: 90 }}>
                       <FormControl fullWidth>
                         <InputLabel
                           style={{ fontSize: "13px", fontWeight: "bold" }}
                         >
-                          Select Year
+                          Year
                         </InputLabel>
                         <Select
                           label="Select Year"
@@ -309,12 +313,12 @@ const Form_EX202A_Production_DZ = () => {
                   </Grid>
 
                   <Grid item>
-                    <Box sx={{ minWidth: 150 }}>
+                    <Box sx={{ minWidth: 140 }}>
                       <FormControl fullWidth>
                         <InputLabel
                           style={{ fontSize: "13px", fontWeight: "bold" }}
                         >
-                          Select Month
+                          Month
                         </InputLabel>
                         <Select
                           label="Select Month"
@@ -341,7 +345,7 @@ const Form_EX202A_Production_DZ = () => {
                     </Box>
                   </Grid>
                 </Grid>
-                <Box style={{ margin: "40px 15px 0px -130px" }}>
+                <Box style={{ margin: "40px 15px 0px -140px" }}>
                   <Grid Container>
                     <Grid item>
                       <Typography variant="subtitle1" component="p">

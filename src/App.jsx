@@ -23,7 +23,7 @@ import Form_EX202A_Transfer_Goods_DZ from "./components/Forms/Form_EX202A_Transf
 import Form_EX203B_Lost_Damaged from "./components/Forms/Form_EX203B_Lost_Damaged";
 import Form_EX203C_Transfer_of_Ownership from "./components/Forms/Form_EX203C_Transfer_of_Ownership";
 import Form_EX203_Deductible from "./components/Forms/Form_EX203_Deductible";
-import ReportAA from "./components/Reports/ReportAA";
+import Report_StockReport from "./components/Reports/Report_StockReport";
 import ReportBB from "./components/Reports/ReportBB";
 import ReportCC from "./components/Reports/ReportCC";
 import api from "./utils/api";
@@ -66,7 +66,7 @@ const App = () => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/reports" element={<Reports />}>
               <Route index element={<h2>Please select a report.</h2>} />
-              <Route path="reportAA" element={<ReportAA />} />
+              <Route path="Report_StockReport" element={<Report_StockReport />} />
               <Route path="reportBB" element={<ReportBB />} />
               <Route path="reportCC" element={<ReportCC />} />
             </Route>

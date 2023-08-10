@@ -28,13 +28,13 @@ import { useForm } from "react-hook-form";
 
 const columns = [
   { field: "transactionNumber", headerName: "Transaction Number", width: 200 },
-  { field: "eServicesReferenceNumber", headerName: "eServices Reference Number", width: 250 },
+ 
   { field: "exciseTaxPeriodMonth", headerName: "Excise Tax Period Month", width: 200 },
   { field: "exciseTaxPeriodYear", headerName: "Excise Tax Period Year", width: 200 },
   { field: "approvedAmount", headerName: "Approved Amount", width: 150 },
   { field: "status", headerName: "Status", width: 150 },
   { field: "destructionCertificateStatus", headerName: "Destruction Certificate Status", width: 250 },
-  { field: "trn", headerName: "TRN", width: 150 },
+
   { field: "dateGoodsWereLostDeficiencyDiscoveredinDesignatedZone", headerName: "Date Goods Were Lost/Deficiency Discovered", width: 250 },
   { field: "whatisthetypeofitemsbeingdeclared", headerName: "Type of Items Being Declared", width: 250 },
   { field: "designatedZoneNumber", headerName: "Designated Zone Number", width: 200 },
@@ -48,16 +48,23 @@ const columns = [
   { field: "designatedPrice", headerName: "Designated Price", width: 150 },
   { field: "dateGoodsEnteredDesignatedZone", headerName: "Date Goods Entered Designated Zone", width: 250 },
   { field: "exciseTax", headerName: "Excise Tax", width: 150 },
-  { field: "checkDuplicates", headerName: "Check Duplicates", width: 200 },
-  { field: "taxciseMovementID", headerName: "Taxcise Movement ID", width: 200 },
+
+ 
   { field: "emirate", headerName: "Emirate", width: 150 },
   { field: "otherReasonforLossDeficiency", headerName: "Other Reason for Loss/Deficiency", width: 250 },
   { field: "externalFacility", headerName: "External Facility", width: 250 },
   { field: "otherPlacewheretheGoodswillbeDestroyed", headerName: "Other Place where the Goods Will be Destroyed", width: 250 },
-  { field: "modifiedTime", headerName: "Modified Time", width: 250 },
-  { field: "modifiedUser", headerName: "Modified User", width: 150 },
-  { field: "addedTime", headerName: "Added Time", width: 250 },
-  { field: "addedUser", headerName: "Added User", width: 150 },
+  { field: "trn", headerName: "TRN", width: 150 },
+  { field: "eServicesReferenceNumber", headerName: "eServices Reference Number", width: 250 },
+
+
+
+  // { field: "taxciseMovementID", headerName: "Taxcise Movement ID", width: 200 },
+  // { field: "checkDuplicates", headerName: "Check Duplicates", width: 200 },
+  // { field: "modifiedTime", headerName: "Modified Time", width: 250 },
+  // { field: "modifiedUser", headerName: "Modified User", width: 150 },
+  // { field: "addedTime", headerName: "Added Time", width: 250 },
+  // { field: "addedUser", headerName: "Added User", width: 150 },
 ];
 
 
@@ -170,8 +177,8 @@ const Form_EX203B_Lost_Damaged = () => {
       (selectedMonth && !selectedYear && transactionNumber) ||
       (!selectedMonth && selectedYear && !transactionNumber) ||
       (selectedMonth && !selectedYear && !transactionNumber) ||
-      (!selectedMonth && !selectedYear && !transactionNumber)
-      // (selectedMonth && selectedYear && transactionNumber)
+      (!selectedMonth && !selectedYear && !transactionNumber) ||
+      (selectedMonth && selectedYear && transactionNumber)
     ) {
       setErrorMessage(
         "*Please select Month and Year or enter Transaction Number"
@@ -254,7 +261,7 @@ const Form_EX203B_Lost_Damaged = () => {
       >
         <CardContent>
           <Box>
-            <Typography variant="h6">Form_EX203B_Lost_Damaged</Typography>
+            <Typography variant="h6">EX203B-Lost Damaged</Typography>
           </Box>
         </CardContent>
       </Card>
@@ -291,12 +298,12 @@ const Form_EX203B_Lost_Damaged = () => {
                   </Grid>
 
                   <Grid item>
-                    <Box sx={{ minWidth: 120 }}>
+                    <Box sx={{ minWidth: 90 }}>
                       <FormControl fullWidth>
                         <InputLabel
                           style={{ fontSize: "13px", fontWeight: "bold" }}
                         >
-                          Select Year
+                          Year
                         </InputLabel>
                         <Select
                           label="Select Year"
@@ -322,12 +329,12 @@ const Form_EX203B_Lost_Damaged = () => {
                   </Grid>
 
                   <Grid item>
-                    <Box sx={{ minWidth: 150 }}>
+                    <Box sx={{ minWidth: 140 }}>
                       <FormControl fullWidth>
                         <InputLabel
                           style={{ fontSize: "13px", fontWeight: "bold" }}
                         >
-                          Select Month
+                          Month
                         </InputLabel>
                         <Select
                           label="Select Month"
@@ -354,7 +361,7 @@ const Form_EX203B_Lost_Damaged = () => {
                     </Box>
                   </Grid>
                 </Grid>
-                <Box style={{ margin: "40px 15px 0px -130px" }}>
+                <Box style={{ margin: "40px 15px 0px -140px" }}>
                   <Grid Container>
                     <Grid item>
                       <Typography variant="subtitle1" component="p">

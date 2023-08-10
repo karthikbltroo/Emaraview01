@@ -88,7 +88,7 @@ const Navbar = () => {
               <CatchingPokemonIcon />
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Emara View
+              Emara Analytics
             </Typography>
             <Stack direction="row" spacing={4}>
               <StyledButton
@@ -132,8 +132,8 @@ const Navbar = () => {
                     <Paper>
                       <ClickAwayListener onClickAway={handleCloseReports}>
                         <List autoFocusItem={isReportsOpen} id="reports-list">
-                          <ListItem button component={NavLink} to="/reports/reportAA">
-                            <ListItemText primary="Report AA" />
+                          <ListItem button component={NavLink} to="/reports/Report_StockReport">
+                            <ListItemText primary="Stock Report" />
                           </ListItem>
                           <ListItem button component={NavLink} to="/reports/reportBB">
                             <ListItemText primary="Report BB" />
@@ -180,34 +180,34 @@ const Navbar = () => {
                       <ClickAwayListener onClickAway={handleCloseForms}>
                         <List autoFocusItem={isFormsOpen} id="forms-list">
                           <ListItem button component={NavLink} to="/forms/Form_EX201_Excise_Goods_Customs">
-                            <ListItemText primary="Form_EX201_Excise_Goods_Customs" />
+                            <ListItemText primary="EX201-Excise Goods Customs" />
                           </ListItem>
                           <ListItem button component={NavLink} to="/forms/Form_EX202A_Export_Goods_DZ">
-                            <ListItemText primary="Form_EX202A_Export_Goods_DZ" />
+                            <ListItemText primary="EX202A-Export Goods DZ" />
                           </ListItem>
                           <ListItem button component={NavLink} to="/forms/Form_EX202A_Import_DZ">
-                            <ListItemText primary="Form_EX202A_Import_DZ" />
+                            <ListItemText primary="EX202A-Import DZ" />
                           </ListItem>
                           <ListItem button component={NavLink} to="/forms/Form_EX202A_Enter_Goods_DZ">
-                            <ListItemText primary="Form_EX202A_Enter_Goods_DZ" />
+                            <ListItemText primary="EX202A-Enter Goods DZ" />
                           </ListItem>
                           <ListItem button component={NavLink} to="/forms/Form_EX202A_Production_DZ">
-                            <ListItemText primary="Form_EX202A_Production_DZ" />
+                            <ListItemText primary="EX202A-Production DZ" />
                           </ListItem>
                           <ListItem button component={NavLink} to="/forms/Form_EX202A_Release_Goods_DZ">
-                            <ListItemText primary="Form_EX202A_Release_Goods_DZ" />
+                            <ListItemText primary="EX202A-Release Goods DZ" />
                           </ListItem>
                           <ListItem button component={NavLink} to="/forms/Form_EX202A_Transfer_Goods_DZ">
-                            <ListItemText primary="Form_EX202A_Transfer_Goods_DZ" />
+                            <ListItemText primary="EX202A-Transfer Goods DZ" />
                           </ListItem>
                           <ListItem button component={NavLink} to="/forms/Form_EX203B_Lost_Damaged">
-                            <ListItemText primary="Form_EX203B_Lost_Damaged" />
+                            <ListItemText primary="EX203B-Lost Damaged" />
                           </ListItem>
                           <ListItem button component={NavLink} to="/forms/Form_EX203C_Transfer_of_Ownership">
-                            <ListItemText primary="Form_EX203C_Transfer_of_Ownership" />
+                            <ListItemText primary="EX203C-Transfer of Ownership" />
                           </ListItem>
                           <ListItem button component={NavLink} to="/forms/Form_EX203_Deductible">
-                            <ListItemText primary="Form_EX203_Deductible" />
+                            <ListItemText primary="EX203-Deductible" />
                           </ListItem>
                         </List>
                       </ClickAwayListener>

@@ -28,24 +28,20 @@ import { useForm } from "react-hook-form";
 
 const columns = [
   { field: "transactionNumber", headerName: "Transaction Number", width: 200 },
-  {
-    field: "eServicesReferenceNumber",
-    headerName: "eServices Reference Number",
-    width: 250,
-  },
+  
   { field: "dateofSubmission", headerName: "Date of Submission", width: 180 },
   {
     field: "periodofdeclarationMonth",
-    headerName: "Period of Declaration Month",
+    headerName: "Period Month",
     width: 200,
   },
   {
     field: "periodofdeclarationYear",
-    headerName: "Period of Declaration Year",
+    headerName: "Period Year",
     width: 200,
   },
   { field: "status", headerName: "Status", width: 200 },
-  { field: "trn", headerName: "TRN", width: 180 },
+
 
   { field: "dateofExport", headerName: "Date of Export", width: 180 },
 
@@ -69,12 +65,19 @@ const columns = [
   { field: "designatedPrice", headerName: "Designated Price", width: 180 },
 
   { field: "exciseTax", headerName: "Excise Tax", width: 150 },
-  { field: "checkDuplicates", headerName: "Check Duplicates", width: 220 },
-  { field: "taxciseMovementID", headerName: "Taxcise Movement ID", width: 220 },
-  { field: "modifiedTime", headerName: "Modified Time", width: 200 },
-  { field: "modifiedUser", headerName: "Modified User", width: 180 },
-  { field: "addedTime", headerName: "Added Time", width: 200 },
-  { field: "addedUser", headerName: "Added User", width: 180 },
+  { field: "trn", headerName: "TRN", width: 180 },
+  {
+    field: "eServicesReferenceNumber",
+    headerName: "eServices Reference Number",
+    width: 250,
+  },
+  // { field: "checkDuplicates", headerName: "Check Duplicates", width: 220 },
+  // { field: "taxciseMovementID", headerName: "Taxcise Movement ID", width: 220 },
+  // { field: "modifiedTime", headerName: "Modified Time", width: 200 },
+  // { field: "modifiedUser", headerName: "Modified User", width: 180 },
+  // { field: "addedTime", headerName: "Added Time", width: 200 },
+  // { field: "addedUser", headerName: "Added User", width: 180 },
+  
 ];
 
 
@@ -182,8 +185,8 @@ const Form_EX202A_Export_Goods_DZ = () => {
       (selectedMonth && !selectedYear && transactionNumber) ||
       (!selectedMonth && selectedYear && !transactionNumber) ||
       (selectedMonth && !selectedYear && !transactionNumber) ||
-      (!selectedMonth && !selectedYear && !transactionNumber)
-      // (selectedMonth && selectedYear && transactionNumber)
+      (!selectedMonth && !selectedYear && !transactionNumber) ||
+      (selectedMonth && selectedYear && transactionNumber)
     ) {
       setErrorMessage(
         "*Please select Month and Year or enter Transaction Number"
@@ -266,7 +269,7 @@ const Form_EX202A_Export_Goods_DZ = () => {
       >
         <CardContent>
           <Box>
-            <Typography variant="h6">Form_EX202A_Export_Goods_DZ</Typography>
+            <Typography variant="h6">EX202A-Export Goods DZ</Typography>
           </Box>
         </CardContent>
       </Card>
@@ -303,12 +306,12 @@ const Form_EX202A_Export_Goods_DZ = () => {
                   </Grid>
 
                   <Grid item>
-                    <Box sx={{ minWidth: 120 }}>
+                    <Box sx={{ minWidth: 90 }}>
                       <FormControl fullWidth>
                         <InputLabel
                           style={{ fontSize: "13px", fontWeight: "bold" }}
                         >
-                          Select Year
+                          Year
                         </InputLabel>
                         <Select
                           label="Select Year"
@@ -334,12 +337,12 @@ const Form_EX202A_Export_Goods_DZ = () => {
                   </Grid>
 
                   <Grid item>
-                    <Box sx={{ minWidth: 150 }}>
+                    <Box sx={{ minWidth: 140 }}>
                       <FormControl fullWidth>
                         <InputLabel
                           style={{ fontSize: "13px", fontWeight: "bold" }}
                         >
-                          Select Month
+                          Month
                         </InputLabel>
                         <Select
                           label="Select Month"
@@ -366,7 +369,7 @@ const Form_EX202A_Export_Goods_DZ = () => {
                     </Box>
                   </Grid>
                 </Grid>
-                <Box style={{ margin: "40px 15px 0px -130px" }}>
+                <Box style={{ margin: "40px 15px 0px -140px" }}>
                   <Grid Container>
                     <Grid item>
                       <Typography variant="subtitle1" component="p">

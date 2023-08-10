@@ -28,10 +28,10 @@ import { useForm } from "react-hook-form";
 
 const columns = [
   { field: "transactionNumber", headerName: "Transaction Number", width: 200 },
-  { field: "eServicesReferenceNumber", headerName: "eServices Reference Number", width: 250 },
+
   { field: "status", headerName: "Status", width: 150 },
   { field: "purchaserTRN", headerName: "Purchaser TRN", width: 150 },
-  { field: "trn", headerName: "TRN", width: 150 },
+ 
   { field: "uploadSupportingEvidence", headerName: "Upload Supporting Evidence", width: 250 },
   { field: "dateofSale", headerName: "Date of Sale", width: 200 },
   { field: "designatedZoneNumber", headerName: "Designated Zone Number", width: 200 },
@@ -42,12 +42,16 @@ const columns = [
   { field: "quantity", headerName: "Quantity", width: 150 },
   { field: "designatedPrice", headerName: "Designated Price", width: 150 },
   { field: "exciseTaxDueonReleaseorConsumption", headerName: "Excise Tax Due on Release/Consumption", width: 250 },
-  { field: "checkDuplicates", headerName: "Check Duplicates", width: 200 },
-  { field: "taxciseMovementID", headerName: "Taxcise Movement ID", width: 200 },
-  { field: "modifiedTime", headerName: "Modified Time", width: 250 },
-  { field: "modifiedUser", headerName: "Modified User", width: 150 },
-  { field: "addedTime", headerName: "Added Time", width: 250 },
-  { field: "addedUser", headerName: "Added User", width: 150 },
+  { field: "trn", headerName: "TRN", width: 150 },
+  { field: "eServicesReferenceNumber", headerName: "eServices Reference Number", width: 250 },
+
+
+  // { field: "checkDuplicates", headerName: "Check Duplicates", width: 200 },
+  // { field: "taxciseMovementID", headerName: "Taxcise Movement ID", width: 200 },
+  // { field: "modifiedTime", headerName: "Modified Time", width: 250 },
+  // { field: "modifiedUser", headerName: "Modified User", width: 150 },
+  // { field: "addedTime", headerName: "Added Time", width: 250 },
+  // { field: "addedUser", headerName: "Added User", width: 150 },
 ];
 
 
@@ -161,8 +165,8 @@ const Form_EX203C_Transfer_of_Ownership = () => {
       (selectedMonth && !selectedYear && transactionNumber) ||
       (!selectedMonth && selectedYear && !transactionNumber) ||
       (selectedMonth && !selectedYear && !transactionNumber) ||
-      (!selectedMonth && !selectedYear && !transactionNumber)
-      // (selectedMonth && selectedYear && transactionNumber)
+      (!selectedMonth && !selectedYear && !transactionNumber) ||
+      (selectedMonth && selectedYear && transactionNumber)
     ) {
       setErrorMessage(
         "*Please select Month and Year or enter Transaction Number"
@@ -245,7 +249,7 @@ const Form_EX203C_Transfer_of_Ownership = () => {
       >
         <CardContent>
           <Box>
-            <Typography variant="h6">Form_EX203C_Transfer_of_Ownership</Typography>
+            <Typography variant="h6">EX203C-Transfer of Ownership</Typography>
           </Box>
         </CardContent>
       </Card>
@@ -282,12 +286,12 @@ const Form_EX203C_Transfer_of_Ownership = () => {
                   </Grid>
 
                   <Grid item>
-                    <Box sx={{ minWidth: 120 }}>
+                    <Box sx={{ minWidth: 90 }}>
                       <FormControl fullWidth>
                         <InputLabel
                           style={{ fontSize: "13px", fontWeight: "bold" }}
                         >
-                          Select Year
+                          Year
                         </InputLabel>
                         <Select
                           label="Select Year"
@@ -313,12 +317,12 @@ const Form_EX203C_Transfer_of_Ownership = () => {
                   </Grid>
 
                   <Grid item>
-                    <Box sx={{ minWidth: 150 }}>
+                    <Box sx={{ minWidth: 140 }}>
                       <FormControl fullWidth>
                         <InputLabel
                           style={{ fontSize: "13px", fontWeight: "bold" }}
                         >
-                          Select Month
+                          Month
                         </InputLabel>
                         <Select
                           label="Select Month"
@@ -345,7 +349,7 @@ const Form_EX203C_Transfer_of_Ownership = () => {
                     </Box>
                   </Grid>
                 </Grid>
-                <Box style={{ margin: "40px 15px 0px -130px" }}>
+                <Box style={{ margin: "40px 15px 0px -140px" }}>
                   <Grid Container>
                     <Grid item>
                       <Typography variant="subtitle1" component="p">

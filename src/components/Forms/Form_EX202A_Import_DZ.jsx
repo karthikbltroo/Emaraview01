@@ -28,32 +28,58 @@ import { useForm } from "react-hook-form";
 
 const columns = [
   { field: "transactionNumber", headerName: "Transaction Number", width: 200 },
-  { field: "eServicesReferenceNumber", headerName: "eServices Reference Number", width: 250 },
+  
   { field: "dateofSubmission", headerName: "Date of Submission", width: 150 },
-  { field: "designatedZoneNumber", headerName: "Designated Zone Number", width: 200 },
-  { field: "periodofdeclarationMonth", headerName: "Declaration Month", width: 150 },
-  { field: "periodofdeclarationYear", headerName: "Declaration Year", width: 150 },
+  {
+    field: "designatedZoneNumber",
+    headerName: "Designated Zone Number",
+    width: 200,
+  },
+  { field: "periodofdeclarationMonth", headerName: "Period Month", width: 150 },
+  { field: "periodofdeclarationYear", headerName: "Period Year", width: 150 },
   { field: "status", headerName: "Status", width: 200 },
   { field: "portofEntry", headerName: "Port of Entry", width: 200 },
   { field: "dateofImport", headerName: "Date of Import", width: 150 },
-  { field: "whatIstheExciseDeclarationRelatedTo", headerName: "Excise Declaration Type", width: 200 },
-  { field: "importofDTSGoodsforConsumptionintheUAE", headerName: "Import of DTS Goods for Consumption", width: 250 },
+  {
+    field: "whatIstheExciseDeclarationRelatedTo",
+    headerName: "Excise Declaration Type",
+    width: 200,
+  },
+  {
+    field: "importofDTSGoodsforConsumptionintheUAE",
+    headerName: "Import of DTS Goods for Consumption",
+    width: 250,
+  },
   { field: "shipmentID", headerName: "Shipment ID", width: 150 },
   { field: "itemCode", headerName: "Item Code", width: 150 },
   { field: "itemDescription", headerName: "Item Description", width: 300 },
-  { field: "productDescription", headerName: "Product Description", width: 300 },
-  { field: "quantityBeingEnteredIntoDesignatedZone", headerName: "Quantity Entered Into Designated Zone", width: 250 },
+  {
+    field: "productDescription",
+    headerName: "Product Description",
+    width: 300,
+  },
+  {
+    field: "quantityBeingEnteredIntoDesignatedZone",
+    headerName: "Quantity Entered Into Designated Zone",
+    width: 250,
+  },
   { field: "designatedPrice", headerName: "Designated Price", width: 150 },
   { field: "exciseTax", headerName: "Excise Tax", width: 150 },
-  { field: "checkDuplicates", headerName: "Check Duplicates", width: 200 },
-  { field: "taxciseMovementID", headerName: "Taxcise Movement ID", width: 200 },
   { field: "trn", headerName: "TRN", width: 150 },
-  { field: "modifiedTime", headerName: "Modified Time", width: 200 },
-  { field: "modifiedUser", headerName: "Modified User", width: 150 },
-  { field: "addedTime", headerName: "Added Time", width: 200 },
-  { field: "addedUser", headerName: "Added User", width: 150 },
-];
+  {
+    field: "eServicesReferenceNumber",
+    headerName: "eServices Reference Number",
+    width: 250,
+  },
+  // { field: "checkDuplicates", headerName: "Check Duplicates", width: 200 },
 
+  // { field: "taxciseMovementID", headerName: "Taxcise Movement ID", width: 200 },
+
+  // { field: "modifiedTime", headerName: "Modified Time", width: 200 },
+  // { field: "modifiedUser", headerName: "Modified User", width: 150 },
+  // { field: "addedTime", headerName: "Added Time", width: 200 },
+  // { field: "addedUser", headerName: "Added User", width: 150 },
+];
 
 const NoDataCard = () => {
   return (
@@ -129,25 +155,30 @@ const Form_EX202A_Import_DZ = () => {
       }));
 
       setRows(updatedRows);
-      if (response && response.status === 200 && response.data.data.length === 0) {
+      if (
+        response &&
+        response.status === 200 &&
+        response.data.data.length === 0
+      ) {
         setErrorMessage("No Data found for given period");
         setSnackbarOpen(true);
       }
       setLoading(false);
-      if (response && response.status === 401 ) {
+      if (response && response.status === 401) {
         setErrorMessage("Please login again");
         setSnackbarOpen(true);
       }
     } catch (error) {
-      if (error.response && error.response.status === 401 ) {
+      if (error.response && error.response.status === 401) {
         setErrorMessage("Please login again");
         setSnackbarOpen(true);
         setRows([]);
-      } else{
-      setErrorMessage("Network or Session timeout error, Login again");
-      setSnackbarOpen(true);
+      } else {
+        setErrorMessage("Network or Session timeout error, Login again");
+        setSnackbarOpen(true);
 
-      setRows([])}
+        setRows([]);
+      }
     } finally {
       setLoading(false);
     }
@@ -159,8 +190,8 @@ const Form_EX202A_Import_DZ = () => {
       (selectedMonth && !selectedYear && transactionNumber) ||
       (!selectedMonth && selectedYear && !transactionNumber) ||
       (selectedMonth && !selectedYear && !transactionNumber) ||
-      (!selectedMonth && !selectedYear && !transactionNumber)
-      // (selectedMonth && selectedYear && transactionNumber)
+      (!selectedMonth && !selectedYear && !transactionNumber) ||
+      (selectedMonth && selectedYear && transactionNumber)
     ) {
       setErrorMessage(
         "*Please select Month and Year or enter Transaction Number"
@@ -219,7 +250,7 @@ const Form_EX202A_Import_DZ = () => {
         open={errorOpen}
         autoHideDuration={5000}
         onClose={() => setErrorOpen(false)}
-        style={{ marginTop: "140px", marginLeft:'350px' }}
+        style={{ marginTop: "140px", marginLeft: "350px" }}
       >
         <Alert
           severity="error"
@@ -243,7 +274,7 @@ const Form_EX202A_Import_DZ = () => {
       >
         <CardContent>
           <Box>
-            <Typography variant="h6">Form_EX202A_Import_DZ</Typography>
+            <Typography variant="h6">EX202A-Import DZ</Typography>
           </Box>
         </CardContent>
       </Card>
@@ -280,12 +311,12 @@ const Form_EX202A_Import_DZ = () => {
                   </Grid>
 
                   <Grid item>
-                    <Box sx={{ minWidth: 120 }}>
+                    <Box sx={{ minWidth: 90 }}>
                       <FormControl fullWidth>
                         <InputLabel
                           style={{ fontSize: "13px", fontWeight: "bold" }}
                         >
-                          Select Year
+                          Year
                         </InputLabel>
                         <Select
                           label="Select Year"
@@ -311,12 +342,12 @@ const Form_EX202A_Import_DZ = () => {
                   </Grid>
 
                   <Grid item>
-                    <Box sx={{ minWidth: 150 }}>
+                    <Box sx={{ minWidth: 140 }}>
                       <FormControl fullWidth>
                         <InputLabel
                           style={{ fontSize: "13px", fontWeight: "bold" }}
                         >
-                          Select Month
+                          Month
                         </InputLabel>
                         <Select
                           label="Select Month"
@@ -343,7 +374,7 @@ const Form_EX202A_Import_DZ = () => {
                     </Box>
                   </Grid>
                 </Grid>
-                <Box style={{ margin: "40px 15px 0px -130px" }}>
+                <Box style={{ margin: "40px 15px 0px -140px" }}>
                   <Grid Container>
                     <Grid item>
                       <Typography variant="subtitle1" component="p">
