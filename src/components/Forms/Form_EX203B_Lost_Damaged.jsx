@@ -388,6 +388,7 @@ const Form_EX203B_Lost_Damaged = () => {
                   <Grid item style={{ marginTop: "15px" }}>
                     <TextField
                       name="transactionNumber"
+                      type="number"
                       variant="outlined"
                       label="Transaction Number"
                       value={transactionNumber}

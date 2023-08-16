@@ -383,6 +383,7 @@ const Form_EX203_Deductible = () => {
                   <Grid item style={{ marginTop: "15px" }}>
                     <TextField
                       name="transactionNumber"
+                      type="number"
                       variant="outlined"
                       label="Transaction Number"
                       value={transactionNumber}

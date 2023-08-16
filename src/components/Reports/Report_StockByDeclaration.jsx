@@ -28,14 +28,26 @@
 
 // const columns = [
 //   { field: "id", headerName: "ID", width: 100 },
-//   { field: "orgID", headerName: "Org ID", width: 100 },
+//   { field: "orgId", headerName: "Org ID", width: 100 },
 //   { field: "ownerTRN", headerName: "Owner TRN", width: 180 },
 //   { field: "itemCode", headerName: "Item Code", width: 180 },
-//   { field: "itemDescription", headerName: "Item Description", width: 250 },
 //   { field: "dzNumber", headerName: "Dz Number", width: 150 },
-//   { field: "currentStock", headerName: "Current Stock", width: 150 },
-//   { field: "pendingStock", headerName: "Pending Stock", width: 150 },
-//   { field: "totalStock", headerName: "Total Stock", width: 150 },
+//   { field: "transactionNumber", headerName: "Transaction Number", width: 180 },
+//   {
+//     field: "periodofdeclarationMonth",
+//     headerName: "Declaration Month",
+//     width: 150,
+//   },
+//   {
+//     field: "periodofdeclarationYear",
+//     headerName: "Declaration Year",
+//     width: 150,
+//   },
+//   { field: "status", headerName: "Status", width: 150 },
+//   { field: "quantity", headerName: "Quantity", width: 150 },
+//   { field: "declarationDate", headerName: "Declaration Date", width: 180 },
+//   { field: "declarationType", headerName: "Declaration Type", width: 180 },
+//   { field: "runningBalance", headerName: "Running Balance", width: 150 },
 // ];
 
 // const NoDataCard = () => {
@@ -68,12 +80,13 @@
 //   );
 // };
 
-// const Report_StockReport = () => {
+// const Report_StockByDeclaration = () => {
 //   const { id } = useParams();
 //   const [rows, setRows] = useState([]); // Use state to store the data
 //   const { handleSubmit, reset } = useForm();
 //   const [selectedMonth, setSelectedMonth] = useState("");
 //   const [selectedYear, setSelectedYear] = useState("");
+//   const [declarationType, setDeclarationType] = useState("");
 //   const [transactionNumber, setTransactionNumber] = useState("");
 //   const [loading, setLoading] = useState(false);
 //   const [errorOpen, setErrorOpen] = useState(false);
@@ -86,6 +99,7 @@
 //   const [currentStock, setCurrentStock] = useState("");
 //   const [pendingStock, setPendingStock] = useState("");
 //   const [totalStock, setTotalStock] = useState("");
+//   const [quantity, setQuantity] = useState("");
 
 //   const handleChangeItemCode = (event) => {
 //     setItemCode(event.target.value);
@@ -119,17 +133,35 @@
 //     setSnackbarOpen(false);
 //   };
 
+//   const handleChangeTransactionNumber = (event) => {
+//     setTransactionNumber(event.target.value);
+//   };
+
+//   const handleChangeQuantity = (event) => {
+//     setQuantity(event.target.value);
+//   };
+
+//   const handleChangeMonth = (event) => {
+//     setSelectedMonth(event.target.value);
+//   };
+
+//   const handleChangeDeclarationType = (event) => {
+//     setDeclarationType(event.target.value);
+//   };
+
+//   const handleChangeYear = (event) => {
+//     setSelectedYear(event.target.value);
+//   };
+
 //   // const {displayName } = useAuth();
 //   // console.log(displayName)
 //   let displayName = sessionStorage.getItem("displayName");
 //   console.log("name is", displayName);
 
-
-
 //   const fetchData = async (requestData) => {
 //     try {
 //       setLoading(true);
-//       const response = await api.post("/StockReport", requestData);
+//       const response = await api.post("/StockByDeclaration", requestData);
 //       console.log(response.data);
 
 //       const updatedRows = response?.data?.map((row) => ({
@@ -163,108 +195,33 @@
 //     }
 //   };
 
-//   const defaultRequestData = {
-//     client_Name: displayName,
-//     itemCode: null,
-//     skip: 0,
-//     offset: 50,
-//     dzNumber: null,
-//     itemDescription: null,
-//     ownerTRN: null,
-//     currentStock: {
-//       dropdownValue: null,
-//       inputValue: null,
-//     },
-//     pendingStock: {
-//       dropdownValue: null,
-//       inputValue: null,
-//     },
-//     totalStock: {
-//       dropdownValue: null,
-//       inputValue: null,
-//     },
-//   };
-
-
-  
-
-//   useEffect(() => {
-//     // Fetch data only when component mounts
-//     fetchData({
-//       client_Name: displayName,
-//       itemCode:  null,
-//       skip: 0,
-//       offset: 50,
-//       dzNumber:  null,
-//       itemDescription:  null,
-//       ownerTRN:  null,
-//       currentStock: {
-//         dropdownValue: null,
-//         inputValue:  null,
-//       },
-//       pendingStock: {
-//         dropdownValue: null,
-//         inputValue:  null,
-//       },
-//       totalStock: {
-//         dropdownValue: null,
-//         inputValue:  null,
-//       },
-//     });
-//   }, []);
-
 //   const handleFormSubmit = () => {
-//     // if (
-//     //   (!selectedMonth && selectedYear && transactionNumber) ||
-//     //   (selectedMonth && !selectedYear && transactionNumber) ||
-//     //   (!selectedMonth && selectedYear && !transactionNumber) ||
-//     //   (selectedMonth && !selectedYear && !transactionNumber) ||
-//     //   (!selectedMonth && !selectedYear && !transactionNumber)||
-//     //   (selectedMonth && selectedYear && transactionNumber)
-//     // ) {
-//     //   setErrorMessage(
-//     //     "*Please select Month and Year or enter Transaction Number"
-//     //   );
-//     //   setErrorOpen(true);
-//     //   return;
-//     // }
-
 //     setErrorOpen(false);
 
 //     const requestBody = {
 //       client_Name: displayName,
-//       itemCode: itemCode || null,
 //       skip: 0,
 //       offset: 50,
+//       itemCode: itemCode || null,
 //       dzNumber: dzNumber || null,
-//       itemDescription: itemDescription || null,
+//       transactionNumber: transactionNumber || null,
+//       periodOfDeclarationMonth: selectedMonth || null,
+//       periodOfDeclarationYear: selectedYear || null,
 //       ownerTRN: ownerTRN || null,
-//       currentStock: {
-//         dropdownValue: null,
-//         inputValue: currentStock || null,
-//       },
-//       pendingStock: {
-//         dropdownValue: null,
-//         inputValue: pendingStock || null,
-//       },
-//       totalStock: {
-//         dropdownValue: null,
-//         inputValue: totalStock || null,
-//       },
+//       status: null,
+//       quantity: quantity || null,
+//       declarationDate: null,
+//       declarationType: declarationType || null,
 //     };
 
 //     fetchData(requestBody);
 //   };
 
 //   const handleReset = () => {
-//     fetchData(defaultRequestData);
 //     setItemCode("");
 //     setItemDescription("");
 //     setDzNumber("");
 //     setOwnerTRN("");
-//     setCurrentStock("");
-//     setPendingStock("");
-//     setTotalStock("");
 //     setRows([]);
 //     setErrorOpen(false);
 //     reset();
@@ -320,7 +277,7 @@
 //       >
 //         <CardContent>
 //           <Box>
-//             <Typography variant="h6">Stock Reports</Typography>
+//             <Typography variant="h6">Stock By Declaration Reports</Typography>
 //           </Box>
 //         </CardContent>
 //       </Card>
@@ -334,7 +291,7 @@
 //           display: "flex",
 //           // justifyContent: "center",
 //           // alignItems: "center",
-//           height: "110px",
+//           height: "200px",
 //         }}
 //       >
 //         <CardContent>
@@ -397,43 +354,6 @@
 
 //                   <Grid item style={{ marginTop: "2px" }}>
 //                     <TextField
-//                       name="itemDescription"
-//                       variant="outlined"
-//                       label="Item Description"
-//                       value={itemDescription}
-//                       onChange={handleChangeItemDescription}
-//                       InputLabelProps={{
-//                         style: { fontSize: "12px", fontWeight: "bold" }, // Set the font size of the label
-//                       }}
-//                       // InputProps={{style: {  height: 45, backgroundColor: '#fff' }}}
-//                       // sx={{'.MuiFormLabel-root[data-shrink=true]': { top: -8} }}
-//                       sx={{
-//                         // '& label.Mui-focused': {
-//                         //   color: 'black', // Set the color of the label when focused
-//                         // },
-//                         "& .MuiOutlinedInput-root": {
-//                           "& fieldset": {
-//                             borderColor: "gray", // Set the border color
-//                           },
-//                           // '&:hover fieldset': {
-//                           //   borderColor: 'gray', // Set the border color on hover
-//                           // },
-//                           // '&.Mui-focused fieldset': {
-//                           //   borderColor: 'black', // Set the border color when focused
-//                           // },
-//                         },
-//                         "& .MuiInputBase-input": {
-//                           height: "11px", // Adjust the height of the input area
-//                           width: "160px",
-//                         },
-//                         "& .MuiInputLabel-root": {
-//                           lineHeight: "15px", // Adjust the line height to vertically center the label
-//                         },
-//                       }}
-//                     />
-//                   </Grid>
-//                   <Grid item style={{ marginTop: "2px" }}>
-//                     <TextField
 //                       name="dzNumber"
 //                       variant="outlined"
 //                       label="Dz Number"
@@ -472,17 +392,15 @@
 
 //                   <Grid item style={{ marginTop: "2px" }}>
 //                     <TextField
-//                       name="ownerTRN"
+//                       name="transactionNumber"
 //                       type="number"
 //                       variant="outlined"
-//                       label="Owner TRN"
-//                       value={ownerTRN}
-//                       onChange={handleChangeOwnerTRN}
+//                       label="Transaction Number"
+//                       value={transactionNumber}
+//                       onChange={handleChangeTransactionNumber}
 //                       InputLabelProps={{
-//                         style: { fontSize: "12px", fontWeight: "bold" }, // Set the font size of the label
+//                         style: { fontSize: "12px", fontWeight: "bold" },
 //                       }}
-//                       // InputProps={{style: {  height: 45, backgroundColor: '#fff' }}}
-//                       // sx={{'.MuiFormLabel-root[data-shrink=true]': { top: -8} }}
 //                       sx={{
 //                         // '& label.Mui-focused': {
 //                         //   color: 'black', // Set the color of the label when focused
@@ -502,33 +420,230 @@
 //                           height: "11px", // Adjust the height of the input area
 //                           width: "160px",
 //                         },
-//                         "& .Mucurrent stockiInputLabel-root": {
+//                         "& .MuiInputLabel-root": {
 //                           lineHeight: "15px", // Adjust the line height to vertically center the label
 //                         },
 //                       }}
 //                     />
 //                   </Grid>
 
-                  
+//                   <Grid item style={{ marginTop: "2px" }}>
+//                     <TextField
+//                       name="ownerTRN"
+//                       type="number"
+//                       variant="outlined"
+//                       label="Owner TRN"
+//                       value={ownerTRN}
+//                       onChange={handleChangeOwnerTRN}
+//                       InputLabelProps={{
+//                         style: { fontSize: "12px", fontWeight: "bold" },
+//                       }}
+//                       sx={{
+//                         // '& label.Mui-focused': {
+//                         //   color: 'black', // Set the color of the label when focused
+//                         // },
+//                         "& .MuiOutlinedInput-root": {
+//                           "& fieldset": {
+//                             borderColor: "gray", // Set the border color
+//                           },
+//                           // '&:hover fieldset': {
+//                           //   borderColor: 'gray', // Set the border color on hover
+//                           // },
+//                           // '&.Mui-focused fieldset': {
+//                           //   borderColor: 'black', // Set the border color when focused
+//                           // },
+//                         },
+//                         "& .MuiInputBase-input": {
+//                           height: "11px", // Adjust the height of the input area
+//                           width: "160px",
+//                         },
+//                         "& .MuiInputLabel-root": {
+//                           lineHeight: "15px", // Adjust the line height to vertically center the label
+//                         },
+//                       }}
+//                     />
+//                   </Grid>
+
+//                   <Grid item style={{ marginTop: "5px" }}>
+//                     <TextField
+//                       name="quantity"
+//                       type="number"
+//                       variant="outlined"
+//                       label="Quantity"
+//                       value={quantity}
+//                       onChange={handleChangeQuantity}
+//                       InputLabelProps={{
+//                         style: { fontSize: "12px", fontWeight: "bold" },
+//                       }}
+//                       sx={{
+//                         // '& label.Mui-focused': {
+//                         //   color: 'black', // Set the color of the label when focused
+//                         // },
+//                         "& .MuiOutlinedInput-root": {
+//                           "& fieldset": {
+//                             borderColor: "gray", // Set the border color
+//                           },
+//                           // '&:hover fieldset': {
+//                           //   borderColor: 'gray', // Set the border color on hover
+//                           // },
+//                           // '&.Mui-focused fieldset': {
+//                           //   borderColor: 'black', // Set the border color when focused
+//                           // },
+//                         },
+//                         "& .MuiInputBase-input": {
+//                           height: "11px", // Adjust the height of the input area
+//                           width: "160px",
+//                         },
+//                         "& .MuiInputLabel-root": {
+//                           lineHeight: "15px", // Adjust the line height to vertically center the label
+//                         },
+//                       }}
+//                     />
+//                   </Grid>
+
+//                   <Grid item style={{ marginTop: "5px" }}>
+//                     <Box sx={{ minWidth: 120 }}>
+//                       <FormControl fullWidth>
+//                         <InputLabel
+//                           style={{ fontSize: "13px", fontWeight: "bold" }}
+//                         >
+//                           Year
+//                         </InputLabel>
+//                         <Select
+//                           label="Select Year"
+//                           size="medium"
+//                           variant="outlined"
+//                           // displayEmpty
+//                           value={selectedYear}
+//                           onChange={handleChangeYear}
+//                           style={{ height: "45px" }}
+//                           // InputProps={{style: {  height: 35 }}}
+//                         >
+//                           <MenuItem value="">Select Year</MenuItem>
+//                           <MenuItem value="2017">2017</MenuItem>
+//                           <MenuItem value="2018">2018</MenuItem>
+//                           <MenuItem value="2019">2019</MenuItem>
+//                           <MenuItem value="2020">2020</MenuItem>
+//                           <MenuItem value="2021">2021</MenuItem>
+//                           <MenuItem value="2022">2022</MenuItem>
+//                           <MenuItem value="2023">2023</MenuItem>
+//                         </Select>
+//                       </FormControl>
+//                     </Box>
+//                   </Grid>
+
+//                   <Grid item style={{ marginTop: "5px" }}>
+//                     <Box sx={{ minWidth: 150 }}>
+//                       <FormControl fullWidth>
+//                         <InputLabel
+//                           style={{ fontSize: "13px", fontWeight: "bold" }}
+//                         >
+//                           Month
+//                         </InputLabel>
+//                         <Select
+//                           label="Select Month"
+//                           size="medium"
+//                           value={selectedMonth}
+//                           onChange={handleChangeMonth}
+//                           style={{ height: "45px" }}
+//                         >
+//                           <MenuItem value="">Select Month</MenuItem>
+//                           <MenuItem value="January">January</MenuItem>
+//                           <MenuItem value="February">February</MenuItem>
+//                           <MenuItem value="March">March</MenuItem>
+//                           <MenuItem value="April">April</MenuItem>
+//                           <MenuItem value="May">May</MenuItem>
+//                           <MenuItem value="June">June</MenuItem>
+//                           <MenuItem value="July">July</MenuItem>
+//                           <MenuItem value="August">August</MenuItem>
+//                           <MenuItem value="September">September</MenuItem>
+//                           <MenuItem value="October">October</MenuItem>
+//                           <MenuItem value="November">November</MenuItem>
+//                           <MenuItem value="December">December</MenuItem>
+//                         </Select>
+//                       </FormControl>
+//                     </Box>
+//                   </Grid>
+
+//                   <Grid item style={{ marginTop: "5px" }}>
+//                     <Box sx={{ minWidth: 200 }}>
+//                       <FormControl fullWidth>
+//                         <InputLabel
+//                           style={{ fontSize: "13px", fontWeight: "bold" }}
+//                         >
+//                           Declaration Type
+//                         </InputLabel>
+//                         <Select
+//                           label="Select Declaration Type"
+//                           size="medium"
+//                           value={declarationType}
+//                           onChange={handleChangeDeclarationType}
+//                           style={{ height: "45px" }}
+//                         >
+//                           <MenuItem value="">Select Declaration Type</MenuItem>
+//                           <MenuItem value="EX201_Excise_Goods_Customs">
+//                             EX201 Excise Goods Customs
+//                           </MenuItem>
+//                           <MenuItem value="EX202A_Enter_Goods_DZ">
+//                             EX202A Enter Goods DZ
+//                           </MenuItem>
+//                           <MenuItem value="EX202A_Export_Goods_DZ">
+//                             EX202A Export Goods DZ
+//                           </MenuItem>
+//                           <MenuItem value="EX202A_Import_DZ">
+//                             EX202A Import DZ
+//                           </MenuItem>
+//                           <MenuItem value="EX202A_Production_DZ">
+//                             EX202A Production DZ
+//                           </MenuItem>
+//                           <MenuItem value="EX202A_Release_Goods_DZ">
+//                             EX202A Release Goods DZ
+//                           </MenuItem>
+//                           <MenuItem value="EX202A_Transfer_Goods_DZ">
+//                             EX202A Transfer Goods DZ
+//                           </MenuItem>
+//                           <MenuItem value="EX203_Deductible">
+//                             EX203 Deductible
+//                           </MenuItem>
+//                           <MenuItem value="EX203B_Lost_Damaged">
+//                             EX203B Lost_Damaged
+//                           </MenuItem>
+//                           <MenuItem value="EX203C_Transfer_of_Ownership">
+//                             EX203C Transfer of Ownership
+//                           </MenuItem>
+//                         </Select>
+//                       </FormControl>
+//                     </Box>
+//                   </Grid>
 //                 </Grid>
 
-                
-//                 <Box display="flex" justifyContent="flex-start" mt={5} mr={12}>
-//                   <Button
-//                     variant="contained"
-//                     type="submit"
-//                     style={{ margin: "10px", marginTop:'10px' }}
+//                 <Grid item>
+//                   <Box
+//                     display="flex"
+//                     justifyContent="flex-start"
+//                     mt={12}
+//                     mr={14}
 //                   >
-//                     <Typography style={{ fontSize: "12px" }}>Submit</Typography>
-//                   </Button>
-//                   <Button
-//                     variant="contained"
-//                     style={{ margin: "10px" }}
-//                     onClick={handleReset}
-//                   >
-//                     <Typography style={{ fontSize: "12px" }}>Reset</Typography>
-//                   </Button>
-//                 </Box>
+//                     <Button
+//                       variant="contained"
+//                       type="submit"
+//                       style={{ margin: "10px", marginTop: "10px" }}
+//                     >
+//                       <Typography style={{ fontSize: "12px" }}>
+//                         Submit
+//                       </Typography>
+//                     </Button>
+//                     <Button
+//                       variant="contained"
+//                       style={{ margin: "10px" }}
+//                       onClick={handleReset}
+//                     >
+//                       <Typography style={{ fontSize: "12px" }}>
+//                         Reset
+//                       </Typography>
+//                     </Button>
+//                   </Box>
+//                 </Grid>
 //               </Box>
 //             </form>
 //           </Box>
@@ -575,10 +690,10 @@
 //   );
 // };
 
-// export default Report_StockReport;
+// export default Report_StockByDeclaration;
 
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate  } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useAuth } from "../../utils/AuthContext";
 
@@ -605,7 +720,113 @@ import {
 import api from "../../utils/api";
 import { useForm } from "react-hook-form";
 
+const openTransactionDetails = (params) => {
+  const { transactionNumber, declarationType } = params.row;
 
+  let formPagePath = "";
+  let formPageQuery = "";
+
+  switch (declarationType) {
+    case "EX202A_Export_Goods_DZ":
+      formPagePath = "/forms/Form_EX202A_Export_Goods_DZ";
+      formPageQuery = `?transactionNumber=${transactionNumber}`;
+      break;
+
+    case "EX201_Excise_Goods_Customs":
+      formPagePath = "/forms/Form_EX201_Excise_Goods_Customs";
+      formPageQuery = `?transactionNumber=${transactionNumber}`;
+      break;
+
+    case "EX202A_Import_DZ":
+      formPagePath = "/forms/Form_EX202A_Import_DZ";
+      formPageQuery = `?transactionNumber=${transactionNumber}`;
+      break;
+
+    case "EX202A_Enter_Goods_DZ":
+      formPagePath = "/forms/Form_EX202A_Enter_Goods_DZ";
+      formPageQuery = `?transactionNumber=${transactionNumber}`;
+      break;
+
+    case "EX202A_Production_DZ":
+      formPagePath = "/forms/Form_EX202A_Production_DZ";
+      formPageQuery = `?transactionNumber=${transactionNumber}`;
+      break;
+
+    case "EX202A_Release_Goods_DZ":
+      formPagePath = "/forms/Form_EX202A_Release_Goods_DZ";
+      formPageQuery = `?transactionNumber=${transactionNumber}`;
+      break;
+
+    case "EX202A_Transfer_Goods_DZ":
+      formPagePath = "/forms/Form_EX202A_Transfer_Goods_DZ";
+      formPageQuery = `?transactionNumber=${transactionNumber}`;
+      break;
+
+    case "EX203B_Lost_Damaged":
+      formPagePath = "/forms/Form_EX203B_Lost_Damaged";
+      formPageQuery = `?transactionNumber=${transactionNumber}`;
+      break;
+
+    case "EX203C_Transfer_of_Ownership":
+      formPagePath = "/forms/Form_EX203C_Transfer_of_Ownership";
+      formPageQuery = `?transactionNumber=${transactionNumber}`;
+      break;
+
+    case "EX203_Deductible":
+      formPagePath = "/forms/Form_EX203_Deductible";
+      formPageQuery = `?transactionNumber=${transactionNumber}`;
+      break;
+
+    default:
+      console.log("Unsupported declaration type:", declarationType);
+      break;
+  }
+
+  if (formPagePath && formPageQuery) {
+    const formPageUrl = `${formPagePath}${formPageQuery}`;
+    window.open(formPageUrl, "_blank");
+  }
+};
+
+const columns = [
+  // { field: "id", headerName: "ID", width: 100 },
+  // { field: "orgId", headerName: "Org ID", width: 100 },
+  { field: "ownerTRN", headerName: "Owner TRN", width: 180 },
+  { field: "itemCode", headerName: "Item Code", width: 180 },
+  { field: "dzNumber", headerName: "Dz Number", width: 150 },
+  { field: "transactionNumber", headerName: "Transaction Number", width: 180 },
+  {
+    field: "periodofdeclarationMonth",
+    headerName: "Declaration Month",
+    width: 150,
+  },
+  {
+    field: "periodofdeclarationYear",
+    headerName: "Declaration Year",
+    width: 150,
+  },
+  { field: "status", headerName: "Status", width: 150 },
+  { field: "quantity", headerName: "Quantity", width: 150 },
+  { field: "declarationDate", headerName: "Declaration Date", width: 180 },
+  { field: "declarationType", headerName: "Declaration Type", width: 180 },
+  { field: "runningBalance", headerName: "Running Balance", width: 150 },
+  // {
+  //   field: "transactionNumber",
+  //   headerName: "Transaction Number",
+  //   width: 180,
+  //   renderCell: (params) => (
+  //     <span
+  //       style={{ color: "blue", cursor: "pointer" }}
+  //       onClick={() => openTransactionDetails(params)}
+  //     >
+  //       {params.value}
+  //     </span>
+  //   ),
+  // },
+
+
+
+];
 
 const NoDataCard = () => {
   return (
@@ -637,12 +858,13 @@ const NoDataCard = () => {
   );
 };
 
-const Report_StockReport = () => {
-
+const Report_StockByDeclaration = () => {
+  const { id } = useParams();
   const [rows, setRows] = useState([]); // Use state to store the data
   const { handleSubmit, reset } = useForm();
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
+  const [declarationType, setDeclarationType] = useState("");
   const [transactionNumber, setTransactionNumber] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorOpen, setErrorOpen] = useState(false);
@@ -655,57 +877,95 @@ const Report_StockReport = () => {
   const [currentStock, setCurrentStock] = useState("");
   const [pendingStock, setPendingStock] = useState("");
   const [totalStock, setTotalStock] = useState("");
+  // const [quantity, setQuantity] = useState("");
 
+  const { search } = useLocation();
+  const queryParams = new URLSearchParams(search);
+  let displayName = sessionStorage.getItem("displayName");
+  console.log("name is", displayName);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    // Retrieve the values from the query parameters
+    const itemCodeParam = queryParams.get("itemCode");
+    const ownerTRNParam = queryParams.get("ownerTRN");
+    const dzNumberParam = queryParams.get("dzNumber");
 
- 
+    // Populate the input fields with the query parameter values
 
+    setItemCode(itemCodeParam || "");
+    setOwnerTRN(ownerTRNParam || "");
+    setDzNumber(dzNumberParam || "");
+  }, []);
 
+  useEffect(() => {
+    // Fetch data from API based on the state values
+    const requestData = {
+      client_Name: displayName,
+      skip: 0,
+      offset: 50,
+      itemCode: itemCode || null,
+      dzNumber: dzNumber || null,
+      transactionNumber: null,
+      periodOfDeclarationMonth: null,
+      periodOfDeclarationYear: null,
+      ownerTRN: ownerTRN || null,
+      status: null,
+      quantity: null,
+      declarationDate: null,
+      declarationType: null,
+    };
+    fetchData(requestData);
+  }, [itemCode, dzNumber, ownerTRN]);
 
-  
-  const handleRowClick = (itemCode, ownerTRN, dzNumber) => {
-    // Extract the values from the clicked row
-   
+  useEffect(() => {
+    // Fetch data from API based on the state values
+    const requestData = {
+      client_Name: displayName,
+      skip: 0,
+      offset: 50,
+      itemCode: itemCode || null,
+      dzNumber: dzNumber || null,
+      transactionNumber: null,
+      periodOfDeclarationMonth: null,
+      periodOfDeclarationYear: null,
+      ownerTRN: ownerTRN || null,
+      status: null,
+      quantity: null,
+      declarationDate: null,
+      declarationType: null,
+    };
+    fetchData(requestData);
+  }, []);
 
-    // Construct the query string
-    const queryString = `?itemCode=${itemCode}&ownerTRN=${ownerTRN}&dzNumber=${dzNumber}`;
+  // useEffect(() => {
+  //    // Retrieve the values from the query parameters
+  //   const itemCodeParam = queryParams.get("itemCode");
+  //   const ownerTRNParam = queryParams.get("ownerTRN");
+  //   const dzNumberParam = queryParams.get("dzNumber");
 
-    // Open a new tab/window with the Report_StockByDeclaration component
-    // navigate(`/reports/Report_StockByDeclaration${queryString}`);
-    window.open(`/reports/Report_StockByDeclaration${queryString}`, "_blank");
-  };
+  //   // Populate the input fields with the query parameter values
+  //   setItemCode(itemCodeParam || "");
+  //   setOwnerTRN(ownerTRNParam || "");
+  //   setDzNumber(dzNumberParam || "");
 
-  const columns = [
-    // { field: "id", headerName: "ID", width: 100 },
-    // { field: "orgID", headerName: "Org ID", width: 100 },
-    { field: "ownerTRN", headerName: "Owner TRN", width: 180 },
-    // { field: "itemCode", headerName: "Item Code", width: 180 },
-    { field: "itemDescription", headerName: "Item Description", width: 250 },
-    { field: "dzNumber", headerName: "Dz Number", width: 150 },
-    { field: "currentStock", headerName: "Current Stock", width: 150 },
-    { field: "pendingStock", headerName: "Pending Stock", width: 150 },
-    { field: "totalStock", headerName: "Total Stock", width: 150 },
-    {
-      field: "itemCode",
-      headerName: "Item Code",
-      width: 150,
-      renderCell: (params) => (
-        <Button
-          color="primary"
-          onClick={() =>
-            handleRowClick(
-              params.row.itemCode,
-              params.row.ownerTRN,
-              params.row.dzNumber
-            )
-          }
-        >
-          {params.row.itemCode}
-        </Button>
-      ),
-    },
-  ];
+  //   // Fetch data from API based on the query parameter values
+  //   const requestData = {
+  //     client_Name: displayName,
+  //     skip: 0,
+  //     offset: 50,
+  //     itemCode:  itemCode || null,
+  //     dzNumber:  dzNumber || null,
+  //     transactionNumber:  null,
+  //     periodOfDeclarationMonth:  null,
+  //     periodOfDeclarationYear:  null,
+  //     ownerTRN:   ownerTRN || null,
+  //     status: null,
+  //     quantity:  null,
+  //     declarationDate: null,
+  //     declarationType:  null,
+  //   };
+  //   fetchData(requestData);
+  // }, []);
 
   const handleChangeItemCode = (event) => {
     setItemCode(event.target.value);
@@ -739,17 +999,33 @@ const Report_StockReport = () => {
     setSnackbarOpen(false);
   };
 
+  const handleChangeTransactionNumber = (event) => {
+    setTransactionNumber(event.target.value);
+  };
+
+  const handleChangeQuantity = (event) => {
+    setQuantity(event.target.value);
+  };
+
+  const handleChangeMonth = (event) => {
+    setSelectedMonth(event.target.value);
+  };
+
+  const handleChangeDeclarationType = (event) => {
+    setDeclarationType(event.target.value);
+  };
+
+  const handleChangeYear = (event) => {
+    setSelectedYear(event.target.value);
+  };
+
   // const {displayName } = useAuth();
   // console.log(displayName)
-  let displayName = sessionStorage.getItem("displayName");
-  console.log("name is", displayName);
-
-
 
   const fetchData = async (requestData) => {
     try {
       setLoading(true);
-      const response = await api.post("/StockReport", requestData);
+      const response = await api.post("/StockByDeclaration", requestData);
       console.log(response.data);
 
       const updatedRows = response?.data?.map((row) => ({
@@ -768,123 +1044,68 @@ const Report_StockReport = () => {
         setSnackbarOpen(true);
       }
     } catch (error) {
-      if (error.response && error.response.status === 401) {
-        setErrorMessage("Please login again");
-        setSnackbarOpen(true);
-        setRows([]);
-      } else {
-        setErrorMessage("Network or Session timeout error, Login again");
-        setSnackbarOpen(true);
+      // catch (error) {
+      //   if (error.response && error.response.status === 401) {
+      //     setErrorMessage("Please login again");
+      //     setSnackbarOpen(true);
+      //     setRows([]);
+      //   } else {
+      //     setErrorMessage("Network or Session timeout error, Login again");
+      //     setSnackbarOpen(true);
+      //     setRows([]);
+      //   }
 
-        setRows([]);
+      // }
+
+      console.log("error is", error);
+      if (error.response) {
+        if (error.response.status === 401) {
+          setErrorMessage("Please login again");
+          setSnackbarOpen(true);
+          setRows([]);
+        } else {
+          setErrorMessage("Network or Session timeout error, Login again");
+          setSnackbarOpen(true);
+          setRows([]);
+        }
+      } else {
+        console.log("Unexpected error:", error);
       }
     } finally {
       setLoading(false);
     }
   };
 
-  const defaultRequestData = {
-    client_Name: displayName,
-    itemCode: null,
-    skip: 0,
-    offset: 50,
-    dzNumber: null,
-    itemDescription: null,
-    ownerTRN: null,
-    currentStock: {
-      dropdownValue: null,
-      inputValue: null,
-    },
-    pendingStock: {
-      dropdownValue: null,
-      inputValue: null,
-    },
-    totalStock: {
-      dropdownValue: null,
-      inputValue: null,
-    },
-  };
-
-
-  
-
-  useEffect(() => {
-    // Fetch data only when component mounts
-    fetchData({
-      client_Name: displayName,
-      itemCode:  null,
-      skip: 0,
-      offset: 50,
-      dzNumber:  null,
-      itemDescription:  null,
-      ownerTRN:  null,
-      currentStock: {
-        dropdownValue: null,
-        inputValue:  null,
-      },
-      pendingStock: {
-        dropdownValue: null,
-        inputValue:  null,
-      },
-      totalStock: {
-        dropdownValue: null,
-        inputValue:  null,
-      },
-    });
-  }, []);
-
   const handleFormSubmit = () => {
-    // if (
-    //   (!selectedMonth && selectedYear && transactionNumber) ||
-    //   (selectedMonth && !selectedYear && transactionNumber) ||
-    //   (!selectedMonth && selectedYear && !transactionNumber) ||
-    //   (selectedMonth && !selectedYear && !transactionNumber) ||
-    //   (!selectedMonth && !selectedYear && !transactionNumber)||
-    //   (selectedMonth && selectedYear && transactionNumber)
-    // ) {
-    //   setErrorMessage(
-    //     "*Please select Month and Year or enter Transaction Number"
-    //   );
-    //   setErrorOpen(true);
-    //   return;
-    // }
-
     setErrorOpen(false);
 
     const requestBody = {
       client_Name: displayName,
-      itemCode: itemCode || null,
       skip: 0,
       offset: 50,
+      itemCode: itemCode || null,
       dzNumber: dzNumber || null,
-      itemDescription: itemDescription || null,
+      transactionNumber: transactionNumber || null,
+      periodOfDeclarationMonth: selectedMonth || null,
+      periodOfDeclarationYear: selectedYear || null,
       ownerTRN: ownerTRN || null,
-      currentStock: {
-        dropdownValue: null,
-        inputValue: currentStock || null,
-      },
-      pendingStock: {
-        dropdownValue: null,
-        inputValue: pendingStock || null,
-      },
-      totalStock: {
-        dropdownValue: null,
-        inputValue: totalStock || null,
-      },
+      status: null,
+      quantity: null,
+      declarationDate: null,
+      declarationType: declarationType || null,
     };
 
     fetchData(requestBody);
   };
 
   const handleReset = () => {
-    fetchData(defaultRequestData);
     setItemCode("");
-    setItemDescription("");
     setDzNumber("");
     setOwnerTRN("");
-    setCurrentStock("");
-    setPendingStock("");
-    setTotalStock("");
+    setTransactionNumber("");
+    setDeclarationType("");
+    setSelectedMonth("");
+    setSelectedYear("");
     setRows([]);
     setErrorOpen(false);
     reset();
@@ -940,7 +1161,7 @@ const Report_StockReport = () => {
       >
         <CardContent>
           <Box>
-            <Typography variant="h6">Stock Reports</Typography>
+            <Typography variant="h6">Stock By Declaration Reports</Typography>
           </Box>
         </CardContent>
       </Card>
@@ -954,7 +1175,7 @@ const Report_StockReport = () => {
           display: "flex",
           // justifyContent: "center",
           // alignItems: "center",
-          height: "110px",
+          height: "200px",
         }}
       >
         <CardContent>
@@ -1017,43 +1238,6 @@ const Report_StockReport = () => {
 
                   <Grid item style={{ marginTop: "2px" }}>
                     <TextField
-                      name="itemDescription"
-                      variant="outlined"
-                      label="Item Description"
-                      value={itemDescription}
-                      onChange={handleChangeItemDescription}
-                      InputLabelProps={{
-                        style: { fontSize: "12px", fontWeight: "bold" }, // Set the font size of the label
-                      }}
-                      // InputProps={{style: {  height: 45, backgroundColor: '#fff' }}}
-                      // sx={{'.MuiFormLabel-root[data-shrink=true]': { top: -8} }}
-                      sx={{
-                        // '& label.Mui-focused': {
-                        //   color: 'black', // Set the color of the label when focused
-                        // },
-                        "& .MuiOutlinedInput-root": {
-                          "& fieldset": {
-                            borderColor: "gray", // Set the border color
-                          },
-                          // '&:hover fieldset': {
-                          //   borderColor: 'gray', // Set the border color on hover
-                          // },
-                          // '&.Mui-focused fieldset': {
-                          //   borderColor: 'black', // Set the border color when focused
-                          // },
-                        },
-                        "& .MuiInputBase-input": {
-                          height: "11px", // Adjust the height of the input area
-                          width: "160px",
-                        },
-                        "& .MuiInputLabel-root": {
-                          lineHeight: "15px", // Adjust the line height to vertically center the label
-                        },
-                      }}
-                    />
-                  </Grid>
-                  <Grid item style={{ marginTop: "2px" }}>
-                    <TextField
                       name="dzNumber"
                       variant="outlined"
                       label="Dz Number"
@@ -1092,17 +1276,15 @@ const Report_StockReport = () => {
 
                   <Grid item style={{ marginTop: "2px" }}>
                     <TextField
-                      name="ownerTRN"
+                      name="transactionNumber"
                       type="number"
                       variant="outlined"
-                      label="Owner TRN"
-                      value={ownerTRN}
-                      onChange={handleChangeOwnerTRN}
+                      label="Transaction Number"
+                      value={transactionNumber}
+                      onChange={handleChangeTransactionNumber}
                       InputLabelProps={{
-                        style: { fontSize: "12px", fontWeight: "bold" }, // Set the font size of the label
+                        style: { fontSize: "12px", fontWeight: "bold" },
                       }}
-                      // InputProps={{style: {  height: 45, backgroundColor: '#fff' }}}
-                      // sx={{'.MuiFormLabel-root[data-shrink=true]': { top: -8} }}
                       sx={{
                         // '& label.Mui-focused': {
                         //   color: 'black', // Set the color of the label when focused
@@ -1122,33 +1304,230 @@ const Report_StockReport = () => {
                           height: "11px", // Adjust the height of the input area
                           width: "160px",
                         },
-                        "& .Mucurrent stockiInputLabel-root": {
+                        "& .MuiInputLabel-root": {
                           lineHeight: "15px", // Adjust the line height to vertically center the label
                         },
                       }}
                     />
                   </Grid>
 
-                  
+                  <Grid item style={{ marginTop: "2px" }}>
+                    <TextField
+                      name="ownerTRN"
+                      type="number"
+                      variant="outlined"
+                      label="Owner TRN"
+                      value={ownerTRN}
+                      onChange={handleChangeOwnerTRN}
+                      InputLabelProps={{
+                        style: { fontSize: "12px", fontWeight: "bold" },
+                      }}
+                      sx={{
+                        // '& label.Mui-focused': {
+                        //   color: 'black', // Set the color of the label when focused
+                        // },
+                        "& .MuiOutlinedInput-root": {
+                          "& fieldset": {
+                            borderColor: "gray", // Set the border color
+                          },
+                          // '&:hover fieldset': {
+                          //   borderColor: 'gray', // Set the border color on hover
+                          // },
+                          // '&.Mui-focused fieldset': {
+                          //   borderColor: 'black', // Set the border color when focused
+                          // },
+                        },
+                        "& .MuiInputBase-input": {
+                          height: "11px", // Adjust the height of the input area
+                          width: "160px",
+                        },
+                        "& .MuiInputLabel-root": {
+                          lineHeight: "15px", // Adjust the line height to vertically center the label
+                        },
+                      }}
+                    />
+                  </Grid>
+
+                  {/* <Grid item style={{ marginTop: "5px" }}>
+                    <TextField
+                      name="quantity"
+                      type="number"
+                      variant="outlined"
+                      label="Quantity"
+                      value={quantity}
+                      onChange={handleChangeQuantity}
+                      InputLabelProps={{
+                        style: { fontSize: "12px", fontWeight: "bold" },
+                      }}
+                      sx={{
+                        // '& label.Mui-focused': {
+                        //   color: 'black', // Set the color of the label when focused
+                        // },
+                        "& .MuiOutlinedInput-root": {
+                          "& fieldset": {
+                            borderColor: "gray", // Set the border color
+                          },
+                          // '&:hover fieldset': {
+                          //   borderColor: 'gray', // Set the border color on hover
+                          // },
+                          // '&.Mui-focused fieldset': {
+                          //   borderColor: 'black', // Set the border color when focused
+                          // },
+                        },
+                        "& .MuiInputBase-input": {
+                          height: "11px", // Adjust the height of the input area
+                          width: "160px",
+                        },
+                        "& .MuiInputLabel-root": {
+                          lineHeight: "15px", // Adjust the line height to vertically center the label
+                        },
+                      }}
+                    />
+                  </Grid> */}
+
+                  <Grid item style={{ marginTop: "5px" }}>
+                    <Box sx={{ minWidth: 120 }}>
+                      <FormControl fullWidth>
+                        <InputLabel
+                          style={{ fontSize: "13px", fontWeight: "bold" }}
+                        >
+                          Year
+                        </InputLabel>
+                        <Select
+                          label="Select Year"
+                          size="medium"
+                          variant="outlined"
+                          // displayEmpty
+                          value={selectedYear}
+                          onChange={handleChangeYear}
+                          style={{ height: "45px" }}
+                          // InputProps={{style: {  height: 35 }}}
+                        >
+                          <MenuItem value="">Select Year</MenuItem>
+                          <MenuItem value="2017">2017</MenuItem>
+                          <MenuItem value="2018">2018</MenuItem>
+                          <MenuItem value="2019">2019</MenuItem>
+                          <MenuItem value="2020">2020</MenuItem>
+                          <MenuItem value="2021">2021</MenuItem>
+                          <MenuItem value="2022">2022</MenuItem>
+                          <MenuItem value="2023">2023</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Box>
+                  </Grid>
+
+                  <Grid item style={{ marginTop: "5px" }}>
+                    <Box sx={{ minWidth: 150 }}>
+                      <FormControl fullWidth>
+                        <InputLabel
+                          style={{ fontSize: "13px", fontWeight: "bold" }}
+                        >
+                          Month
+                        </InputLabel>
+                        <Select
+                          label="Select Month"
+                          size="medium"
+                          value={selectedMonth}
+                          onChange={handleChangeMonth}
+                          style={{ height: "45px" }}
+                        >
+                          <MenuItem value="">Select Month</MenuItem>
+                          <MenuItem value="January">January</MenuItem>
+                          <MenuItem value="February">February</MenuItem>
+                          <MenuItem value="March">March</MenuItem>
+                          <MenuItem value="April">April</MenuItem>
+                          <MenuItem value="May">May</MenuItem>
+                          <MenuItem value="June">June</MenuItem>
+                          <MenuItem value="July">July</MenuItem>
+                          <MenuItem value="August">August</MenuItem>
+                          <MenuItem value="September">September</MenuItem>
+                          <MenuItem value="October">October</MenuItem>
+                          <MenuItem value="November">November</MenuItem>
+                          <MenuItem value="December">December</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Box>
+                  </Grid>
+
+                  <Grid item style={{ marginTop: "5px" }}>
+                    <Box sx={{ minWidth: 200 }}>
+                      <FormControl fullWidth>
+                        <InputLabel
+                          style={{ fontSize: "13px", fontWeight: "bold" }}
+                        >
+                          Declaration Type
+                        </InputLabel>
+                        <Select
+                          label="Select Declaration Type"
+                          size="medium"
+                          value={declarationType}
+                          onChange={handleChangeDeclarationType}
+                          style={{ height: "45px" }}
+                        >
+                          <MenuItem value="">Select Declaration Type</MenuItem>
+                          <MenuItem value="EX201_Excise_Goods_Customs">
+                            EX201 Excise Goods Customs
+                          </MenuItem>
+                          <MenuItem value="EX202A_Enter_Goods_DZ">
+                            EX202A Enter Goods DZ
+                          </MenuItem>
+                          <MenuItem value="EX202A_Export_Goods_DZ">
+                            EX202A Export Goods DZ
+                          </MenuItem>
+                          <MenuItem value="EX202A_Import_DZ">
+                            EX202A Import DZ
+                          </MenuItem>
+                          <MenuItem value="EX202A_Production_DZ">
+                            EX202A Production DZ
+                          </MenuItem>
+                          <MenuItem value="EX202A_Release_Goods_DZ">
+                            EX202A Release Goods DZ
+                          </MenuItem>
+                          <MenuItem value="EX202A_Transfer_Goods_DZ">
+                            EX202A Transfer Goods DZ
+                          </MenuItem>
+                          <MenuItem value="EX203_Deductible">
+                            EX203 Deductible
+                          </MenuItem>
+                          <MenuItem value="EX203B_Lost_Damaged">
+                            EX203B Lost_Damaged
+                          </MenuItem>
+                          <MenuItem value="EX203C_Transfer_of_Ownership">
+                            EX203C Transfer of Ownership
+                          </MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Box>
+                  </Grid>
                 </Grid>
 
-                
-                <Box display="flex" justifyContent="flex-start" mt={5} mr={12}>
-                  <Button
-                    variant="contained"
-                    type="submit"
-                    style={{ margin: "10px", marginTop:'10px' }}
+                <Grid item>
+                  <Box
+                    display="flex"
+                    justifyContent="flex-start"
+                    mt={12}
+                    mr={14}
                   >
-                    <Typography style={{ fontSize: "12px" }}>Submit</Typography>
-                  </Button>
-                  <Button
-                    variant="contained"
-                    style={{ margin: "10px" }}
-                    onClick={handleReset}
-                  >
-                    <Typography style={{ fontSize: "12px" }}>Reset</Typography>
-                  </Button>
-                </Box>
+                    <Button
+                      variant="contained"
+                      type="submit"
+                      style={{ margin: "10px", marginTop: "10px" }}
+                    >
+                      <Typography style={{ fontSize: "12px" }}>
+                        Submit
+                      </Typography>
+                    </Button>
+                    <Button
+                      variant="contained"
+                      style={{ margin: "10px" }}
+                      onClick={handleReset}
+                    >
+                      <Typography style={{ fontSize: "12px" }}>
+                        Reset
+                      </Typography>
+                    </Button>
+                  </Box>
+                </Grid>
               </Box>
             </form>
           </Box>
@@ -1195,5 +1574,4 @@ const Report_StockReport = () => {
   );
 };
 
-export default Report_StockReport;
-
+export default Report_StockByDeclaration;

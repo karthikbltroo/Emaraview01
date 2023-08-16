@@ -376,6 +376,7 @@ const Form_EX203C_Transfer_of_Ownership = () => {
                   <Grid item style={{ marginTop: "15px" }}>
                     <TextField
                       name="transactionNumber"
+                      type="number"
                       variant="outlined"
                       label="Transaction Number"
                       value={transactionNumber}

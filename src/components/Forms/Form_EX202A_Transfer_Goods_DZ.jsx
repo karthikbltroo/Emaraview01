@@ -405,6 +405,7 @@ const Form_EX202A_Transfer_Goods_DZ = () => {
                   <Grid item style={{ marginTop: "15px" }}>
                     <TextField
                       name="transactionNumber"
+                      type="number"
                       variant="outlined"
                       label="Transaction Number"
                       value={transactionNumber}

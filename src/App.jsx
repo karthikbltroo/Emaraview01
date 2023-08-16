@@ -24,7 +24,7 @@ import Form_EX203B_Lost_Damaged from "./components/Forms/Form_EX203B_Lost_Damage
 import Form_EX203C_Transfer_of_Ownership from "./components/Forms/Form_EX203C_Transfer_of_Ownership";
 import Form_EX203_Deductible from "./components/Forms/Form_EX203_Deductible";
 import Report_StockReport from "./components/Reports/Report_StockReport";
-import ReportBB from "./components/Reports/ReportBB";
+import Report_StockByDeclaration from "./components/Reports/Report_StockByDeclaration";
 import ReportCC from "./components/Reports/ReportCC";
 import api from "./utils/api";
 import PrivateRoutes from "./utils/PrivateRoutes";
@@ -67,7 +67,7 @@ const App = () => {
             <Route path="/reports" element={<Reports />}>
               <Route index element={<h2>Please select a report.</h2>} />
               <Route path="Report_StockReport" element={<Report_StockReport />} />
-              <Route path="reportBB" element={<ReportBB />} />
+              <Route path="Report_StockByDeclaration" element={<Report_StockByDeclaration />} />
               <Route path="reportCC" element={<ReportCC />} />
             </Route>
             <Route path="/forms" element={<Forms />}>

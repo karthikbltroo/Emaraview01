@@ -135,10 +135,10 @@ const Navbar = () => {
                           <ListItem button component={NavLink} to="/reports/Report_StockReport">
                             <ListItemText primary="Stock Report" />
                           </ListItem>
-                          {/* <ListItem button component={NavLink} to="/reports/reportBB">
-                            <ListItemText primary="Report BB" />
+                          <ListItem button component={NavLink} to="/reports/Report_StockByDeclaration">
+                            <ListItemText primary="Stock By Declaration Report" />
                           </ListItem>
-                          <ListItem button component={NavLink} to="/reports/reportCC">
+                          {/* <ListItem button component={NavLink} to="/reports/reportCC">
                             <ListItemText primary="Report CC" />
                           </ListItem> */}
                         </List>

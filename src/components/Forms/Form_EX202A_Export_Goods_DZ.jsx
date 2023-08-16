@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams,useLocation } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useAuth } from "../../utils/AuthContext";
 
@@ -81,6 +81,7 @@ const columns = [
 ];
 
 
+
 const NoDataCard = () => {
   return (
     <Card
@@ -142,6 +143,34 @@ const Form_EX202A_Export_Goods_DZ = () => {
   // console.log(displayName)
   let displayName = sessionStorage.getItem("displayName");
   console.log("name is", displayName);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  
+
+  useEffect(() => {
+    // Retrieve the values from the query parameters
+    const transactionNoParam = queryParams.get("transactionNumber");
+    
+
+    // Populate the input fields with the query parameter values
+    setTransactionNumber(transactionNoParam || "");
+    
+  }, []);
+
+  useEffect(()=>{
+   
+    const requestBody = {
+       client_Name: displayName,
+       form_Type: "EX202A_Export_Goods_DZ",
+       skip: 0,
+       offset: 50,
+       trans_Num: transactionNumber || null,
+       period_Month: selectedMonth || null,
+       period_Year: selectedYear || null,
+     };
+ 
+     fetchData(requestBody);
+  },[transactionNumber])
 
   const fetchData = async (requestData) => {
     try {
@@ -396,6 +425,7 @@ const Form_EX202A_Export_Goods_DZ = () => {
                   <Grid item style={{ marginTop: "15px" }}>
                     <TextField
                       name="transactionNumber"
+                      type="number"
                       variant="outlined"
                       label="Transaction Number"
                       value={transactionNumber}

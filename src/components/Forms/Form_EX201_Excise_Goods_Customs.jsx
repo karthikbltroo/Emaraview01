@@ -390,6 +390,7 @@ const Form_EX201_Excise_Goods_Customs = () => {
                     <TextField
                       name="transactionNumber"
                       variant="outlined"
+                      type="number"
                       label="Transaction Number"
                       value={transactionNumber}
                       onChange={handleChangeTransactionNumber}
