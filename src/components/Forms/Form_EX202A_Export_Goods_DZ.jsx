@@ -146,31 +146,31 @@ const Form_EX202A_Export_Goods_DZ = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   
-
-  useEffect(() => {
-    // Retrieve the values from the query parameters
-    const transactionNoParam = queryParams.get("transactionNumber");
+// working code for automatic fetch data
+  // useEffect(() => {
+  //   // Retrieve the values from the query parameters
+  //   const transactionNoParam = queryParams.get("transactionNumber");
     
 
-    // Populate the input fields with the query parameter values
-    setTransactionNumber(transactionNoParam || "");
+  //   // Populate the input fields with the query parameter values
+  //   setTransactionNumber(transactionNoParam || "");
     
-  }, []);
+  // }, []);
 
-  useEffect(()=>{
+  // useEffect(()=>{
    
-    const requestBody = {
-       client_Name: displayName,
-       form_Type: "EX202A_Export_Goods_DZ",
-       skip: 0,
-       offset: 50,
-       trans_Num: transactionNumber || null,
-       period_Month: selectedMonth || null,
-       period_Year: selectedYear || null,
-     };
+  //   const requestBody = {
+  //      client_Name: displayName,
+  //      form_Type: "EX202A_Export_Goods_DZ",
+  //      skip: 0,
+  //      offset: 50,
+  //      trans_Num: transactionNumber || null,
+  //      period_Month: selectedMonth || null,
+  //      period_Year: selectedYear || null,
+  //    };
  
-     fetchData(requestBody);
-  },[transactionNumber])
+  //    fetchData(requestBody);
+  // },[transactionNumber])
 
   const fetchData = async (requestData) => {
     try {

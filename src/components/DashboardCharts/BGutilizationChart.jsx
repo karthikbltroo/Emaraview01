@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, PureComponent } from "react";
 import {
   BarChart,
@@ -13,20 +14,24 @@ import {
 } from "recharts";
 import api from "../../utils/api";
 
-const TaxLiabilityChart = () => {
+const BGutilizationChart = () => {
   let displayName = sessionStorage.getItem("displayName");
   const [data, setData] = useState([]);
   console.log("name is", displayName);
 
 // based on client Name
 
+
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await api.get(
-          `/getTaxLiability?client_Name=${displayName}&duration=current`
+          `/getBGUtilization?client_Name=${displayName}`
         );
         setData(response.data.data);
+        console.log(response.data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -39,7 +44,7 @@ const TaxLiabilityChart = () => {
     <ResponsiveContainer width="100%" height="70%">
       <BarChart
         width={100}
-        height={300}
+        height={200}
         data={data}
         margin={{
           top: 6,
@@ -49,22 +54,17 @@ const TaxLiabilityChart = () => {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="period" />
+        <XAxis dataKey="dzNumber" />
         <YAxis />
         <Tooltip />
         <Legend />
         <ReferenceLine y={0} stroke="#000" />
-        <Bar dataKey="exciseTaxImport" fill="#8884d8" />
-        <Bar dataKey="exciseTaxPoduction" fill="#82ca9d" />
-        <Bar dataKey="exciseTaxReleaseNoCustoms" fill="#afd16f" />
-        <Bar dataKey="exciseTaxReleaseCustoms" fill="#645161" />
-        <Bar dataKey="exciseTaxStockpiling" fill="#4905af" />
-        <Bar dataKey="exciseTaxDeductible" fill="#7b2b74" />
-        <Bar dataKey="totalExciseTaxdue" fill="#f7a20d" />
-        <Bar dataKey="netExciseTaxPayable" fill="#591777" />
+        <Bar dataKey="bgUtilization" fill="#E8F3DD" />
+        <Bar dataKey="bgValue" fill="#8BECEF" />
+
       </BarChart>
     </ResponsiveContainer>
   );
 };
 
-export default TaxLiabilityChart;
+export default BGutilizationChart;

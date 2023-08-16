@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import BrandingWatermarkOutlinedIcon from "@mui/icons-material/BrandingWatermarkOutlined";
 import TaxLiabilityChart from "../components/DashboardCharts/TaxLiabilityChart";
+import BGutilizationChart from "../components/DashboardCharts/BGutilizationChart";
 
 const iconsWithText = [
   { icon: <BrandingWatermarkOutlinedIcon />, text: "Report 1" },
@@ -28,7 +29,7 @@ const Dashboard = () => {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
-        marginTop: "40px",
+        marginTop: "320px",
       }}
     >
       <Box>
@@ -39,15 +40,36 @@ const Dashboard = () => {
             </Typography>
             <Divider />
             <Box style={{ width: "100%", height: "90vh" }}>
-              <Box style={{display:'flex', alignItems:'center', justifyContent:'center', margin:'20px'}} >
-                <Typography style={{fontWeight:'bold'}} >
+              <Box
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "20px",
+                }}
+              >
+                <Typography style={{ fontWeight: "bold" }}>
                   Tax Liability Chart
                 </Typography>
               </Box>
               <TaxLiabilityChart />
             </Box>
 
-           
+            <Box style={{ width: "100%", height: "90vh" }}>
+              <Box
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "20px", marginTop:'-40px'
+                }}
+              >
+                <Typography style={{ fontWeight: "bold" }}>
+                  BG Utilization Chart
+                </Typography>
+              </Box>
+              <BGutilizationChart />
+            </Box>
 
             {/* <Grid container spacing={2} rowSpacing={6} style={{ marginTop: "16px" }}>
           {iconsWithText.map((item, index) => (
