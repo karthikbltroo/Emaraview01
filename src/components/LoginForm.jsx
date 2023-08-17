@@ -213,7 +213,7 @@ const LoginForm = () => {
       <WhiteCard>
         <RightDivision>
           <Typography variant="h4" color="primary"   mb={2}>
-            'Welcome to Emara Analytics'
+            Welcome to Emara Analytics
           </Typography>
           <Box style={{ marginBottom: "20px" }}></Box>
 
@@ -235,7 +235,7 @@ const LoginForm = () => {
             <StyledTextField
               type="email"
               placeholder="Enter user name"
-              label="user name"
+              label="Enter username*"
               variant="standard"
               fullWidth
               {...register("username", {

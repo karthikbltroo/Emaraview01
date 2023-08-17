@@ -124,8 +124,6 @@
 //   let displayName = sessionStorage.getItem("displayName");
 //   console.log("name is", displayName);
 
-
-
 //   const fetchData = async (requestData) => {
 //     try {
 //       setLoading(true);
@@ -184,9 +182,6 @@
 //       inputValue: null,
 //     },
 //   };
-
-
-  
 
 //   useEffect(() => {
 //     // Fetch data only when component mounts
@@ -509,10 +504,8 @@
 //                     />
 //                   </Grid>
 
-                  
 //                 </Grid>
 
-                
 //                 <Box display="flex" justifyContent="flex-start" mt={5} mr={12}>
 //                   <Button
 //                     variant="contained"
@@ -578,7 +571,7 @@
 // export default Report_StockReport;
 
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate  } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useAuth } from "../../utils/AuthContext";
 
@@ -604,8 +597,6 @@ import {
 } from "@mui/material";
 import api from "../../utils/api";
 import { useForm } from "react-hook-form";
-
-
 
 const NoDataCard = () => {
   return (
@@ -638,7 +629,6 @@ const NoDataCard = () => {
 };
 
 const Report_StockReport = () => {
-
   const [rows, setRows] = useState([]); // Use state to store the data
   const { handleSubmit, reset } = useForm();
   const [selectedMonth, setSelectedMonth] = useState("");
@@ -656,17 +646,10 @@ const Report_StockReport = () => {
   const [pendingStock, setPendingStock] = useState("");
   const [totalStock, setTotalStock] = useState("");
 
-
   const navigate = useNavigate();
 
- 
-
-
-
-  
   const handleRowClick = (itemCode, ownerTRN, dzNumber) => {
     // Extract the values from the clicked row
-   
 
     // Construct the query string
     const queryString = `?itemCode=${itemCode}&ownerTRN=${ownerTRN}&dzNumber=${dzNumber}`;
@@ -677,15 +660,8 @@ const Report_StockReport = () => {
   };
 
   const columns = [
-    // { field: "id", headerName: "ID", width: 100 },
+    /// { field: "id", headerName: "ID", width: 100 },
     // { field: "orgID", headerName: "Org ID", width: 100 },
-    { field: "ownerTRN", headerName: "Owner TRN", width: 180 },
-    // { field: "itemCode", headerName: "Item Code", width: 180 },
-    { field: "itemDescription", headerName: "Item Description", width: 250 },
-    { field: "dzNumber", headerName: "Dz Number", width: 150 },
-    { field: "currentStock", headerName: "Current Stock", width: 150 },
-    { field: "pendingStock", headerName: "Pending Stock", width: 150 },
-    { field: "totalStock", headerName: "Total Stock", width: 150 },
     {
       field: "itemCode",
       headerName: "Item Code",
@@ -705,6 +681,15 @@ const Report_StockReport = () => {
         </Button>
       ),
     },
+   
+    // { field: "itemCode", headerName: "Item Code", width: 180 },
+    { field: "itemDescription", headerName: "Item Description", width: 250 },
+    { field: "dzNumber", headerName: "Dz Number", width: 150 },
+    { field: "currentStock", headerName: "Current Stock", width: 150 },
+    { field: "pendingStock", headerName: "Pending Stock", width: 150 },
+    { field: "totalStock", headerName: "Total Stock", width: 150 },
+    { field: "ownerTRN", headerName: "Owner TRN", width: 180 },
+    
   ];
 
   const handleChangeItemCode = (event) => {
@@ -743,8 +728,6 @@ const Report_StockReport = () => {
   // console.log(displayName)
   let displayName = sessionStorage.getItem("displayName");
   console.log("name is", displayName);
-
-
 
   const fetchData = async (requestData) => {
     try {
@@ -805,30 +788,27 @@ const Report_StockReport = () => {
     },
   };
 
-
-  
-
   useEffect(() => {
     // Fetch data only when component mounts
     fetchData({
       client_Name: displayName,
-      itemCode:  null,
+      itemCode: null,
       skip: 0,
       offset: 50,
-      dzNumber:  null,
-      itemDescription:  null,
-      ownerTRN:  null,
+      dzNumber: null,
+      itemDescription: null,
+      ownerTRN: null,
       currentStock: {
         dropdownValue: null,
-        inputValue:  null,
+        inputValue: null,
       },
       pendingStock: {
         dropdownValue: null,
-        inputValue:  null,
+        inputValue: null,
       },
       totalStock: {
         dropdownValue: null,
-        inputValue:  null,
+        inputValue: null,
       },
     });
   }, []);
@@ -1128,16 +1108,13 @@ const Report_StockReport = () => {
                       }}
                     />
                   </Grid>
-
-                  
                 </Grid>
 
-                
                 <Box display="flex" justifyContent="flex-start" mt={5} mr={12}>
                   <Button
                     variant="contained"
                     type="submit"
-                    style={{ margin: "10px", marginTop:'10px' }}
+                    style={{ margin: "10px", marginTop: "10px" }}
                   >
                     <Typography style={{ fontSize: "12px" }}>Submit</Typography>
                   </Button>
@@ -1196,4 +1173,3 @@ const Report_StockReport = () => {
 };
 
 export default Report_StockReport;
-

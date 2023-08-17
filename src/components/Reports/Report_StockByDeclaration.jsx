@@ -693,7 +693,7 @@
 // export default Report_StockByDeclaration;
 
 import React, { useState, useEffect } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useAuth } from "../../utils/AuthContext";
 
@@ -720,113 +720,7 @@ import {
 import api from "../../utils/api";
 import { useForm } from "react-hook-form";
 
-const openTransactionDetails = (params) => {
-  const { transactionNumber, declarationType } = params.row;
 
-  let formPagePath = "";
-  let formPageQuery = "";
-
-  switch (declarationType) {
-    case "EX202A_Export_Goods_DZ":
-      formPagePath = "/forms/Form_EX202A_Export_Goods_DZ";
-      formPageQuery = `?transactionNumber=${transactionNumber}`;
-      break;
-
-    case "EX201_Excise_Goods_Customs":
-      formPagePath = "/forms/Form_EX201_Excise_Goods_Customs";
-      formPageQuery = `?transactionNumber=${transactionNumber}`;
-      break;
-
-    case "EX202A_Import_DZ":
-      formPagePath = "/forms/Form_EX202A_Import_DZ";
-      formPageQuery = `?transactionNumber=${transactionNumber}`;
-      break;
-
-    case "EX202A_Enter_Goods_DZ":
-      formPagePath = "/forms/Form_EX202A_Enter_Goods_DZ";
-      formPageQuery = `?transactionNumber=${transactionNumber}`;
-      break;
-
-    case "EX202A_Production_DZ":
-      formPagePath = "/forms/Form_EX202A_Production_DZ";
-      formPageQuery = `?transactionNumber=${transactionNumber}`;
-      break;
-
-    case "EX202A_Release_Goods_DZ":
-      formPagePath = "/forms/Form_EX202A_Release_Goods_DZ";
-      formPageQuery = `?transactionNumber=${transactionNumber}`;
-      break;
-
-    case "EX202A_Transfer_Goods_DZ":
-      formPagePath = "/forms/Form_EX202A_Transfer_Goods_DZ";
-      formPageQuery = `?transactionNumber=${transactionNumber}`;
-      break;
-
-    case "EX203B_Lost_Damaged":
-      formPagePath = "/forms/Form_EX203B_Lost_Damaged";
-      formPageQuery = `?transactionNumber=${transactionNumber}`;
-      break;
-
-    case "EX203C_Transfer_of_Ownership":
-      formPagePath = "/forms/Form_EX203C_Transfer_of_Ownership";
-      formPageQuery = `?transactionNumber=${transactionNumber}`;
-      break;
-
-    case "EX203_Deductible":
-      formPagePath = "/forms/Form_EX203_Deductible";
-      formPageQuery = `?transactionNumber=${transactionNumber}`;
-      break;
-
-    default:
-      console.log("Unsupported declaration type:", declarationType);
-      break;
-  }
-
-  if (formPagePath && formPageQuery) {
-    const formPageUrl = `${formPagePath}${formPageQuery}`;
-    window.open(formPageUrl, "_blank");
-  }
-};
-
-const columns = [
-  // { field: "id", headerName: "ID", width: 100 },
-  // { field: "orgId", headerName: "Org ID", width: 100 },
-  { field: "ownerTRN", headerName: "Owner TRN", width: 180 },
-  { field: "itemCode", headerName: "Item Code", width: 180 },
-  { field: "dzNumber", headerName: "Dz Number", width: 150 },
-  { field: "transactionNumber", headerName: "Transaction Number", width: 180 },
-  {
-    field: "periodofdeclarationMonth",
-    headerName: "Declaration Month",
-    width: 150,
-  },
-  {
-    field: "periodofdeclarationYear",
-    headerName: "Declaration Year",
-    width: 150,
-  },
-  { field: "status", headerName: "Status", width: 150 },
-  { field: "quantity", headerName: "Quantity", width: 150 },
-  { field: "declarationDate", headerName: "Declaration Date", width: 180 },
-  { field: "declarationType", headerName: "Declaration Type", width: 180 },
-  { field: "runningBalance", headerName: "Running Balance", width: 150 },
-  // {
-  //   field: "transactionNumber",
-  //   headerName: "Transaction Number",
-  //   width: 180,
-  //   renderCell: (params) => (
-  //     <span
-  //       style={{ color: "blue", cursor: "pointer" }}
-  //       onClick={() => openTransactionDetails(params)}
-  //     >
-  //       {params.value}
-  //     </span>
-  //   ),
-  // },
-
-
-
-];
 
 const NoDataCard = () => {
   return (
@@ -883,6 +777,123 @@ const Report_StockByDeclaration = () => {
   const queryParams = new URLSearchParams(search);
   let displayName = sessionStorage.getItem("displayName");
   console.log("name is", displayName);
+  const navigate = useNavigate();
+
+
+  // //////////////////////////////////////////////////
+
+  const openTransactionDetails = (params) => {
+    const { transactionNumber, declarationType } = params.row;
+  
+    let formPagePath = "";
+    let formPageQuery = "";
+  
+    switch (declarationType) {
+      case "EX202A_Export_Goods_DZ":
+        formPagePath = "/forms/Form_EX202A_Export_Goods_DZ";
+        formPageQuery = `?transactionNumber=${transactionNumber}`;
+        break;
+  
+      case "EX201_Excise_Goods_Customs":
+        formPagePath = "/forms/Form_EX201_Excise_Goods_Customs";
+        formPageQuery = `?transactionNumber=${transactionNumber}`;
+        break;
+  
+      case "EX202A_Import_DZ":
+        formPagePath = "/forms/Form_EX202A_Import_DZ";
+        formPageQuery = `?transactionNumber=${transactionNumber}`;
+        break;
+  
+      case "EX202A_Enter_Goods_DZ":
+        formPagePath = "/forms/Form_EX202A_Enter_Goods_DZ";
+        formPageQuery = `?transactionNumber=${transactionNumber}`;
+        break;
+  
+      case "EX202A_Production_DZ":
+        formPagePath = "/forms/Form_EX202A_Production_DZ";
+        formPageQuery = `?transactionNumber=${transactionNumber}`;
+        break;
+  
+      case "EX202A_Release_Goods_DZ":
+        formPagePath = "/forms/Form_EX202A_Release_Goods_DZ";
+        formPageQuery = `?transactionNumber=${transactionNumber}`;
+        break;
+  
+      case "EX202A_Transfer_Goods_DZ":
+        formPagePath = "/forms/Form_EX202A_Transfer_Goods_DZ";
+        formPageQuery = `?transactionNumber=${transactionNumber}`;
+        break;
+  
+      case "EX203B_Lost_Damaged":
+        formPagePath = "/forms/Form_EX203B_Lost_Damaged";
+        formPageQuery = `?transactionNumber=${transactionNumber}`;
+        break;
+  
+      case "EX203C_Transfer_of_Ownership":
+        formPagePath = "/forms/Form_EX203C_Transfer_of_Ownership";
+        formPageQuery = `?transactionNumber=${transactionNumber}`;
+        break;
+  
+      case "EX203_Deductible":
+        formPagePath = "/forms/Form_EX203_Deductible";
+        formPageQuery = `?transactionNumber=${transactionNumber}`;
+        break;
+  
+      default:
+        console.log("Unsupported declaration type:", declarationType);
+        break;
+    }
+  
+   
+  
+    if (formPagePath && formPageQuery) {
+      const formPageUrl = `${formPagePath}${formPageQuery}`;
+      window.open(formPageUrl, "_blank");
+      // navigate(formPageUrl);
+    }
+  };
+  
+  const columns = [
+    // { field: "id", headerName: "ID", width: 100 },
+    // { field: "orgId", headerName: "Org ID", width: 100 },
+    {
+      field: "transactionNumber",
+      headerName: "Transaction Number",
+      width: 180,
+      renderCell: (params) => (
+        <span
+          style={{ color: "blue", cursor: "pointer" }}
+          onClick={() => openTransactionDetails(params)}
+        >
+          {params.value}
+        </span>
+      ),
+    },
+    { field: "ownerTRN", headerName: "Owner TRN", width: 180 },
+    { field: "itemCode", headerName: "Item Code", width: 180 },
+    { field: "dzNumber", headerName: "Dz Number", width: 150 },
+    // { field: "transactionNumber", headerName: "Transaction Number", width: 180 },
+    {
+      field: "periodofdeclarationMonth",
+      headerName: "Declaration Month",
+      width: 150,
+    },
+    {
+      field: "periodofdeclarationYear",
+      headerName: "Declaration Year",
+      width: 150,
+    },
+    { field: "status", headerName: "Status", width: 150 },
+    { field: "quantity", headerName: "Quantity", width: 150 },
+    { field: "declarationDate", headerName: "Declaration Date", width: 180 },
+    { field: "declarationType", headerName: "Declaration Type", width: 180 },
+    { field: "runningBalance", headerName: "Running Balance", width: 150 },
+    
+  
+  ];
+
+
+  //////////////////////////////////////////////////
 
   useEffect(() => {
     // Retrieve the values from the query parameters

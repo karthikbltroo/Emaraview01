@@ -59,7 +59,7 @@ const BGutilizationChart = () => {
         <Tooltip />
         <Legend />
         <ReferenceLine y={0} stroke="#000" />
-        <Bar dataKey="bgUtilization" fill="#E8F3DD" />
+        <Bar dataKey="bgUtilization" fill="#BAE486" />
         <Bar dataKey="bgValue" fill="#8BECEF" />
 
       </BarChart>

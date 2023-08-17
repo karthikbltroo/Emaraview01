@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useParams,useLocation } from "react-router-dom";
+import { useParams,useLocation,useNavigate } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useAuth } from "../../utils/AuthContext";
+
 
 import {
   Box,
@@ -113,6 +114,10 @@ const NoDataCard = () => {
 };
 
 const Form_EX202A_Export_Goods_DZ = () => {
+
+  const navigate = useNavigate();
+
+
   const { id } = useParams();
   const [rows, setRows] = useState([]); // Use state to store the data
   const { handleSubmit, reset } = useForm();
@@ -146,31 +151,31 @@ const Form_EX202A_Export_Goods_DZ = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   
-// working code for automatic fetch data
-  // useEffect(() => {
-  //   // Retrieve the values from the query parameters
-  //   const transactionNoParam = queryParams.get("transactionNumber");
+
+  useEffect(() => {
+    // Retrieve the values from the query parameters
+    const transactionNoParam = queryParams.get("transactionNumber");
     
 
-  //   // Populate the input fields with the query parameter values
-  //   setTransactionNumber(transactionNoParam || "");
+    // Populate the input fields with the query parameter values
+    setTransactionNumber(transactionNoParam || "");
     
-  // }, []);
+  }, []);
 
-  // useEffect(()=>{
+  useEffect(()=>{
    
-  //   const requestBody = {
-  //      client_Name: displayName,
-  //      form_Type: "EX202A_Export_Goods_DZ",
-  //      skip: 0,
-  //      offset: 50,
-  //      trans_Num: transactionNumber || null,
-  //      period_Month: selectedMonth || null,
-  //      period_Year: selectedYear || null,
-  //    };
+    const requestBody = {
+       client_Name: displayName,
+       form_Type: "EX202A_Export_Goods_DZ",
+       skip: 0,
+       offset: 50,
+       trans_Num: transactionNumber || null,
+       period_Month: selectedMonth || null,
+       period_Year: selectedYear || null,
+     };
  
-  //    fetchData(requestBody);
-  // },[transactionNumber])
+     fetchData(requestBody);
+  },[transactionNumber])
 
   const fetchData = async (requestData) => {
     try {
@@ -199,8 +204,9 @@ const Form_EX202A_Export_Goods_DZ = () => {
         setSnackbarOpen(true);
         setRows([]);
       } else{
-      setErrorMessage("Network or Session timeout error, Login again");
+      // setErrorMessage("Network or Session timeout error, Login again");
       setSnackbarOpen(true);
+      console.log("error")
 
       setRows([])}
     } finally {

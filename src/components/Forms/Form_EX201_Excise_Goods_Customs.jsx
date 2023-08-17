@@ -136,6 +136,35 @@ const Form_EX201_Excise_Goods_Customs = () => {
   let displayName = sessionStorage.getItem("displayName");
   console.log("name is", displayName);
 
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  
+
+  useEffect(() => {
+    // Retrieve the values from the query parameters
+    const transactionNoParam = queryParams.get("transactionNumber");
+    
+
+    // Populate the input fields with the query parameter values
+    setTransactionNumber(transactionNoParam || "");
+    
+  }, []);
+
+  useEffect(()=>{
+   
+    const requestBody = {
+       client_Name: displayName,
+       form_Type: "EX202A_Export_Goods_DZ",
+       skip: 0,
+       offset: 50,
+       trans_Num: transactionNumber || null,
+       period_Month: selectedMonth || null,
+       period_Year: selectedYear || null,
+     };
+ 
+     fetchData(requestBody);
+  },[transactionNumber])
+
   const fetchData = async (requestData) => {
     try {
       setLoading(true);
