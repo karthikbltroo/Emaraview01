@@ -205,7 +205,7 @@ const Form_EX202A_Export_Goods_DZ = () => {
         setRows([]);
       } else{
       // setErrorMessage("Network or Session timeout error, Login again");
-      setSnackbarOpen(true);
+      // setSnackbarOpen(true);
       console.log("error")
 
       setRows([])}
