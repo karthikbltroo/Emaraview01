@@ -1,24 +1,25 @@
-import React, { createContext, useContext, useState } from "react";
-import api from "./api";
+import React, { createContext, useContext, useState, useEffect } from "react";
+// import api from "./api";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { PATHS } from "../apiURL";
 
+// const baseURL = "http://43.204.209.147:81/Api"
 const AuthContext = createContext();
 
+
 const AuthProvider = ({ children }) => {
- 
-  const [displayName, setDisplayName] = useState("");
-  const [accessToken, setAccessToken] = useState(() => {
-    // Check for an existing token in cookies or session storage
-    const storedToken = document.cookie.replace(
-      /(?:(?:^|.*;\s*)accessToken\s*=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
-    return storedToken || null;
-  });
+  // const [accessToken, setAccessToken] = useState("");
+  // const [displayName, setDisplayName] = useState("");
+
+  const [accessToken, setAccessToken] = useState(localStorage.getItem("accessToken") || "");
+  const [displayName, setDisplayName] = useState(localStorage.getItem("displayName") || "");
+
+
 
   const login = async (username, password) => {
     try {
-      const response = await api.post("/login", {
+      const response = await axios.post(`${PATHS.LOGIN}`, {
         userName: username,
         password: password,
       });
@@ -26,15 +27,17 @@ const AuthProvider = ({ children }) => {
       if (response.status === 200 && response.data.data[0].access_token) {
         const token = response.data.data[0].access_token;
         const displayName = response.data.data[0].project.display_value;
-        setDisplayName(displayName);
-        console.log(`new token is ${token}`);
+    
         setAccessToken(token);
-        sessionStorage.setItem("accesValue", token);
-        sessionStorage.setItem("displayName", displayName);
-        // Store
-        // document.cookie = `accessToken=${response.data.data[0].access_token}; Secure; HttpOnly; SameSite=Strict; Path=/`;
-        // console.log("Cookies is..:", document.cookie);
-        api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        setDisplayName(displayName);
+        console.log(`new token 22222 ${accessToken}`);
+
+        // Store token and display name in local storage
+        localStorage.setItem("accessToken", token);
+        localStorage.setItem("displayName", displayName);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      
+       
       } else {
         throw new Error("Invalid username or password");
       }
@@ -47,14 +50,10 @@ const AuthProvider = ({ children }) => {
   };
 
   const logout = (navigate) => {
-    setAccessToken(null);
-    sessionStorage.removeItem("accesValue");
-    sessionStorage.removeItem("displayName");
-    // Clear the token from cookies or session storage
-    // document.cookie =
-    //   "accessToken=; Expires=Thu, 01 Jan 1970 00:00:00 UTC; Secure; SameSite=Strict; Path=/";
-    // api.defaults.headers.common["Authorization"] = null;
 
+    localStorage.removeItem("accessToken");
+  localStorage.removeItem("displayName");
+ 
     navigate("/");
   };
 

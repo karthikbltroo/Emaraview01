@@ -1,11 +1,12 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
+  
   Routes,
   Route,
   Link,
   Outlet,
-Navigate
+  useNavigate,
+  Navigate
 } from "react-router-dom";
 import { useEffect } from "react";
 import Navbar from "./components/Navbar";
@@ -26,8 +27,37 @@ import Form_EX203_Deductible from "./components/Forms/Form_EX203_Deductible";
 import Report_StockReport from "./components/Reports/Report_StockReport";
 import Report_StockByDeclaration from "./components/Reports/Report_StockByDeclaration";
 import ReportCC from "./components/Reports/ReportCC";
-import api from "./utils/api";
+// import api from "./utils/api";
 import PrivateRoutes from "./utils/PrivateRoutes";
+import axios from 'axios'
+
+const baseURL = "http://43.204.209.147:81/Api";
+
+
+// const api = axios.create({
+//   baseURL,
+//   headers: {
+//     "Content-Type": "application/json",
+//     "Access-Control-Allow-Origin": "*",
+//   },
+// });
+
+
+axios.interceptors.request.use(function (config) {
+  // Do something before request is sent
+  let token = localStorage.getItem('accessToken');
+  console.log("check this", config, token)
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+    config.headers['Content-Type'] = 'application/json';
+    config.headers['Access-Control-Allow-Origin'] = '*';
+  }
+  return config;
+}, function (error) {
+  // Do something with request error
+  return Promise.reject(error);
+});
 
 const Reports = () => (
   <div>
@@ -44,19 +74,37 @@ const Forms = () => (
 );
 
 const App = () => {
-  let newTokenVal = sessionStorage.getItem("accesValue");
-  console.log("token is", newTokenVal);
+
+
+  let navigate = useNavigate();
+  let token = localStorage.getItem('accessToken');
+
+  // useEffect(() => {
+  //   // Get the token from local storage
+  //   const newTokenVal = localStorage.getItem("accessToken");
+
+  //   // If the token is available, set the Authorization header
+  //   if (newTokenVal != null) {
+  //     api.defaults.headers.common["Authorization"] = `Bearer ${newTokenVal}`;
+  //     console.log("Authorization header set with token:", newTokenVal);
+  //   }
+  // }, []);
+
 
   useEffect(() => {
-    if (newTokenVal != null) {
-      api.defaults.headers.common["Authorization"] = `Bearer ${newTokenVal}`;
-      console.log("testing...");
+    token = localStorage.getItem('accessToken');
+    if (token === null) {
+      navigate('/');
+      localStorage.clear();
     }
-  }, [newTokenVal]);
+    // else {
+    //   navigate('/dashboard');
+    // }
+  }, [token])
 
   return (
     <AuthProvider>
-      <Router>
+    
         <Navbar />
         <Routes>
           <Route path="/" element={<LoginForm />} />
@@ -91,7 +139,7 @@ const App = () => {
           {/* Handle unknown routes */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
-      </Router>
+ 
     </AuthProvider>
   );
 };

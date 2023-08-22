@@ -23,8 +23,10 @@ import {
   Divider,
   styled,
 } from "@mui/material";
-import api from "../../utils/api";
+
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import { PATHS } from "../../apiURL";
 
 const columns = [
   { field: "transactionNumber", headerName: "Transaction Number", width: 200 },
@@ -116,13 +118,14 @@ const Form_EX202A_Production_DZ = () => {
 
   // const {displayName } = useAuth();
   // console.log(displayName)
-  let displayName = sessionStorage.getItem("displayName");
+  // let displayName = sessionStorage.getItem("displayName");
+  const { displayName } = useAuth();
   console.log("name is", displayName);
 
   const fetchData = async (requestData) => {
     try {
       setLoading(true);
-      const response = await api.post("/getEmaraForms", requestData);
+      const response = await axios.post(`${PATHS.EMARAFORMS}`, requestData);
       console.log(response.data.data);
 
       const updatedRows = response?.data?.data?.map((row) => ({

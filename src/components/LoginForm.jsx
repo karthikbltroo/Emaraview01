@@ -140,33 +140,6 @@ const LoginForm = () => {
     setSnackbarOpen(false);
   };
 
-  // const onSubmit = async (data) => {
-  //   try {
-  //     const headers = {
-  //       "Content-Type": "application/json",
-  //       "Access-Control-Allow-Origin": "*",
-  //     };
-  //     const response = await axios.post(
-  //       "http://43.204.209.147:81/Api/login",
-  //       {
-  //         userName: data.username,
-  //         password: data.password,
-  //       },
-  //       { headers }
-  //     );
-
-  //     console.log(response);
-
-  //     if (response) {
-  //       navigate("/dashboard");
-  //     } else {
-  //       alert("Invalid username or password");
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     alert("An error occurred during login");
-  //   }
-  // };
 
   const onSubmit = async (data) => {
     try {
@@ -217,19 +190,7 @@ const LoginForm = () => {
           </Typography>
           <Box style={{ marginBottom: "20px" }}></Box>
 
-          {/* {loading && <LinearProgress color="primary" style={{ marginBottom: "30px" }} />} */}
-          {/* <Typography variant="h5" gutterBottom>
-            Login
-          </Typography> */}
-          {/* <DividerStyled sx={{ width: "100%" }} />
-          <Form>
-            <StyledTextField label="Username" variant="outlined" />
-            <StyledTextField label="Password" variant="outlined" type="password" />
-            <SignUpButton variant="contained" color="primary">
-              Sign Up
-            </SignUpButton>
-          </Form> */}
-
+   
           {/* <DividerStyled sx={{ width: "100%" }} /> */}
           <Form onSubmit={handleSubmit(onSubmit)}>
             <StyledTextField

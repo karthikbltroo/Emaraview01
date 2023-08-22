@@ -12,10 +12,16 @@ import {
   ReferenceLine,
   ResponsiveContainer,
 } from "recharts";
-import api from "../../utils/api";
+import { useAuth } from "../../utils/AuthContext";
+import axios from "axios"
+import { PATHS } from "../../apiURL";
+
+const baseURL = "http://43.204.209.147:81/Api"
 
 const BGutilizationChart = () => {
-  let displayName = sessionStorage.getItem("displayName");
+
+    // let displayName = sessionStorage.getItem("displayName");
+    const { displayName } = useAuth();
   const [data, setData] = useState([]);
   console.log("name is", displayName);
 
@@ -27,8 +33,8 @@ const BGutilizationChart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get(
-          `/getBGUtilization?client_Name=${displayName}`
+        const response = await axios.get(
+          `${baseURL}/getBGUtilization?client_Name=${displayName}`
         );
         setData(response.data.data);
         console.log(response.data.data);

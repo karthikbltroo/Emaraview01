@@ -24,9 +24,10 @@ import {
   styled,
   Modal,
 } from "@mui/material";
-import api from "../../utils/api";
+// import api from "../../utils/api";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+const baseURL = "http://43.204.209.147:81/Api"
 
 const NoDataCard = () => {
   return (
@@ -239,7 +240,7 @@ const ReportCC = () => {
   const fetchData = async (requestData) => {
     try {
       setLoading(true);
-      const response = await api.post("/getEmaraForms", requestData);
+      const response = await axios.post(`${baseURL}/getEmaraForms`, requestData);
       console.log(response.data.data);
 
       const updatedRows = response?.data?.data?.map((row) => ({

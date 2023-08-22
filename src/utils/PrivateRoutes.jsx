@@ -1,13 +1,16 @@
 import React from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
+import { useAuth } from './AuthContext'
 
 
 
 const PrivateRoutes = () => {
+
+  const { accessToken } = useAuth();
   
-  let newTokenVal = sessionStorage.getItem("accesValue")
+
   return (
-    newTokenVal ? <Outlet/> : <Navigate to='/'/>
+    accessToken ? <Outlet /> : <Navigate to='/' />
     )
 }
 
