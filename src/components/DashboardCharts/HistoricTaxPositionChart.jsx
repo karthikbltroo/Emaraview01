@@ -1,19 +1,17 @@
-import React, { useState, useEffect, PureComponent } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  BarChart,
-  Bar,
-  Cell,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend,
-  ReferenceLine,
   ResponsiveContainer,
 } from "recharts";
-import { useAuth } from "../../utils/AuthContext";
 import axios from "axios";
 import { PATHS } from "../../apiURL";
+import { useAuth } from "../../utils/AuthContext";
 import {
   Box,
   Paper,
@@ -37,40 +35,37 @@ import {
 
 const baseURL = "http://43.204.209.147:81/Api";
 
-const BGutilizationChart = () => {
-  // let displayName = sessionStorage.getItem("displayName");
-  const { displayName } = useAuth();
+const HistoricTaxPositionChart = () => {
   const [data, setData] = useState([]);
-  console.log("name is", displayName);
+  const { displayName } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${baseURL}/getBGUtilization?client_Name=${displayName}`
+          `${baseURL}/getTaxLiability?client_Name=${displayName}&duration=all`
         );
         setData(response.data.data);
-        console.log(response.data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, [displayName]);
+  }, []);
 
   return (
     <>
       <Box style={{ display: "flex" }}>
-        <Typography ml={20} mt={2}>
-          BG Utilization Chart
+        <Typography ml={20} mt={1}>
+          Historic Tax Position
         </Typography>
       </Box>
 
       <ResponsiveContainer width="100%" height={230}>
-        <BarChart
-          width={100}
-          height={200}
+        <LineChart
+          width={500}
+          height={300}
           data={data}
           margin={{
             top: 6,
@@ -78,20 +73,25 @@ const BGutilizationChart = () => {
             left: 20,
             bottom: 5,
           }}
-          layout="vertical"
         >
           <CartesianGrid stroke="none" />
-          <XAxis type="number" />
-          <YAxis dataKey="dzNumber" type="category" />
+          <XAxis dataKey="period" />
+          <YAxis type="number" dataKey="netExciseTaxPayable" />
           <Tooltip />
           {/* <Legend /> */}
-          <ReferenceLine y={0} stroke="#000" />
-          <Bar dataKey="bgUtilization" fill="#BAE486" />
-          <Bar dataKey="bgValue" fill="#8BECEF" />
-        </BarChart>
+          {/* <Bar dataKey="netExciseTaxPayable" name="Net Tax Payable" fill="#f7a20d" /> */}
+
+          <Line
+            type="monotone"
+            dataKey="netExciseTaxPayable"
+            stroke="#f7a20d"
+            strokeWidth={1.5}
+          />
+        </LineChart>
       </ResponsiveContainer>
+   
     </>
   );
 };
 
-export default BGutilizationChart;
+export default HistoricTaxPositionChart;

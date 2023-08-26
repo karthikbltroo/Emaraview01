@@ -87,6 +87,7 @@ const Report_StockReport = () => {
 
     // Open a new tab/window with the Report_StockByDeclaration component
     // navigate(`/reports/Report_StockByDeclaration${queryString}`);
+    
     window.open(`/reports/Report_StockByDeclaration${queryString}`, "_blank");
   };
 
@@ -98,8 +99,8 @@ const Report_StockReport = () => {
       headerName: "Item Code",
       width: 150,
       renderCell: (params) => (
-        <Button
-          color="primary"
+        <span
+        style={{ color: "blue", cursor: "pointer" }}
           onClick={() =>
             handleRowClick(
               params.row.itemCode,
@@ -109,7 +110,7 @@ const Report_StockReport = () => {
           }
         >
           {params.row.itemCode}
-        </Button>
+        </span>
       ),
     },
    
@@ -246,21 +247,6 @@ const Report_StockReport = () => {
   }, []);
 
   const handleFormSubmit = () => {
-    // if (
-    //   (!selectedMonth && selectedYear && transactionNumber) ||
-    //   (selectedMonth && !selectedYear && transactionNumber) ||
-    //   (!selectedMonth && selectedYear && !transactionNumber) ||
-    //   (selectedMonth && !selectedYear && !transactionNumber) ||
-    //   (!selectedMonth && !selectedYear && !transactionNumber)||
-    //   (selectedMonth && selectedYear && transactionNumber)
-    // ) {
-    //   setErrorMessage(
-    //     "*Please select Month and Year or enter Transaction Number"
-    //   );
-    //   setErrorOpen(true);
-    //   return;
-    // }
-
     setErrorOpen(false);
 
     const requestBody = {

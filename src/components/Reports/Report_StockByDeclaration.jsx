@@ -79,6 +79,8 @@ const Report_StockByDeclaration = () => {
   const [currentStock, setCurrentStock] = useState("");
   const [pendingStock, setPendingStock] = useState("");
   const [totalStock, setTotalStock] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [showSnackbar, setShowSnackbar] = useState(false);
   // const [quantity, setQuantity] = useState("");
 
   const { search } = useLocation();
@@ -118,7 +120,7 @@ const Report_StockByDeclaration = () => {
         formPageQuery = `?transactionNumber=${transactionNumber}`;
         break;
   
-      case "EX202A_Production_DZ":
+      case "EX202A_Production":
         formPagePath = "/forms/Form_EX202A_Production_DZ";
         formPageQuery = `?transactionNumber=${transactionNumber}`;
         break;
@@ -215,78 +217,107 @@ const Report_StockByDeclaration = () => {
     setItemCode(itemCodeParam || "");
     setOwnerTRN(ownerTRNParam || "");
     setDzNumber(dzNumberParam || "");
+    console.log("line 218")
   }, []);
 
-  useEffect(() => {
-    // Fetch data from API based on the state values
-    const requestData = {
-      client_Name: displayName,
-      skip: 0,
-      offset: 50,
-      itemCode: itemCode || null,
-      dzNumber: dzNumber || null,
-      transactionNumber: null,
-      periodOfDeclarationMonth: null,
-      periodOfDeclarationYear: null,
-      ownerTRN: ownerTRN || null,
-      status: null,
-      quantity: null,
-      declarationDate: null,
-      declarationType: null,
-    };
-    fetchData(requestData);
-  }, [itemCode, dzNumber, ownerTRN]);
+
 
   useEffect(() => {
-    // Fetch data from API based on the state values
-    const requestData = {
-      client_Name: displayName,
-      skip: 0,
-      offset: 50,
-      itemCode: itemCode || null,
-      dzNumber: dzNumber || null,
-      transactionNumber: null,
-      periodOfDeclarationMonth: null,
-      periodOfDeclarationYear: null,
-      ownerTRN: ownerTRN || null,
-      status: null,
-      quantity: null,
-      declarationDate: null,
-      declarationType: null,
-    };
-    fetchData(requestData);
-  }, []);
+    // Check if this is the initial load (new tab) or a submit action
+    if (!submitted && queryParams.get("itemCode") && queryParams.get("dzNumber") && queryParams.get("ownerTRN")) {
+      // Fetch data from API based on the query parameters
+      const requestData = {
+        client_Name: displayName,
+        skip: 0,
+        offset: 50,
+        itemCode: queryParams.get("itemCode") || null,
+        dzNumber: queryParams.get("dzNumber") || null,
+        transactionNumber: null,
+        periodOfDeclarationMonth: null,
+        periodOfDeclarationYear: null,
+        ownerTRN: queryParams.get("ownerTRN") || null,
+        status: null,
+        quantity: null,
+        declarationDate: null,
+        declarationType: null,
+      };
+      
+      fetchData(requestData);
+    } else if (submitted) {
+      // Fetch data based on the state values when submit is clicked
+      const requestData = {
+        client_Name: displayName,
+        skip: 0,
+        offset: 50,
+        itemCode: itemCode || null,
+        dzNumber: dzNumber || null,
+        transactionNumber: null,
+        periodOfDeclarationMonth: null,
+        periodOfDeclarationYear: null,
+        ownerTRN: ownerTRN || null,
+        status: null,
+        quantity: null,
+        declarationDate: null,
+        declarationType: null,
+      };
+      
+      fetchData(requestData);
+      setSubmitted(false); // Reset submitted status after fetching data
+    }
+  }, [submitted]);
+
+  
+
 
   // useEffect(() => {
-  //    // Retrieve the values from the query parameters
-  //   const itemCodeParam = queryParams.get("itemCode");
-  //   const ownerTRNParam = queryParams.get("ownerTRN");
-  //   const dzNumberParam = queryParams.get("dzNumber");
 
-  //   // Populate the input fields with the query parameter values
-  //   setItemCode(itemCodeParam || "");
-  //   setOwnerTRN(ownerTRNParam || "");
-  //   setDzNumber(dzNumberParam || "");
-
-  //   // Fetch data from API based on the query parameter values
+  //   if (itemCode || dzNumber || ownerTRN) {
+  //   // Fetch data from API based on the state values
   //   const requestData = {
   //     client_Name: displayName,
   //     skip: 0,
   //     offset: 50,
-  //     itemCode:  itemCode || null,
-  //     dzNumber:  dzNumber || null,
-  //     transactionNumber:  null,
-  //     periodOfDeclarationMonth:  null,
-  //     periodOfDeclarationYear:  null,
-  //     ownerTRN:   ownerTRN || null,
+  //     itemCode: itemCode || null,
+  //     dzNumber: dzNumber || null,
+  //     transactionNumber: null,
+  //     periodOfDeclarationMonth: null,
+  //     periodOfDeclarationYear: null,
+  //     ownerTRN: ownerTRN || null,
   //     status: null,
-  //     quantity:  null,
+  //     quantity: null,
   //     declarationDate: null,
-  //     declarationType:  null,
+  //     declarationType: null,
+  //   };
+  //   console.log("line 240", itemCode, dzNumber,ownerTRN)
+  //       fetchData(requestData);
+  // }
+  //       console.log("line 242 after executing fetch data", itemCode, dzNumber,ownerTRN)     
+  // }, [itemCode, dzNumber, ownerTRN]);
+
+
+
+  // old code
+  // useEffect(() => {
+  //   // Fetch data from API based on the state values
+  //   const requestData = {
+  //     client_Name: displayName,
+  //     skip: 0,
+  //     offset: 50,
+  //     itemCode: itemCode || null,
+  //     dzNumber: dzNumber || null,
+  //     transactionNumber: null,
+  //     periodOfDeclarationMonth: null,
+  //     periodOfDeclarationYear: null,
+  //     ownerTRN: ownerTRN || null,
+  //     status: null,
+  //     quantity: null,
+  //     declarationDate: null,
+  //     declarationType: null,
   //   };
   //   fetchData(requestData);
   // }, []);
 
+  
   const handleChangeItemCode = (event) => {
     setItemCode(event.target.value);
   };
@@ -345,8 +376,9 @@ const Report_StockByDeclaration = () => {
   const fetchData = async (requestData) => {
     try {
       setLoading(true);
+      console.log("line326",itemCode,dzNumber, ownerTRN )
       const response = await axios.post(`${baseURL}/StockByDeclaration`, requestData);
-      console.log(response.data);
+      console.log("Main response line",response.data);
 
       const updatedRows = response?.data?.map((row) => ({
         ...row,
@@ -399,6 +431,13 @@ const Report_StockByDeclaration = () => {
   const handleFormSubmit = () => {
     setErrorOpen(false);
 
+ // Check if any filter value is provided
+ if (!(itemCode || dzNumber || ownerTRN|| transactionNumber || selectedMonth  || selectedYear|| declarationType )) {
+  setShowSnackbar(true); // Show Snackbar if no filter values provided
+  return; // Don't proceed with fetching data
+}
+
+
     const requestBody = {
       client_Name: displayName,
       skip: 0,
@@ -433,6 +472,24 @@ const Report_StockByDeclaration = () => {
 
   return (
     <Box>
+
+<Snackbar
+        open={showSnackbar}
+        autoHideDuration={5000}
+        onClose={() => setShowSnackbar(false)}
+      >
+        <Alert severity="warning">
+          Please enter filter values before submitting.
+        </Alert>
+      </Snackbar>
+
+
+
+
+
+
+
+
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         elevation={6}
@@ -668,43 +725,7 @@ const Report_StockByDeclaration = () => {
                     />
                   </Grid>
 
-                  {/* <Grid item style={{ marginTop: "5px" }}>
-                    <TextField
-                      name="quantity"
-                      type="number"
-                      variant="outlined"
-                      label="Quantity"
-                      value={quantity}
-                      onChange={handleChangeQuantity}
-                      InputLabelProps={{
-                        style: { fontSize: "12px", fontWeight: "bold" },
-                      }}
-                      sx={{
-                        // '& label.Mui-focused': {
-                        //   color: 'black', // Set the color of the label when focused
-                        // },
-                        "& .MuiOutlinedInput-root": {
-                          "& fieldset": {
-                            borderColor: "gray", // Set the border color
-                          },
-                          // '&:hover fieldset': {
-                          //   borderColor: 'gray', // Set the border color on hover
-                          // },
-                          // '&.Mui-focused fieldset': {
-                          //   borderColor: 'black', // Set the border color when focused
-                          // },
-                        },
-                        "& .MuiInputBase-input": {
-                          height: "11px", // Adjust the height of the input area
-                          width: "160px",
-                        },
-                        "& .MuiInputLabel-root": {
-                          lineHeight: "15px", // Adjust the line height to vertically center the label
-                        },
-                      }}
-                    />
-                  </Grid> */}
-
+                
                   <Grid item style={{ marginTop: "5px" }}>
                     <Box sx={{ minWidth: 120 }}>
                       <FormControl fullWidth>

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useAuth } from "../../utils/AuthContext";
 
@@ -27,40 +27,89 @@ import {
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { PATHS } from "../../apiURL";
-const baseURL = "http://43.204.209.147:81/Api"
+const baseURL = "http://43.204.209.147:81/Api";
 
 const columns = [
   { field: "transactionNumber", headerName: "Transaction Number", width: 200 },
- 
-  { field: "exciseTaxPeriodMonth", headerName: "Excise Tax Period Month", width: 200 },
-  { field: "exciseTaxPeriodYear", headerName: "Excise Tax Period Year", width: 200 },
+
+  {
+    field: "exciseTaxPeriodMonth",
+    headerName: "Excise Tax Period Month",
+    width: 200,
+  },
+  {
+    field: "exciseTaxPeriodYear",
+    headerName: "Excise Tax Period Year",
+    width: 200,
+  },
   { field: "approvedAmount", headerName: "Approved Amount", width: 150 },
   { field: "status", headerName: "Status", width: 150 },
-  { field: "destructionCertificateStatus", headerName: "Destruction Certificate Status", width: 250 },
+  {
+    field: "destructionCertificateStatus",
+    headerName: "Destruction Certificate Status",
+    width: 250,
+  },
 
-  { field: "dateGoodsWereLostDeficiencyDiscoveredinDesignatedZone", headerName: "Date Goods Were Lost/Deficiency Discovered", width: 250 },
-  { field: "whatisthetypeofitemsbeingdeclared", headerName: "Type of Items Being Declared", width: 250 },
-  { field: "designatedZoneNumber", headerName: "Designated Zone Number", width: 200 },
-  { field: "reasonforLossDeficiency", headerName: "Reason for Loss/Deficiency", width: 250 },
-  { field: "placewheretheGoodswillbeDestroyed", headerName: "Place where the Goods Will be Destroyed", width: 250 },
+  {
+    field: "dateGoodsWereLostDeficiencyDiscoveredinDesignatedZone",
+    headerName: "Date Goods Were Lost/Deficiency Discovered",
+    width: 250,
+  },
+  {
+    field: "whatisthetypeofitemsbeingdeclared",
+    headerName: "Type of Items Being Declared",
+    width: 250,
+  },
+  {
+    field: "designatedZoneNumber",
+    headerName: "Designated Zone Number",
+    width: 200,
+  },
+  {
+    field: "reasonforLossDeficiency",
+    headerName: "Reason for Loss/Deficiency",
+    width: 250,
+  },
+  {
+    field: "placewheretheGoodswillbeDestroyed",
+    headerName: "Place where the Goods Will be Destroyed",
+    width: 250,
+  },
   { field: "dateofSubmission", headerName: "Date of Submission", width: 200 },
   { field: "itemCode", headerName: "Item Code", width: 150 },
   { field: "itemDescription", headerName: "Item Description", width: 250 },
-  { field: "productDescription", headerName: "Product Description", width: 250 },
+  {
+    field: "productDescription",
+    headerName: "Product Description",
+    width: 250,
+  },
   { field: "quantity", headerName: "Quantity", width: 150 },
   { field: "designatedPrice", headerName: "Designated Price", width: 150 },
-  { field: "dateGoodsEnteredDesignatedZone", headerName: "Date Goods Entered Designated Zone", width: 250 },
+  {
+    field: "dateGoodsEnteredDesignatedZone",
+    headerName: "Date Goods Entered Designated Zone",
+    width: 250,
+  },
   { field: "exciseTax", headerName: "Excise Tax", width: 150 },
 
- 
   { field: "emirate", headerName: "Emirate", width: 150 },
-  { field: "otherReasonforLossDeficiency", headerName: "Other Reason for Loss/Deficiency", width: 250 },
+  {
+    field: "otherReasonforLossDeficiency",
+    headerName: "Other Reason for Loss/Deficiency",
+    width: 250,
+  },
   { field: "externalFacility", headerName: "External Facility", width: 250 },
-  { field: "otherPlacewheretheGoodswillbeDestroyed", headerName: "Other Place where the Goods Will be Destroyed", width: 250 },
+  {
+    field: "otherPlacewheretheGoodswillbeDestroyed",
+    headerName: "Other Place where the Goods Will be Destroyed",
+    width: 250,
+  },
   { field: "trn", headerName: "TRN", width: 150 },
-  { field: "eServicesReferenceNumber", headerName: "eServices Reference Number", width: 250 },
-
-
+  {
+    field: "eServicesReferenceNumber",
+    headerName: "eServices Reference Number",
+    width: 250,
+  },
 
   // { field: "taxciseMovementID", headerName: "Taxcise Movement ID", width: 200 },
   // { field: "checkDuplicates", headerName: "Check Duplicates", width: 200 },
@@ -69,7 +118,6 @@ const columns = [
   // { field: "addedTime", headerName: "Added Time", width: 250 },
   // { field: "addedUser", headerName: "Added User", width: 150 },
 ];
-
 
 const NoDataCard = () => {
   return (
@@ -112,6 +160,7 @@ const Form_EX203B_Lost_Damaged = () => {
   const [errorOpen, setErrorOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChangeMonth = (event) => {
     setSelectedMonth(event.target.value);
@@ -127,18 +176,80 @@ const Form_EX203B_Lost_Damaged = () => {
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
-
+  // start edit
   // const {displayName } = useAuth();
   // console.log(displayName)
   // let displayName = sessionStorage.getItem("displayName");
   const { displayName } = useAuth();
   console.log("name is", displayName);
 
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+
+  useEffect(() => {
+    // Retrieve the values from the query parameters
+    const transactionNoParam = queryParams.get("transactionNumber");
+
+    // Populate the input fields with the query parameter values..
+    setTransactionNumber(transactionNoParam || "");
+  }, []);
+
+
+
+
+  useEffect(() => {
+    // Check if this is the initial load (new tab) or a submit action
+    if (!submitted && queryParams.get("transactionNumber") ) {
+      // Fetch data from API based on the query parameters
+      const requestBody = {
+        client_Name: displayName,
+        form_Type: "EX203B_Lost_Damaged",
+        skip: 0,
+        offset: 50,
+        trans_Num: queryParams.get("transactionNumber") || null,
+        period_Month: null,
+        period_Year:  null,
+      };
+  
+      fetchData(requestBody);
+    } else if (submitted) {
+      // Fetch data based on the state values when submit is clicked
+      const requestBody = {
+        client_Name: displayName,
+        form_Type: "EX203B_Lost_Damaged",
+        skip: 0,
+        offset: 50,
+        trans_Num: transactionNumber || null,
+        period_Month: null,
+        period_Year:  null,
+      };
+  
+      fetchData(requestBody);
+      setSubmitted(false); // Reset submitted status after fetching data
+    }
+  }, [submitted]);
+
+
+
+  // useEffect(() => {
+  //   const requestBody = {
+  //     client_Name: displayName,
+  //     form_Type: "EX203B_Lost_Damaged",
+  //     skip: 0,
+  //     offset: 50,
+  //     trans_Num: transactionNumber || null,
+  //     period_Month: selectedMonth || null,
+  //     period_Year: selectedYear || null,
+  //   };
+
+  //   fetchData(requestBody);
+  // }, [transactionNumber]);
+
   const fetchData = async (requestData) => {
     try {
       setLoading(true);
       const response = await axios.post(`${PATHS.EMARAFORMS}`, requestData);
-      console.log(response.data.data);
+      console.log("check main Lost Damaged ",response.data.data);
 
       const updatedRows = response?.data?.data?.map((row) => ({
         ...row,
@@ -165,8 +276,8 @@ const Form_EX203B_Lost_Damaged = () => {
         setSnackbarOpen(true);
         setRows([]);
       } else {
-        setErrorMessage("Network or Session timeout error, Login again");
-        setSnackbarOpen(true);
+        // setErrorMessage("Network or Session timeout error, Login again");
+        // setSnackbarOpen(true);
 
         setRows([]);
       }

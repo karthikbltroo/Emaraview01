@@ -1,74 +1,98 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  Card,
-  CardContent,
-  Divider,
-  Grid,
-  Typography,
-  Box,
-} from "@mui/material";
+import { Box, Card, CardContent, Divider, Typography } from "@mui/material";
 import BrandingWatermarkOutlinedIcon from "@mui/icons-material/BrandingWatermarkOutlined";
 import TaxLiabilityChart from "../components/DashboardCharts/TaxLiabilityChart";
 import BGutilizationChart from "../components/DashboardCharts/BGutilizationChart";
+import HistoricTaxPositionChart from "./DashboardCharts/HistoricTaxPositionChart";
+import TaxLiabilityChartCurrentMonth from "./DashboardCharts/TaxLiabilityChartCurrentMonth";
 
 const Dashboard = () => {
   return (
-    <Box
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        marginTop: "320px",
-      }}
-    >
-      <Box>
-        <Card style={{ width: "93vw" }}>
+    <Box   >
+      <Card
+        style={{
+          maxWidth: 1100,
+          margin: "20px auto",
+          display: "flex",
+          height: "55px",
+          boxShadow: "0px 0px 13px rgba(0, 0, 0, .1)",
+          borderRadius: "11px"
+        }}
+      >
+        <CardContent>
+          <Typography variant="h6">Dashboard</Typography>
+        </CardContent>
+      </Card>
+
+      <Box style={{ display: "flex", justifyContent: "center" }}>
+        <Card
+          style={{
+            maxWidth: 500,
+            width: "48%",
+            margin: "0 10px 0 50px",
+            borderRadius: "10px",
+
+            height: "300px",
+            boxShadow: "0px 0px 11px rgba(0, 0, 0, .15)",
+          }}
+        >
           <CardContent>
-            <Typography variant="h6" gutterBottom>
-              Dashboard
-            </Typography>
-            <Divider />
-            <Box style={{ width: "100%", height: "90vh" }}>
-              <Box
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  margin: "20px",
-                }}
-              >
-                <Typography style={{ fontWeight: "bold" }}>
-                  Tax Liability Chart
-                </Typography>
-              </Box>
-              <TaxLiabilityChart />
-            </Box>
+            <TaxLiabilityChartCurrentMonth />
+          </CardContent>
+        </Card>
 
-            <Box style={{ width: "100%", height: "90vh" }}>
-              <Box
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  margin: "20px", marginTop:'-40px'
-                }}
-              >
-                <Typography style={{ fontWeight: "bold" }}>
-                  BG Utilization Chart
-                </Typography>
-              </Box>
-              <BGutilizationChart />
-            </Box>
+        <Card
+          style={{
+            maxWidth: 500,
+            width: "48%",
+            margin: "auto",
+            height: "300px",
+            boxShadow: "0px 0px 13px rgba(0, 0, 0, .15)",
+          }}
+        >
+          <CardContent>
+            <TaxLiabilityChart />
+          </CardContent>
+        </Card>
+      </Box>
 
-           
+<Box style={{marginTop:'20px'}} ></Box>
+
+
+      {/* second row of cards */}
+      <Box style={{ display: "flex", justifyContent: "center" }}>
+        <Card
+          style={{
+            maxWidth: 500,
+            width: "48%",
+            margin: "0 10px 0 50px",
+            borderRadius: "10px",
+
+            height: "300px",
+            boxShadow: "0px 0px 11px rgba(0, 0, 0, .15)",
+          }}
+        >
+          <CardContent>
+            <HistoricTaxPositionChart />
+          </CardContent>
+        </Card>
+
+        <Card
+          style={{
+            maxWidth: 500,
+            width: "48%",
+            margin: "auto",
+            height: "300px",
+            boxShadow: "0px 0px 11px rgba(0, 0, 0, .15)",
+          }}
+        >
+          <CardContent>
+            <BGutilizationChart />
           </CardContent>
         </Card>
       </Box>
     </Box>
-
-   
   );
 };
 

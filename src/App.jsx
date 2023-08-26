@@ -34,15 +34,6 @@ import axios from 'axios'
 const baseURL = "http://43.204.209.147:81/Api";
 
 
-// const api = axios.create({
-//   baseURL,
-//   headers: {
-//     "Content-Type": "application/json",
-//     "Access-Control-Allow-Origin": "*",
-//   },
-// });
-
-
 axios.interceptors.request.use(function (config) {
   // Do something before request is sent
   let token = localStorage.getItem('accessToken');

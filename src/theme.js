@@ -60,11 +60,11 @@ fontWeight:'600px'
   
 
   
-  // palette: {
-  //   primary: {
-  //      main:'#DA1F2c',
-  //     contrastText: '#fff',
-  //   },
+  palette: {
+    primary: {
+       main:'#72627D',
+      contrastText: '#fff',
+    },
 
   //   secondary: {
   //    main: '#000',
@@ -103,7 +103,7 @@ fontWeight:'600px'
   //   // two indexes within its tonal palette.
   //   // E.g., shift from Red 500 to Red 300 or Red 700.
   //   tonalOffset: 0.2,
-  // },
+  },
   overrides: {
     MuiOutlinedInput: {
       root: {

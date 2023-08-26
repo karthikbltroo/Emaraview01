@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useAuth } from "../../utils/AuthContext";
 
@@ -100,6 +100,7 @@ const Form_EX202A_Production_DZ = () => {
   const [errorOpen, setErrorOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChangeMonth = (event) => {
     setSelectedMonth(event.target.value);
@@ -115,18 +116,85 @@ const Form_EX202A_Production_DZ = () => {
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
-
+// start edit
   // const {displayName } = useAuth();
   // console.log(displayName)
   // let displayName = sessionStorage.getItem("displayName");
   const { displayName } = useAuth();
   console.log("name is", displayName);
 
+
+  const location = useLocation();	
+  const queryParams = new URLSearchParams(location.search);	
+  	
+  useEffect(() => {	
+    // Retrieve the values from the query parameters	
+    const transactionNoParam = queryParams.get("transactionNumber");	
+    	
+    // Populate the input fields with the query parameter values..	
+    setTransactionNumber(transactionNoParam || "");	
+    	
+    	
+  }, []);	
+
+
+  useEffect(() => {
+    // Check if this is the initial load (new tab) or a submit action
+    if (!submitted && queryParams.get("transactionNumber") ) {
+      // Fetch data from API based on the query parameters
+      const requestBody = {
+        client_Name: displayName,
+        form_Type: "EX202A_Production_DZ",
+        skip: 0,
+        offset: 50,
+        trans_Num: queryParams.get("transactionNumber") || null,
+        period_Month: null,
+        period_Year:  null,
+      };
+  
+      fetchData(requestBody);
+    } else if (submitted) {
+      // Fetch data based on the state values when submit is clicked
+      const requestBody = {
+        client_Name: displayName,
+        form_Type: "EX202A_Production_DZ",
+        skip: 0,
+        offset: 50,
+        trans_Num: transactionNumber || null,
+        period_Month: null,
+        period_Year:  null,
+      };
+  
+      fetchData(requestBody);
+      setSubmitted(false); // Reset submitted status after fetching data
+    }
+  }, [submitted]);
+
+
+
+
+  // useEffect(()=>{	
+   	
+  //   const requestBody = {	
+  //      client_Name: displayName,	
+  //      form_Type: "EX202A_Production_DZ",	
+  //      skip: 0,	
+  //      offset: 50,	
+  //      trans_Num: transactionNumber || null,	
+  //      period_Month: selectedMonth || null,	
+  //      period_Year: selectedYear || null,	
+  //    };	
+ 	
+  //    fetchData(requestBody);	
+  // },[transactionNumber])
+
+
+
   const fetchData = async (requestData) => {
     try {
       setLoading(true);
       const response = await axios.post(`${PATHS.EMARAFORMS}`, requestData);
-      console.log(response.data.data);
+      console.log("check main Ex202A Production Dz ", response.data.data);
 
       const updatedRows = response?.data?.data?.map((row) => ({
         ...row,
@@ -149,8 +217,8 @@ const Form_EX202A_Production_DZ = () => {
         setSnackbarOpen(true);
         setRows([]);
       } else{
-      setErrorMessage("Network or Session timeout error, Login again");
-      setSnackbarOpen(true);
+      // setErrorMessage("Network or Session timeout error, Login again");
+      // setSnackbarOpen(true);
 
       setRows([])}
     } finally {

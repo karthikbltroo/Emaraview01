@@ -52,6 +52,9 @@ const Navbar = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
+
+
+
   const handleReportsMenu = () => {
     setIsReportsOpen((prev) => !prev);
   };
@@ -132,10 +135,10 @@ const Navbar = () => {
                     <Paper>
                       <ClickAwayListener onClickAway={handleCloseReports}>
                         <List autoFocusItem={isReportsOpen} id="reports-list">
-                          <ListItem button component={NavLink} to="/reports/Report_StockReport">
-                            <ListItemText primary="Stock Report" />
+                          <ListItem button component={NavLink} to="/reports/Report_StockReport" onClick={() => setIsReportsOpen(false)}>
+                            <ListItemText primary="Stock Report"  />
                           </ListItem>
-                          <ListItem button component={NavLink} to="/reports/Report_StockByDeclaration">
+                          <ListItem button component={NavLink} to="/reports/Report_StockByDeclaration" onClick={() => setIsReportsOpen(false)}>
                             <ListItemText primary="Stock By Declaration Report" />
                           </ListItem>
                           {/* <ListItem button component={NavLink} to="/reports/reportCC">
@@ -179,34 +182,34 @@ const Navbar = () => {
                     <Paper>
                       <ClickAwayListener onClickAway={handleCloseForms}>
                         <List autoFocusItem={isFormsOpen} id="forms-list">
-                          <ListItem button component={NavLink} to="/forms/Form_EX201_Excise_Goods_Customs">
+                          <ListItem button component={NavLink} to="/forms/Form_EX201_Excise_Goods_Customs" onClick={() => setIsFormsOpen(false)}>
                             <ListItemText primary="EX201-Excise Goods Customs" />
                           </ListItem>
-                          <ListItem button component={NavLink} to="/forms/Form_EX202A_Export_Goods_DZ">
+                          <ListItem button component={NavLink} to="/forms/Form_EX202A_Export_Goods_DZ" onClick={() => setIsFormsOpen(false)}>
                             <ListItemText primary="EX202A-Export Goods DZ" />
                           </ListItem>
-                          <ListItem button component={NavLink} to="/forms/Form_EX202A_Import_DZ">
+                          <ListItem button component={NavLink} to="/forms/Form_EX202A_Import_DZ" onClick={() => setIsFormsOpen(false)}>
                             <ListItemText primary="EX202A-Import DZ" />
                           </ListItem>
-                          <ListItem button component={NavLink} to="/forms/Form_EX202A_Enter_Goods_DZ">
+                          <ListItem button component={NavLink} to="/forms/Form_EX202A_Enter_Goods_DZ" onClick={() => setIsFormsOpen(false)}>
                             <ListItemText primary="EX202A-Enter Goods DZ" />
                           </ListItem>
-                          <ListItem button component={NavLink} to="/forms/Form_EX202A_Production_DZ">
+                          <ListItem button component={NavLink} to="/forms/Form_EX202A_Production_DZ" onClick={() => setIsFormsOpen(false)}>
                             <ListItemText primary="EX202A-Production DZ" />
                           </ListItem>
-                          <ListItem button component={NavLink} to="/forms/Form_EX202A_Release_Goods_DZ">
+                          <ListItem button component={NavLink} to="/forms/Form_EX202A_Release_Goods_DZ" onClick={() => setIsFormsOpen(false)}>
                             <ListItemText primary="EX202A-Release Goods DZ" />
                           </ListItem>
-                          <ListItem button component={NavLink} to="/forms/Form_EX202A_Transfer_Goods_DZ">
+                          <ListItem button component={NavLink} to="/forms/Form_EX202A_Transfer_Goods_DZ" onClick={() => setIsFormsOpen(false)}>
                             <ListItemText primary="EX202A-Transfer Goods DZ" />
                           </ListItem>
-                          <ListItem button component={NavLink} to="/forms/Form_EX203B_Lost_Damaged">
+                          <ListItem button component={NavLink} to="/forms/Form_EX203B_Lost_Damaged" onClick={() => setIsFormsOpen(false)}>
                             <ListItemText primary="EX203B-Lost Damaged" />
                           </ListItem>
-                          <ListItem button component={NavLink} to="/forms/Form_EX203C_Transfer_of_Ownership">
+                          <ListItem button component={NavLink} to="/forms/Form_EX203C_Transfer_of_Ownership" onClick={() => setIsFormsOpen(false)}>
                             <ListItemText primary="EX203C-Transfer of Ownership" />
                           </ListItem>
-                          <ListItem button component={NavLink} to="/forms/Form_EX203_Deductible">
+                          <ListItem button component={NavLink} to="/forms/Form_EX203_Deductible" onClick={() => setIsFormsOpen(false)}>
                             <ListItemText primary="EX203-Deductible" />
                           </ListItem>
                         </List>
