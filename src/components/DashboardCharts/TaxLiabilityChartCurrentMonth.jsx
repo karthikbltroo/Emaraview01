@@ -186,7 +186,7 @@ const TaxLiabilityChartCurrentMonth = () => {
         >
           <CartesianGrid stroke="none" />
           <XAxis dataKey="period" />
-          <YAxis type="number" />
+          <YAxis type="number"  tickFormatter={(value) => value.toLocaleString()} />
           <Tooltip />
           {/* <Legend /> */}
           <ReferenceLine y={0} stroke="#000" />

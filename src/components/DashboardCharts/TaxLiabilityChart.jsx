@@ -219,7 +219,7 @@ const TaxLiabilityChart = () => {
       >
         Download Excel for above period
       </Typography> */}
-      <ChartContainer>
+   
         {/* Fixed data for current Month */}
 
         <ResponsiveContainer width="100%" height={230}>
@@ -236,7 +236,7 @@ const TaxLiabilityChart = () => {
           >
             <CartesianGrid stroke="none" />
             <XAxis dataKey="period" />
-            <YAxis type="number" />
+            <YAxis type="number" tickFormatter={(value) => value.toLocaleString()} />
             <Tooltip />
             {/* <Legend /> */}
             <ReferenceLine y={0} stroke="#000" />
@@ -276,7 +276,7 @@ const TaxLiabilityChart = () => {
             />
           </BarChart>
         </ResponsiveContainer>
-      </ChartContainer>
+      
     
     </>
   );

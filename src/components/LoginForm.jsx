@@ -26,7 +26,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const BorderBox = styled(Box)({
-  border: "4px solid #1976D2", // Blue border color
+  border: "4px solid #72627D", // Blue border color
   borderRadius: "10px",
   // backgroundColor: "#f0f5fc", // Light blue background color
   display: "flex",
@@ -110,7 +110,7 @@ const DividerContainer = styled(Box)({
 });
 
 const DividerStyled = styled(Divider)({
-  backgroundColor: "#1976D2", // Blue border color for the divider
+  backgroundColor: "#72627D", // Blue border color for the divider
 });
 const StyledHeading = styled(Typography)({
   fontSize: "3rem",
@@ -181,7 +181,7 @@ const LoginForm = () => {
         </LeftDivision>
       </WhiteCard>
       <DividerContainer>
-        <DividerStyled orientation="vertical" sx={{ height: "90%" }} />
+        <DividerStyled orientation="vertical" sx={{ height: "100%" }} />
       </DividerContainer>
       <WhiteCard>
         <RightDivision>

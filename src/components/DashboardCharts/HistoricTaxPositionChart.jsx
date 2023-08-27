@@ -76,7 +76,7 @@ const HistoricTaxPositionChart = () => {
         >
           <CartesianGrid stroke="none" />
           <XAxis dataKey="period" />
-          <YAxis type="number" dataKey="netExciseTaxPayable" />
+          <YAxis type="number" dataKey="netExciseTaxPayable" tickFormatter={(value) => value.toLocaleString()} />
           <Tooltip />
           {/* <Legend /> */}
           {/* <Bar dataKey="netExciseTaxPayable" name="Net Tax Payable" fill="#f7a20d" /> */}
