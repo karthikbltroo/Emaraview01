@@ -606,6 +606,11 @@ const Report_StockByDeclaration = () => {
                           height: "11px", // Adjust the height of the input area
                           width: "160px",
                         },
+                        "& .MuiInputBase-input::-webkit-inner-spin-button, .MuiInputBase-input::-webkit-outer-spin-button":
+                        {
+                          appearance: "none", // Hide Webkit inner and outer spin buttons
+                          // margin: 0, // Remove any margin
+                        },
                         "& .MuiInputLabel-root": {
                           lineHeight: "15px", // Adjust the line height to vertically center the label
                         },
@@ -681,6 +686,11 @@ const Report_StockByDeclaration = () => {
                           height: "11px", // Adjust the height of the input area
                           width: "160px",
                         },
+                        "& .MuiInputBase-input::-webkit-inner-spin-button, .MuiInputBase-input::-webkit-outer-spin-button":
+                        {
+                          appearance: "none", // Hide Webkit inner and outer spin buttons
+                          // margin: 0, // Remove any margin
+                        },
                         "& .MuiInputLabel-root": {
                           lineHeight: "15px", // Adjust the line height to vertically center the label
                         },
@@ -717,6 +727,11 @@ const Report_StockByDeclaration = () => {
                         "& .MuiInputBase-input": {
                           height: "11px", // Adjust the height of the input area
                           width: "160px",
+                        },
+                        "& .MuiInputBase-input::-webkit-inner-spin-button, .MuiInputBase-input::-webkit-outer-spin-button":
+                        {
+                          appearance: "none", // Hide Webkit inner and outer spin buttons
+                          // margin: 0, // Remove any margin
                         },
                         "& .MuiInputLabel-root": {
                           lineHeight: "15px", // Adjust the line height to vertically center the label

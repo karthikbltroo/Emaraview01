@@ -24,12 +24,11 @@ import {
   styled,
 } from "@mui/material";
 
-import axios from 'axios'
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { PATHS } from "../../apiURL";
 
-
-const baseURL = "http://43.204.209.147:81/Api"
+const baseURL = "http://43.204.209.147:81/Api";
 const columns = [
   { field: "transactionNumber", headerName: "Transaction Number", width: 200 },
   { field: "dateofSubmission", headerName: "Date of Submission", width: 180 },
@@ -77,7 +76,6 @@ const columns = [
   { field: "addedUser", headerName: "Added User", width: 180 },
 ];
 
-
 const NoDataCard = () => {
   return (
     <Card
@@ -120,7 +118,6 @@ const Form_EX201_Excise_Goods_Customs = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  
 
   const handleChangeMonth = (event) => {
     setSelectedMonth(event.target.value);
@@ -136,7 +133,7 @@ const Form_EX201_Excise_Goods_Customs = () => {
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
-// start edit
+  // start edit
   // const {displayName } = useAuth();
   // console.log(displayName)
   // let displayName = sessionStorage.getItem("displayName");
@@ -145,23 +142,18 @@ const Form_EX201_Excise_Goods_Customs = () => {
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  
 
   useEffect(() => {
     // Retrieve the values from the query parameters
     const transactionNoParam = queryParams.get("transactionNumber");
-    
 
     // Populate the input fields with the query parameter values
     setTransactionNumber(transactionNoParam || "");
-    
   }, []);
-
-
 
   useEffect(() => {
     // Check if this is the initial load (new tab) or a submit action
-    if (!submitted && queryParams.get("transactionNumber") ) {
+    if (!submitted && queryParams.get("transactionNumber")) {
       // Fetch data from API based on the query parameters
       const requestBody = {
         client_Name: displayName,
@@ -170,9 +162,9 @@ const Form_EX201_Excise_Goods_Customs = () => {
         offset: 50,
         trans_Num: queryParams.get("transactionNumber") || null,
         period_Month: null,
-        period_Year:  null,
+        period_Year: null,
       };
-  
+
       fetchData(requestBody);
     } else if (submitted) {
       // Fetch data based on the state values when submit is clicked
@@ -183,39 +175,35 @@ const Form_EX201_Excise_Goods_Customs = () => {
         offset: 50,
         trans_Num: transactionNumber || null,
         period_Month: null,
-        period_Year:  null,
+        period_Year: null,
       };
-  
+
       fetchData(requestBody);
       setSubmitted(false); // Reset submitted status after fetching data
     }
   }, [submitted]);
 
+  // old code
+  //   useEffect(()=>{
 
+  //     const requestBody = {
+  //        client_Name: displayName,
+  //        form_Type: "EX201_Excise_Goods_Customs",
+  //        skip: 0,
+  //        offset: 50,
+  //        trans_Num: transactionNumber || null,
+  //        period_Month: selectedMonth || null,
+  //        period_Year: selectedYear || null,
+  //      };
 
-
-
-// old code
-//   useEffect(()=>{
-   
-//     const requestBody = {
-//        client_Name: displayName,
-//        form_Type: "EX201_Excise_Goods_Customs",
-//        skip: 0,
-//        offset: 50,
-//        trans_Num: transactionNumber || null,
-//        period_Month: selectedMonth || null,
-//        period_Year: selectedYear || null,
-//      };
- 
-//      fetchData(requestBody);
-//   },[transactionNumber])
+  //      fetchData(requestBody);
+  //   },[transactionNumber])
 
   const fetchData = async (requestData) => {
     try {
       setLoading(true);
       const response = await axios.post(`${PATHS.EMARAFORMS}`, requestData);
-      console.log("check main EX201 Excise goods Customs ",response.data.data);
+      console.log("check main EX201 Excise goods Customs ", response.data.data);
 
       const updatedRows = response?.data?.data?.map((row) => ({
         ...row,
@@ -223,25 +211,30 @@ const Form_EX201_Excise_Goods_Customs = () => {
       }));
 
       setRows(updatedRows);
-      if (response && response.status === 200 && response.data.data.length === 0) {
+      if (
+        response &&
+        response.status === 200 &&
+        response.data.data.length === 0
+      ) {
         setErrorMessage("No Data found for given period");
         setSnackbarOpen(true);
       }
       setLoading(false);
-      if (response && response.status === 401 ) {
+      if (response && response.status === 401) {
         setErrorMessage("Please login again");
         setSnackbarOpen(true);
       }
     } catch (error) {
-      if (error.response && error.response.status === 401 ) {
+      if (error.response && error.response.status === 401) {
         setErrorMessage("Please login again");
         setSnackbarOpen(true);
         setRows([]);
-      } else{
-      // setErrorMessage("Network or Session timeout error, Login again");
-      // setSnackbarOpen(true);
+      } else {
+        // setErrorMessage("Network or Session timeout error, Login again");
+        // setSnackbarOpen(true);
 
-      setRows([])}
+        setRows([]);
+      }
     } finally {
       setLoading(false);
     }
@@ -253,7 +246,7 @@ const Form_EX201_Excise_Goods_Customs = () => {
       (selectedMonth && !selectedYear && transactionNumber) ||
       (!selectedMonth && selectedYear && !transactionNumber) ||
       (selectedMonth && !selectedYear && !transactionNumber) ||
-      (!selectedMonth && !selectedYear && !transactionNumber)||
+      (!selectedMonth && !selectedYear && !transactionNumber) ||
       (selectedMonth && selectedYear && transactionNumber)
     ) {
       setErrorMessage(
@@ -313,7 +306,7 @@ const Form_EX201_Excise_Goods_Customs = () => {
         open={errorOpen}
         autoHideDuration={5000}
         onClose={() => setErrorOpen(false)}
-        style={{ marginTop: "140px", marginLeft:'350px' }}
+        style={{ marginTop: "140px", marginLeft: "350px" }}
       >
         <Alert
           severity="error"
@@ -379,7 +372,7 @@ const Form_EX201_Excise_Goods_Customs = () => {
                         <InputLabel
                           style={{ fontSize: "13px", fontWeight: "bold" }}
                         >
-                           Year
+                          Year
                         </InputLabel>
                         <Select
                           label="Select Year"
@@ -492,7 +485,16 @@ const Form_EX201_Excise_Goods_Customs = () => {
                         "& .MuiInputBase-input": {
                           height: "11px", // Adjust the height of the input area
                           width: "160px",
+                          // Additional styles to hide the up and down arrow controls
+                          // paddingRight: "16px", // Increase the padding to accommodate for arrow controls
+                          // background: "transparent", // Set background to transparent
+                          // appearance: "none", // Hide default arrow controls
                         },
+                        "& .MuiInputBase-input::-webkit-inner-spin-button, .MuiInputBase-input::-webkit-outer-spin-button":
+                          {
+                            appearance: "none", // Hide Webkit inner and outer spin buttons
+                            // margin: 0, // Remove any margin
+                          },
                         "& .MuiInputLabel-root": {
                           lineHeight: "15px", // Adjust the line height to vertically center the label
                         },
