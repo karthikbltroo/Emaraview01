@@ -20,6 +20,7 @@ import { useAuth } from "../utils/AuthContext";
 // import combinedImage from "../assets/combined.png";
 // import pink from '../assets/pink.jpg'
 import LoginImage from "../assets/LoginImage.png";
+import logoSvg from "../assets/EmaraAnalyticsLogo.svg";
 
 import { InputAdornment, IconButton } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -185,10 +186,19 @@ const LoginForm = () => {
       </DividerContainer>
       <WhiteCard>
         <RightDivision>
-          <Typography variant="h4" color="primary"   mb={2}>
+
+        <img
+              src={logoSvg}
+              alt="Emara Analytics Logo"
+              style={{ height: "100px", width: "auto", marginTop:'10px' }}
+            />
+          {/* <Typography variant="h4" color="primary"   mb={2}>
             Welcome to Emara Analytics
-          </Typography>
-          <Box style={{ marginBottom: "20px" }}></Box>
+          </Typography> */}
+          <Box style={{ marginBottom: "60px" }}>
+          
+
+          </Box>
 
    
           {/* <DividerStyled sx={{ width: "100%" }} /> */}

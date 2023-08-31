@@ -39,13 +39,23 @@ const HistoricTaxPositionChart = () => {
   const [data, setData] = useState([]);
   const { displayName } = useAuth();
 
+    // Function to sort data based on period
+    const sortData = (data) => {
+      return data.sort((a, b) => {
+        const periodA = new Date(a.period);
+        const periodB = new Date(b.period);
+        return periodA - periodB;
+      });
+    };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
           `${baseURL}/getTaxLiability?client_Name=${displayName}&duration=all`
         );
-        setData(response.data.data);
+        const sortedData = sortData(response.data.data);
+        setData(sortedData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -53,6 +63,8 @@ const HistoricTaxPositionChart = () => {
 
     fetchData();
   }, []);
+
+  
 
   return (
     <>
